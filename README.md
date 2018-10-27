@@ -57,8 +57,4 @@ $ npm install --save-dev @babel/cli @babel/core @babel/node @babel/preset-env
 
 ```sh
 # wip
-# wip
-# wip
-# wip
-# wip
 ```
