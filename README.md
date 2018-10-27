@@ -22,6 +22,14 @@ $ git push --set-upstream origin feature/review-section
 
 ## Project setup
 
+### node
+```sh
+$ nvm install stable
+$ npm install -g npx
+# Use node_module binaries, example:
+$ npx babel-node --version
+```
+
 ### root
 
 ```sh
@@ -36,6 +44,12 @@ $ touch .gitignore
 $ mkdir server
 $ npm init
 $ npm install express
+$ touch index.js
+
+# Enable ES6 syntax
+$ touch .babelrc
+$ npm install --save @babel/runtime
+$ npm install --save-dev @babel/cli @babel/core @babel/node @babel/preset-env
 ```
 
 ### client
