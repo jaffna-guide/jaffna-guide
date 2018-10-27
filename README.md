@@ -41,10 +41,11 @@ $ touch .gitignore
 ### server
 
 ```sh
-$ mkdir server
+$ mkdir -p server/src
+$ cd server
 $ npm init
 $ npm install express
-$ touch index.js
+$ touch src/index.js
 
 # Enable ES6 syntax
 $ touch .babelrc
