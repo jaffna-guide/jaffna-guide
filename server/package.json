@@ -1,0 +1,22 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Jaffna Guide node.js server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaffna-guide/jaffna-guide.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "uki",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaffna-guide/jaffna-guide/issues"
+  },
+  "homepage": "https://github.com/jaffna-guide/jaffna-guide#readme"
+}
