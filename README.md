@@ -10,7 +10,9 @@
 * mongodb
 * node.js
 
-## Create a working branch
+## Working with git
+
+### Create a working branch
 
 ```sh
 $ git checkout -b feature/review-section develop
@@ -18,6 +20,13 @@ $ git checkout -b feature/review-section develop
 $ git checkout -b fix/review-section develop
 
 $ git push --set-upstream origin feature/review-section
+```
+
+### Release develop branch into production
+
+```sh
+$ git checkout master
+$ git pull --rebase origin develop
 ```
 
 ## Project setup
