@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/jaffna-guide/jaffna-guide/issues"
   },
-  "homepage": "https://github.com/jaffna-guide/jaffna-guide#readme"
+  "homepage": "https://github.com/jaffna-guide/jaffna-guide#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }

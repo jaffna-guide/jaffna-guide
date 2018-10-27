@@ -22,9 +22,24 @@ $ git push --set-upstream origin feature/review-section
 
 ## Project setup
 
+### root
+
+```sh
+$ touch README.md
+$ touch Dockerfile
+$ touch .gitignore
+```
+
 ### server
 
 ```sh
 $ mkdir server
 $ npm init
+$ npm install express
+```
+
+### client
+
+```sh
+# wip
 ```
