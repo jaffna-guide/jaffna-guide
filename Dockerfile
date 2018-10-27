@@ -28,4 +28,4 @@ RUN npm install --production
 EXPOSE 3000
 USER node
 
-CMD ["node", "build/server.js"]
+CMD ["node", "build/index.js"]
