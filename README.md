@@ -8,6 +8,7 @@
 
 * React
 * mongodb
+* mongoose
 * node.js
 
 ## Working with git
