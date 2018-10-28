@@ -5,6 +5,9 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+console.log('NODE_ENV');
+console.log(process.env.NODE_ENV);
+console.log('FACEBOOK_REDIRECT_URL');
 console.log(process.env.FACEBOOK_REDIRECT_URL);
 
 // Register strategies with passport
