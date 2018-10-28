@@ -4,7 +4,7 @@
   "description": "Jaffna Guide node.js server",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node src/index.js",
+    "start": "NODE_ENV=development pm2 start ecosystem.config.js --no-daemon",
     "prebuild": "rimraf ./build && mkdir build",
     "build": "babel src --out-dir build"
   },
@@ -32,6 +32,7 @@
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
     "@babel/preset-env": "^7.1.0",
+    "pm2": "^3.2.2",
     "rimraf": "^2.6.2"
   }
 }

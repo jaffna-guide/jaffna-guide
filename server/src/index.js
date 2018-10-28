@@ -6,7 +6,13 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Register strategies with passport
-// passport.use(new FacebookStrategy());
+passport.use(
+  new FacebookStrategy({
+    clientID: process.env.FACEBOOK_APP_ID,
+    clientSecret: process.env.FACEBOOK_APP_SECRET,
+    callbackURL: '/auth/facebook/callback',
+  }),
+);
 
 app.get('/', (req, res) => {
   res.send({ hi: 'demo2' });
