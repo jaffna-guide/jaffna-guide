@@ -7,23 +7,29 @@ const app = express();
 
 // Register strategies with passport
 passport.use(
-  new FacebookStrategy({
-    clientID: process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: '/auth/facebook/callback',
-  }),
-  function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken);
-  }
+  new FacebookStrategy(
+    {
+      clientID: process.env.FACEBOOK_APP_ID,
+      clientSecret: process.env.FACEBOOK_APP_SECRET,
+      callbackURL: '/auth/facebook/callback',
+    },
+    function(accessToken, refreshToken, profile, done) {
+      console.log(accessToken);
+    },
+  ),
 );
 
 app.get('/', (req, res) => {
   res.send({ hi: 'demo2' });
 });
 
-app.get('/auth/facebook/callback', (req, res) => {
-  res.send({ hi: 'callback' });
-});
+app.get(
+  '/auth/facebook',
+  // https://developers.facebook.com/docs/facebook-login/permissions
+  passport.authenticate('facebook', { scope: ['default', 'email'] }),
+);
+
+app.get('/auth/facebook/callback', passport.authenticate('facebook'));
 
 // Privacy policy endpoint required by Facebook oAuth app
 app.get('/privacy', (req, res) => {
