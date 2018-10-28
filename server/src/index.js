@@ -12,10 +12,17 @@ passport.use(
     clientSecret: process.env.FACEBOOK_APP_SECRET,
     callbackURL: '/auth/facebook/callback',
   }),
+  function(accessToken, refreshToken, profile, done) {
+    console.log(accessToken);
+  }
 );
 
 app.get('/', (req, res) => {
   res.send({ hi: 'demo2' });
+});
+
+app.get('/auth/facebook/callback', (req, res) => {
+  res.send({ hi: 'callback' });
 });
 
 // Privacy policy endpoint required by Facebook oAuth app
