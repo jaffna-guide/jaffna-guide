@@ -7,6 +7,9 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 # COPY client .
 # RUN npm run-script build
 
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+
 WORKDIR /var/www/server
 COPY server/package.json server/package-lock.json ./
 RUN npm install
@@ -25,6 +28,7 @@ RUN npm install --production
 
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
 ENV FACEBOOK_APP_SECRET secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET
+ENV FACEBOOK_REDIRECT_URL secret/soosap/jaffna-guide/FACEBOOK_REDIRECT_URL
 
 EXPOSE 3000
 USER node

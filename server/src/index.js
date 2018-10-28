@@ -5,14 +5,15 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+console.log(process.env.FACEBOOK_REDIRECT_URL);
+
 // Register strategies with passport
 passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: '/auth/facebook/callback',
-      // callbackURL: process.env.FACEBOOK_REDIRECT_URL,
+      callbackURL: process.env.FACEBOOK_REDIRECT_URL,
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(accessToken);
