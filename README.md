@@ -64,6 +64,9 @@ $ npm install --save-dev @babel/cli @babel/core @babel/node @babel/preset-env
 # Enable oAuth authentication
 $ npm install passport
 $ npm install passport-facebook
+
+# Visit https://developers.facebook.com/
+
 ```
 
 ### client

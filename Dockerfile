@@ -23,7 +23,8 @@ COPY --from=build /var/www/server/package.json /var/www/server/package-lock.json
 ENV NODE_ENV production
 RUN npm install --production
 
-# ENV POSTMARK_SERVER_TOKEN secret/thamarai/website/POSTMARK_SERVER_TOKEN
+ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
+ENV FACEBOOK_APP_SECRET secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET
 
 EXPOSE 3000
 USER node
