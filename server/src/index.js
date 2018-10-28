@@ -5,9 +5,6 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-console.log(process.env.FACEBOOK_APP_ID)
-console.log(process.env.FACEBOOK_APP_SECRET)
-
 // Register strategies with passport
 passport.use(
   new FacebookStrategy(
@@ -36,10 +33,7 @@ app.get(
 
 app.get(
   '/auth/facebook/callback',
-  passport.authenticate('facebook', {
-    successRedirect: '/',
-    failureRedirect: '/login',
-  }),
+  passport.authenticate('facebook'),
 );
 
 // Privacy policy endpoint required by Facebook oAuth app
