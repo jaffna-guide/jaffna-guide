@@ -6,7 +6,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 // Register strategies with passport
-passport.use(new FacebookStrategy());
+// passport.use(new FacebookStrategy());
 
 app.get('/', (req, res) => {
   res.send({ hi: 'there' });
@@ -19,7 +19,7 @@ app.get('/privacy', (req, res) => {
 
 // User authentication with passport.js
 // Facebook oAuth endpoint
-app.get('/auth/facebook', () => {});
+// app.get('/auth/facebook', () => {});
 
 app.listen(PORT, err => {
   if (err) {
