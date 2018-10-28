@@ -5,13 +5,16 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+console.log(process.env.FACEBOOK_APP_ID)
+console.log(process.env.FACEBOOK_APP_SECRET)
+
 // Register strategies with passport
 passport.use(
   new FacebookStrategy(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: 'https://demo.jaffna.guide/auth/facebook/callback',
+      callbackURL: '/auth/facebook/callback',
       // callbackURL: process.env.FACEBOOK_REDIRECT_URL,
     },
     function(accessToken, refreshToken, profile, done) {
@@ -27,10 +30,17 @@ app.get('/', (req, res) => {
 app.get(
   '/auth/facebook',
   // https://developers.facebook.com/docs/facebook-login/permissions
-  passport.authenticate('facebook', { scope: ['default', 'email'] }),
+  // passport.authenticate('facebook', { scope: ['default', 'email'] }),
+  passport.authenticate('facebook'),
 );
 
-app.get('/auth/facebook/callback', passport.authenticate('facebook'));
+app.get(
+  '/auth/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: '/login',
+  }),
+);
 
 // Privacy policy endpoint required by Facebook oAuth app
 app.get('/privacy', (req, res) => {
