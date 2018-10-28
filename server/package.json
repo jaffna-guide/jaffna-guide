@@ -4,7 +4,7 @@
   "description": "Jaffna Guide node.js server",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=development pm2 start ecosystem.config.js --no-daemon",
+    "start": "NODE_ENV=demo pm2 start ecosystem.config.js --no-daemon",
     "prebuild": "rimraf ./build && mkdir build",
     "build": "babel src --out-dir build"
   },
