@@ -11,7 +11,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: 'https://demo.jaffna.guide/auth/facebook/callback',
+      callbackURL: '/auth/facebook/callback',
       // callbackURL: process.env.FACEBOOK_REDIRECT_URL,
     },
     function(accessToken, refreshToken, profile, done) {
@@ -24,17 +24,9 @@ app.get('/', (req, res) => {
   res.send({ hi: 'demo2' });
 });
 
-app.get(
-  '/auth/facebook',
-  // https://developers.facebook.com/docs/facebook-login/permissions
-  // passport.authenticate('facebook', { scope: ['default', 'email'] }),
-  passport.authenticate('facebook'),
-);
+app.get('/auth/facebook', passport.authenticate('facebook'));
 
-app.get(
-  '/auth/facebook/callback',
-  passport.authenticate('facebook'),
-);
+app.get('/auth/facebook/callback', passport.authenticate('facebook'));
 
 // Privacy policy endpoint required by Facebook oAuth app
 app.get('/privacy', (req, res) => {
