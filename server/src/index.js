@@ -12,6 +12,7 @@ passport.use(
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
       callbackURL: 'https://demo.jaffna.guide/auth/facebook/callback',
+      // callbackURL: process.env.FACEBOOK_REDIRECT_URL,
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(accessToken);
