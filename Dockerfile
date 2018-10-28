@@ -1,8 +1,8 @@
 FROM saronia/node:10.9.0-alpine AS build
 LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 
-ARG NODE_ENV="production"
-ENV NODE_ENV=${NODE_ENV}
+# ARG NODE_ENV="production"
+# ENV NODE_ENV=${NODE_ENV}
 
 # WORKDIR /var/www/client
 # COPY client/package.json client/package-lock.json ./
