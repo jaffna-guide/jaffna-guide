@@ -23,7 +23,9 @@
   "homepage": "https://github.com/jaffna-guide/jaffna-guide#readme",
   "dependencies": {
     "@babel/runtime": "^7.1.2",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.2",

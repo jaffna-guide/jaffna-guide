@@ -60,6 +60,10 @@ $ touch src/index.js
 $ touch .babelrc
 $ npm install --save @babel/runtime
 $ npm install --save-dev @babel/cli @babel/core @babel/node @babel/preset-env
+
+# Enable oAuth authentication
+$ npm install passport
+$ npm install passport-facebook
 ```
 
 ### client
