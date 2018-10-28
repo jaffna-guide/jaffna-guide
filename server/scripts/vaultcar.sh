@@ -12,6 +12,9 @@ else
   ENV="development"
 fi
 
+echo "NODE_ENV" $NODE_ENV
+echo "ENV" $ENV
+
 for i in $(env)
 do
   key=$(echo $i | cut -d "=" -f 1)
