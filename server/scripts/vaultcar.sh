@@ -12,9 +12,6 @@ else
   ENV="development"
 fi
 
-echo "NODE_ENV" $NODE_ENV
-echo "ENV" $ENV
-
 for i in $(env)
 do
   key=$(echo $i | cut -d "=" -f 1)
@@ -40,6 +37,10 @@ do
         | jq -r '.data.value'
       )
     fi
+
+    echo $SECRET_PATH
+    echo $ENV
+    echo $VARIABLE
 
     if [[ -n "${MOUNT_PATH}" ]]; then
       mkdir -p "$(dirname "${MOUNT_PATH}")" && echo ${VARIABLE} | tr " " "\n" > ${MOUNT_PATH}
