@@ -37,10 +37,6 @@ app.get('/privacy', (req, res) => {
   res.send({ privacy: 'policy' });
 });
 
-// User authentication with passport.js
-// Facebook oAuth endpoint
-// app.get('/auth/facebook', () => {});
-
 app.listen(PORT, err => {
   if (err) {
     console.log('Err: ', err);
