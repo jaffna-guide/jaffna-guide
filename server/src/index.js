@@ -9,7 +9,7 @@ const app = express();
 // passport.use(new FacebookStrategy());
 
 app.get('/', (req, res) => {
-  res.send({ hi: 'there' });
+  res.send({ hi: 'demo' });
 });
 
 // Privacy policy endpoint required by Facebook oAuth app
