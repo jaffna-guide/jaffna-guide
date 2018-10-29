@@ -38,11 +38,6 @@ do
       )
     fi
 
-    echo "----------- sx ------------"
-    echo $SECRET_PATH
-    echo $ENV
-    echo $VARIABLE
-
     if [[ -n "${MOUNT_PATH}" ]]; then
       mkdir -p "$(dirname "${MOUNT_PATH}")" && echo ${VARIABLE} | tr " " "\n" > ${MOUNT_PATH}
       export "${key}"=${MOUNT_PATH}
@@ -51,7 +46,5 @@ do
     fi
   fi
 done
-
-env
 
 exec $@
