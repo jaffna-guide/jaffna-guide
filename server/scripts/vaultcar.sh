@@ -38,6 +38,7 @@ do
       )
     fi
 
+    echo "----------- sx ------------"
     echo $SECRET_PATH
     echo $ENV
     echo $VARIABLE
@@ -50,5 +51,7 @@ do
     fi
   fi
 done
+
+env
 
 exec $@
