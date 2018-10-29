@@ -1,6 +1,13 @@
 import express from 'express';
+import mongoose from 'mongoose';
 import './services/passport';
 import authRoutes from './routes/auth';
+
+mongoose.connect(
+  `mongodb://${process.env.JAFFNA_GUIDE_MONGO_USER}:${
+    process.env.JAFFNA_GUIDE_MONGO_PASSWORD
+  }@mongo.jaffna.guide:27017/jaffnaguide`,
+);
 
 const PORT = process.env.PORT || 3000;
 const app = express();
