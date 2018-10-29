@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import './services/passport';
+import './models/User';
 import authRoutes from './routes/auth';
 
 mongoose.connect(
