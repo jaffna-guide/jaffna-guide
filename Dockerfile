@@ -23,7 +23,6 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 WORKDIR /var/www/server
 COPY --from=build /var/www/server/build ./build
 COPY --from=build /var/www/server/package.json /var/www/server/package-lock.json  ./
-ENV NODE_ENV production
 RUN npm install --production
 
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
