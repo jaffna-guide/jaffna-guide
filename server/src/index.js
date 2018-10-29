@@ -7,12 +7,13 @@ const app = express();
 
 console.log('NODE_ENV', process.env.NODE_ENV);
 
+let callbackURL;
 if (process.env.NODE_ENV === 'demo') {
-  const callbackURL = 'https://demo.jaffna.guide/auth/facebook/callback';
+  callbackURL = 'https://demo.jaffna.guide/auth/facebook/callback';
 } else if (process.env.NODE_ENV === 'staging') {
-  const callbackURL = 'https://dev.jaffna.guide/auth/facebook/callback';
+  callbackURL = 'https://dev.jaffna.guide/auth/facebook/callback';
 } else {
-  const callbackURL = 'https://jaffna.guide/auth/facebook/callback';
+  callbackURL = 'https://jaffna.guide/auth/facebook/callback';
 }
 
 console.log('callbackURL', callbackURL);
