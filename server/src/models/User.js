@@ -1,7 +1,10 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose from 'mongoose';
+
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   facebookId: String,
+  displayName: String,
 });
 
-mongoose.model('users', userSchema);
+export default mongoose.model('User', userSchema);

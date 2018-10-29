@@ -1,5 +1,18 @@
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
+import mongoose from 'mongoose';
+
+import User from '../models/User';
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.findById(id).then(user => {
+    done(null, user);
+  });
+});
 
 let callbackURL;
 if (process.env.NODE_ENV === 'demo') {
@@ -19,9 +32,26 @@ passport.use(
       callbackURL,
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log('accessToken', accessToken);
-      console.log('refreshToken', refreshToken);
-      console.log('profile', profile);
+      // console.log('accessToken', accessToken);
+      // console.log('refreshToken', refreshToken);
+      // console.log('profile', profile);
+
+      User.findOne({ facebookId: profile.id }).then(existingUser => {
+        if (existingUser) {
+          done(null, existingUser);
+          // We already have an user
+        } else {
+          new User({
+            facebookId: profile.id,
+            displayName: profile.displayName,
+          })
+            .save()
+            .then(newUser => {
+              done(null, newUser);
+            });
+        }
+      });
+
       // profile { id: '10160772623120411',
       //   username: undefined,
       //   displayName: 'Prasath ZooZai ThaZan',
@@ -37,7 +67,6 @@ passport.use(
       // }
       // https://graph.facebook.com/${profile.id}/picture?type=large
       // https://graph.facebook.com/${profile.id}/picture?type=small
-      // done();
     },
   ),
 );

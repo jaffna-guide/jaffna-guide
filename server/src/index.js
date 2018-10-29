@@ -1,7 +1,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import './services/passport';
+import passport from 'passport';
+import cookieSession from 'cookie-session';
 import './models/User';
+import './services/passport';
 import authRoutes from './routes/auth';
 
 mongoose.connect(
@@ -12,6 +14,15 @@ mongoose.connect(
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY],
+  }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Register routes
 authRoutes(app);

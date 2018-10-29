@@ -26,6 +26,7 @@ RUN npm install --production
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
 
+ENV COOKIE_KEY secret/soosap/jaffna-guide/COOKIE_KEY
 ENV JAFFNA_GUIDE_MONGO_USER secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_USER
 ENV JAFFNA_GUIDE_MONGO_PASSWORD secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_PASSWORD
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
