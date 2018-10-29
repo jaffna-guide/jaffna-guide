@@ -28,7 +28,7 @@ app.use(passport.session());
 authRoutes(app);
 
 app.get('/', (req, res) => {
-  res.send({ hi: 'demo2' });
+  res.send({ hi: 'demo-live' });
 });
 
 // Privacy policy endpoint required by Facebook oAuth app
