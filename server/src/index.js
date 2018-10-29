@@ -1,10 +1,15 @@
 import express from 'express';
 
+
 const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.get('/', (req, res) => {
+<<<<<<< HEAD
   res.send({ "hay uki" });
+=======
+  res.send({ Name: 'SIANSS' });
+>>>>>>> d9fa328120a121a296243c597b75bd0fff4fb94e
 });
 
 app.listen(PORT, err => {
