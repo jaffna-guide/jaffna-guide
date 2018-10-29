@@ -7,6 +7,9 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 # COPY client .
 # RUN npm run-script build
 
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+
 WORKDIR /var/www/server
 COPY server/package.json server/package-lock.json ./
 RUN npm install
@@ -29,4 +32,5 @@ ENV FACEBOOK_REDIRECT_URL secret/soosap/jaffna-guide/FACEBOOK_REDIRECT_URL
 EXPOSE 3000
 USER node
 
+ENTRYPOINT ["NODE_ENV=${NODE_ENV}", "vaultcar.sh"]
 CMD ["node", "build/index.js"]
