@@ -32,5 +32,5 @@ ENV FACEBOOK_REDIRECT_URL secret/soosap/jaffna-guide/FACEBOOK_REDIRECT_URL
 EXPOSE 3000
 USER node
 
-ENTRYPOINT ["NODE_ENV=${NODE_ENV}", "vaultcar.sh"]
+ENTRYPOINT ["NODE_ENV=${NODE_ENV} vaultcar.sh"]
 CMD ["node", "build/index.js"]
