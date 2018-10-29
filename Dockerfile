@@ -7,10 +7,6 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 # COPY client .
 # RUN npm run-script build
 
-ARG NODE_ENV
-# ENV NODE_ENV=${NODE_ENV}
-ENV NODE_ENV=demo
-
 WORKDIR /var/www/server
 COPY server/package.json server/package-lock.json ./
 RUN npm install
@@ -26,6 +22,7 @@ COPY --from=build /var/www/server/build ./build
 COPY --from=build /var/www/server/package.json /var/www/server/package-lock.json  ./
 RUN npm install --production
 
+ENV NODE_ENV demo
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
 ENV FACEBOOK_APP_SECRET secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET
 
