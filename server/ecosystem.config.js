@@ -11,6 +11,5 @@ module.exports = {
   env: {
     FACEBOOK_APP_ID: 'secret/soosap/jaffna-guide/FACEBOOK_APP_ID',
     FACEBOOK_APP_SECRET: 'secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET',
-    FACEBOOK_REDIRECT_URL: 'secret/soosap/jaffna-guide/FACEBOOK_REDIRECT_URL',
   },
 };

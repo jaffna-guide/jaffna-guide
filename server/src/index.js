@@ -5,10 +5,17 @@ import { Strategy as FacebookStrategy } from 'passport-facebook';
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-console.log('NODE_ENV');
-console.log(process.env.NODE_ENV);
-console.log('FACEBOOK_REDIRECT_URL');
-console.log(process.env.FACEBOOK_REDIRECT_URL);
+console.log('NODE_ENV', process.env.NODE_ENV);
+
+if (process.env.NODE_ENV === 'demo') {
+  const callbackURL = 'https://demo.jaffna.guide/auth/facebook/callback';
+} else if (process.env.NODE_ENV === 'staging') {
+  const callbackURL = 'https://dev.jaffna.guide/auth/facebook/callback';
+} else {
+  const callbackURL = 'https://jaffna.guide/auth/facebook/callback';
+}
+
+console.log('callbackURL', callbackURL);
 
 // Register strategies with passport
 passport.use(
@@ -16,7 +23,7 @@ passport.use(
     {
       clientID: process.env.FACEBOOK_APP_ID,
       clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL: process.env.FACEBOOK_REDIRECT_URL,
+      callbackURL,
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(accessToken);

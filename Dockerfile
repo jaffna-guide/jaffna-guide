@@ -27,10 +27,8 @@ RUN npm install --production
 
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
 ENV FACEBOOK_APP_SECRET secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET
-ENV FACEBOOK_REDIRECT_URL secret/soosap/jaffna-guide/FACEBOOK_REDIRECT_URL
 
 EXPOSE 3000
 USER node
 
-ENTRYPOINT ["NODE_ENV=${NODE_ENV} vaultcar.sh"]
 CMD ["node", "build/index.js"]
