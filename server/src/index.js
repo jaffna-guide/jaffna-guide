@@ -1,11 +1,12 @@
 import express from 'express';
 
-
 const PORT = process.env.PORT || 3000;
 const app = express();
 
+app.use(express.static(path.join(__dirname,'../../client/build')));
+
 app.get('/', (req, res) => {
-  res.sendfile("/build/index.html");
+  res.sendFile(path.join(__dirname, '../../client/build/index.html');
 });
 
 app.listen(PORT, err => {
