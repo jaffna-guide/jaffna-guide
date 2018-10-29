@@ -8,7 +8,8 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 # RUN npm run-script build
 
 ARG NODE_ENV
-ENV NODE_ENV=${NODE_ENV}
+# ENV NODE_ENV=${NODE_ENV}
+ENV NODE_ENV=demo
 
 WORKDIR /var/www/server
 COPY server/package.json server/package-lock.json ./
