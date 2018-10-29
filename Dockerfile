@@ -22,7 +22,11 @@ COPY --from=build /var/www/server/build ./build
 COPY --from=build /var/www/server/package.json /var/www/server/package-lock.json  ./
 RUN npm install --production
 
-ENV NODE_ENV demo
+# Be careful when changing this to staging or production
+ARG NODE_ENV
+ENV NODE_ENV=${NODE_ENV}
+# ENV NODE_ENV demo
+
 ENV FACEBOOK_APP_ID secret/soosap/jaffna-guide/FACEBOOK_APP_ID
 ENV FACEBOOK_APP_SECRET secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET
 
