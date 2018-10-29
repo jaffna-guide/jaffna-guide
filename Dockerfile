@@ -9,6 +9,7 @@ LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
+RUN echo ${NODE_ENV}
 
 WORKDIR /var/www/server
 COPY server/package.json server/package-lock.json ./
