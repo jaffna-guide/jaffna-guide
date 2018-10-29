@@ -23,7 +23,9 @@ passport.use(
       callbackURL,
     },
     function(accessToken, refreshToken, profile, done) {
-      console.log(accessToken);
+      console.log('accessToken', accessToken);
+      console.log('refreshToken', refreshToken);
+      console.log('profile', profile);
     },
   ),
 );
