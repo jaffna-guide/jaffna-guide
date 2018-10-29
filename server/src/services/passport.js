@@ -15,12 +15,14 @@ passport.deserializeUser((id, done) => {
 });
 
 let callbackURL;
-if (process.env.NODE_ENV === 'demo') {
-  callbackURL = 'https://demo.jaffna.guide/auth/facebook/callback';
+if (process.env.NODE_ENV === 'production') {
+  callbackURL = 'https://jaffna.guide/auth/facebook/callback';
 } else if (process.env.NODE_ENV === 'staging') {
   callbackURL = 'https://dev.jaffna.guide/auth/facebook/callback';
+} else if (process.env.NODE_ENV === 'demo') {
+  callbackURL = 'https://demo.jaffna.guide/auth/facebook/callback';
 } else {
-  callbackURL = 'https://jaffna.guide/auth/facebook/callback';
+  callbackURL = '/auth/facebook/callback';
 }
 
 // Register strategies with passport
