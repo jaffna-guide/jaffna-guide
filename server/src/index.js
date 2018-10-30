@@ -107,7 +107,7 @@ if (process.env.NODE_ENV === 'development') {
 
   app.use(require('webpack-hot-middleware')(compiler));
 
-  app.get('/', (req: $Request, res: $Response) => {
+  app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
   });
 } else {
