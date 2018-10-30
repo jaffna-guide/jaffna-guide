@@ -9,7 +9,7 @@ import './models/User';
 import './services/passport';
 import authRoutes from './routes/auth';
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 /*
