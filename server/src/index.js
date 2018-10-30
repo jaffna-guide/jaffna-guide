@@ -91,11 +91,32 @@ authRoutes(app);
 | Express entrypoint
 |-----------------------------------------------------------
 */
-app.use(express.static(path.join(__dirname, '../../client/build')));
+if (process.env.NODE_ENV === 'development') {
+  const webpack = require('webpack');
+  const webpackConfig = require('../../client/webpack.config');
+  const config = webpackConfig(process.env.NODE_ENV);
+  const compiler = webpack(config);
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../client/build/index.html'));
-});
+  app.use(
+    require('webpack-dev-middleware')(compiler, {
+      // https://webpack.js.org/configuration/dev-server/
+      noInfo: true,
+      publicPath: config && config.output.publicPath,
+    }),
+  );
+
+  app.use(require('webpack-hot-middleware')(compiler));
+
+  app.get('/', (req: $Request, res: $Response) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+  });
+} else {
+  app.use(express.static(path.join(__dirname, '../../client/build')));
+
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+  });
+}
 
 // Privacy policy endpoint required by Facebook oAuth app
 app.get('/privacy', (req, res) => {
