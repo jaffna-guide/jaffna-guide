@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = function(env) {
@@ -96,12 +96,6 @@ module.exports = function(env) {
         new webpack.NamedModulesPlugin(),
         // Print more readable module names in the browser console on HMR updates
 
-        // *** NpmInstallWebpackPlugin ***
-        // new NpmInstallWebpackPlugin(),
-        // Automatically installs and uninstalls npm packages in development
-        // Unfortunately the NpmInstallWebpackPlugin is not yet compatible w/ Webpack 4
-        // https://github.com/webpack-contrib/npm-install-webpack-plugin/issues/122
-
         // *** HtmlWebpackPlugin ***
         new HtmlWebpackPlugin({
           template: 'index.ejs',
@@ -121,23 +115,28 @@ module.exports = function(env) {
         rules: [
           {
             test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-              use: [{ loader: 'css-loader' }],
-            }),
+            use: [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+            ],
           },
           {
             test: /\.(scss|sass)$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: ['css-loader', 'sass-loader'],
-            }),
+            use: [
+              { loader: MiniCssExtractPlugin.loader },
+              { loader: 'css-loader' },
+              { loader: 'sass-loader' },
+            ],
           },
         ],
       },
       plugins: [
-        // *** ExtractTextPlugin ***
-        new ExtractTextPlugin({
+        // *** MiniCssExtractPlugin ***
+        new MiniCssExtractPlugin({
+          // Options similar to the same options in webpackOptions.output
+          // both options are optional
           filename: '[name].[contenthash].css',
+          chunkFilename: '[id].css',
         }),
         // Generate an external css file with a hash in the filename
 
