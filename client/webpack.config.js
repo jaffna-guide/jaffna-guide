@@ -142,7 +142,7 @@ module.exports = function(env) {
         // Generate an external css file with a hash in the filename
 
         // *** CleanWebpackPlugin ***
-        new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(['build']),
 
         // *** HtmlWebpackPlugin ***
         new HtmlWebpackPlugin({
