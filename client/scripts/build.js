@@ -33,7 +33,7 @@ webpack(config('production')).run((err, stats) => {
 
   console.log();
   console.log(
-    `[webpack]: The ${chalk.cyan('dist')} dir is ready to be deployed.`,
+    `[webpack]: The ${chalk.cyan('build')} dir is ready to be deployed.`,
   );
   console.log();
 

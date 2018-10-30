@@ -15,7 +15,6 @@
     "@babel/preset-flow": "^7.0.0-beta.40",
     "@babel/preset-react": "^7.0.0-beta.40",
     "babel-loader": "^8.0.0-beta.0",
-    "babel-plugin-styled-components": "^1.5.1",
     "chalk": "^2.3.2",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.0",
