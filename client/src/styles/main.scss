@@ -1,0 +1,23 @@
+
+// spectre.css
+@import 'node_modules/spectre.css/src/variables';
+@import 'node_modules/spectre.css/src/mixins';
+@import 'node_modules/spectre.css/src/buttons';
+@import 'node_modules/spectre.css/src/forms';
+@import 'node_modules/spectre.css/src/buttons';
+
+// animate.css
+@import 'node_modules/animate.css/animate';
+
+@import 'mixins';
+@import 'base';
+@import 'typography';
+@import 'utilities';
+
+@import 'components/buttons';
+
+@import 'layout/header';
+@import 'layout/footer';
+
+@import 'pages/index';
+@import 'pages/contact';
