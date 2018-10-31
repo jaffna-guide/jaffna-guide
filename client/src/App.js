@@ -17,7 +17,7 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn about Jaffna
+            Learn about Jaffna's rich heritage
           </a>
         </header>
       </div>
