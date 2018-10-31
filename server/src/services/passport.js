@@ -34,9 +34,7 @@ passport.use(
 			clientSecret: process.env.FACEBOOK_APP_SECRET,
 			callbackURL,
 		},
-		function(req, accessToken, refreshToken, profile, done) {
-      console.log('req', req);
-
+		function(accessToken, refreshToken, profile, done) {
 			User.findOne({ facebookId: profile.id }).then((existingUser) => {
 				const iat = new Date().getTime();
         const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);

@@ -7,9 +7,22 @@ function tokenForUser(user) {
 }
 
 export default (app) => {
-	app.get('/auth/facebook', passport.authenticate('facebook'));
-	app.get('/auth/facebook/callback', passport.authenticate('facebook', { session: false }), (req, res) => {
-		// res.redirect(`/?token=1234`);
+	app.get('/auth/facebook', (req, res, next) => {
+		passport.authenticate('facebook', {
+			callbackURL: `/auth/facebook/callback${req.query.redirect ? '?redirect=' + req.query.redirect : ''}`,
+			session: false,
+		})(req, res, next);
+	});
+
+	app.get('/auth/facebook/callback', (req, res, next) => {
+		passport.authenticate('facebook', {
+			callbackURL: `/auth/facebook/callback${req.query.redirect ? '?redirect=' + req.query.redirect : ''}`,
+			session: false,
+		}),
+			(req, res) => {
+        console.log('req from callback', req);
+				res.redirect(`${req.query.redirect ? req.query.redirect : '/'}?token=1234`);
+			};
 	});
 
 	app.get('/api/auth_user', (req, res) => {
