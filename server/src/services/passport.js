@@ -50,6 +50,9 @@ passport.use(
 			});
 		},
 	),
+);
+
+passport.use(
 	new JwtStrategy(
 		{
 			secretOrKey: process.env.JWT_SECRET,
