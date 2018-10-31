@@ -6,7 +6,7 @@ export default (app) => {
 		'/auth/facebook/callback',
 		passport.authenticate('facebook', {
 			session: false,
-			successRedirect: `/`,
+			successRedirect: `/?token=123`,
 			failureRedirect: '/',
 		}),
 	);
