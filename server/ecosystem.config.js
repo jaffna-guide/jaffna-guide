@@ -9,6 +9,6 @@ module.exports = {
 		FACEBOOK_APP_SECRET: 'secret/soosap/jaffna-guide/FACEBOOK_APP_SECRET',
 		JAFFNA_GUIDE_MONGO_USER: 'secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_USER',
 		JAFFNA_GUIDE_MONGO_PASSWORD: 'secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_PASSWORD',
-		COOKIE_KEY: 'secret/soosap/jaffna-guide/COOKIE_KEY',
+		JWT_SECRET: 'secret/soosap/jaffna-guide/JWT_SECRET',
 	},
 };
