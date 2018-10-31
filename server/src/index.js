@@ -20,9 +20,8 @@ console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 |-----------------------------------------------------------
 */
 mongoose.connect(
-  `mongodb://${process.env.JAFFNA_GUIDE_MONGO_USER}:${
-    process.env.JAFFNA_GUIDE_MONGO_PASSWORD
-  }@mongo.jaffna.guide:27017/jaffnaguide`,
+	`mongodb://${process.env.JAFFNA_GUIDE_MONGO_USER}:${process.env
+		.JAFFNA_GUIDE_MONGO_PASSWORD}@mongo.jaffna.guide:27017/jaffnaguide`,
 );
 
 /*
@@ -48,14 +47,14 @@ app.set('trust proxy');
 |-----------------------------------------------------------
 */
 app.use(
-  cookieSession({
-    maxAge: 30 * 24 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_KEY],
-  }),
+	cookieSession({
+		maxAge: 30 * 24 * 60 * 60 * 1000,
+		keys: [ process.env.COOKIE_KEY ],
+	}),
 );
 
 if (process.env.NODE_ENV === 'development') {
-  app.use(require('cors')({ origin: 'http://localhost:8000' }));
+	app.use(require('cors')({ origin: 'http://localhost:8000' }));
 }
 
 app.use(bodyParser.json({ type: 'application/json' }));
@@ -76,31 +75,31 @@ authRoutes(app);
 |-----------------------------------------------------------
 */
 if (process.env.NODE_ENV === 'development') {
-  app.get('/', (req, res) => {
-    res.redirect('http://localhost:8000/');
-  });
+	app.get('/', (req, res) => {
+		res.redirect('http://localhost:8000/');
+	});
 } else {
-  app.use(express.static(path.join(__dirname, '../../client/build')));
+	app.use(express.static(path.join(__dirname, '../../client/build')));
 
-  app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
-  });
+	app.get('/', (req, res) => {
+		res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+	});
 }
 
 // Privacy policy endpoint required by Facebook oAuth app
 app.get('/privacy', (req, res) => {
-  res.send({ privacy: 'policy' });
+	res.send({ privacy: 'policy' });
 });
 
-app.listen(PORT, err => {
-  if (err) {
-    console.log('Err: ', err);
-    return 1;
-  }
+app.listen(PORT, (err) => {
+	if (err) {
+		console.log('Err: ', err);
+		return 1;
+	}
 
-  console.log(
-    '===> jaffna.guide <===',
-    `| NODE_ENV: ${process.env.NODE_ENV}`,
-    `| Listening on http://0.0.0.0:${PORT}.`,
-  );
+	console.log(
+		'===> jaffna.guide <===',
+		`| NODE_ENV: ${process.env.NODE_ENV}`,
+		`| Listening on http://0.0.0.0:${PORT}.`,
+	);
 });

@@ -7,7 +7,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import PlaceStore from './stores/PlaceStore';
 
-
 const Root = (
   <Provider PlaceStore={PlaceStore}>
     <App />

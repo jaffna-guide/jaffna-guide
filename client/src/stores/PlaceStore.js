@@ -1,15 +1,24 @@
 import { observable, action, computed } from 'mobx';
 
 class PlaceStore {
-  @observable places = [];
+	@observable places = [];
+	@observable state = 'pending'; // "pending" / "done" / "error"
 
-  @action addPlace = (place) => {
-    this.places.push(place);
-  }
+	@action
+	fetchPlaces() {
+		this.places = [];
+		this.state = 'pending';
+	}
 
-  @computed get placeCount() {
-    return this.places.length;
-  }
+	@action
+	addPlace = (place) => {
+		this.places.push(place);
+	};
+
+	@computed
+	get placeCount() {
+		return this.places.length;
+	}
 }
 
 const store = new PlaceStore();
