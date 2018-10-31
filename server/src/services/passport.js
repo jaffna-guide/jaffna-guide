@@ -1,6 +1,6 @@
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { Strategy as JwtStrategy, ExtractJwt } from 'jwt-strategy';
+import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
 import mongoose from 'mongoose';
 
 import User from '../models/User';
