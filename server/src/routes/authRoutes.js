@@ -7,13 +7,10 @@ function tokenForUser(user) {
 
 export default (app) => {
 	app.get('/auth/facebook', passport.authenticate('facebook'));
-	app.get(
-		'/auth/facebook/callback',
-		passport.authenticate('facebook', { session: false }, (req, res) => {
-      console.log('req.query', req.query);
-      res.redirect(`/?token=1234`);
-    }),
-	);
+	app.get('/auth/facebook/callback', passport.authenticate('facebook', { session: false }), (req, res) => {
+		console.log('req.query', req.query);
+		res.redirect(`/?token=1234`);
+	});
 
 	app.get('/api/auth_user', (req, res) => {
 		res.send(req.user);
