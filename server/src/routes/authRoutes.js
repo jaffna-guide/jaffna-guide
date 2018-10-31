@@ -11,7 +11,7 @@ export default (app) => {
 		'/auth/facebook/callback',
 		passport.authenticate('facebook', { session: false }, (req, res) => {
       console.log('req.query', req.query);
-      res.redirect(`/?token=${req.user.jwt}`);
+      res.redirect(`/?token=1234`);
     }),
 	);
 
