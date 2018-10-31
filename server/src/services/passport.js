@@ -1,6 +1,7 @@
 import passport from 'passport';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as JwtStrategy, ExtractJwt } from 'passport-jwt';
+import jwt from 'jwt-simple';
 import mongoose from 'mongoose';
 
 import User from '../models/User';
@@ -35,10 +36,16 @@ passport.use(
 		},
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({ facebookId: profile.id }).then((existingUser) => {
+				const iat = new Date().getTime();
+				const token = jwt.encode({ sub: user.id, iat }, process.env.JWT_SECRET);
+
 				if (existingUser) {
+					existingUser.jwt = token;
+					existingUser.save();
 					done(null, existingUser);
 				} else {
 					new User({
+						jwt: token,
 						facebookId: profile.id,
 						displayName: profile.displayName,
 					})

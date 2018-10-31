@@ -1,14 +1,18 @@
 import passport from 'passport';
 
+function tokenForUser(user) {
+	const iat = new Date().getTime();
+	return jwt.encode({ sub: user.id, iat }, process.env.JWT_SECRET);
+}
+
 export default (app) => {
 	app.get('/auth/facebook', passport.authenticate('facebook'));
 	app.get(
 		'/auth/facebook/callback',
-		passport.authenticate('facebook', {
-			session: false,
-			successRedirect: `/?token=123`,
-			failureRedirect: '/',
-		}),
+		passport.authenticate('facebook', { session: false }, (req, res) => {
+      console.log('req.query', req.query);
+      res.redirect(`/?token=${req.user.jwt}`);
+    }),
 	);
 
 	app.get('/api/auth_user', (req, res) => {
