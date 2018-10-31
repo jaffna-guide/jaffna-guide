@@ -1,4 +1,5 @@
 import passport from 'passport';
+import jwt from 'jwt-simple';
 
 function tokenForUser(user) {
 	const iat = new Date().getTime();
