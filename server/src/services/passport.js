@@ -37,7 +37,7 @@ passport.use(
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({ facebookId: profile.id }).then((existingUser) => {
 				const iat = new Date().getTime();
-				const token = jwt.encode({ sub: user.id, iat }, process.env.JWT_SECRET);
+        const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
 
 				if (existingUser) {
 					existingUser.jwt = token;
