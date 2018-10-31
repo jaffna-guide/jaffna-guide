@@ -2,8 +2,6 @@ import mongoose from 'mongoose';
 import { Place } from '../models';
 import { requireLogin } from '../middlewares';
 
-// const Place = mongoose.model('Place');
-
 export default (app) => {
 	app.get('/api/places', (req, res) => {
 		Place.find({}, (err, places) => {
@@ -15,11 +13,15 @@ export default (app) => {
 		const { name, latitude, longitude, category, description } = req.body;
 
 		const place = new Place({
-			name,
+			name: {
+				en: name,
+			},
 			latitude: parseFloat(latitude),
 			longitude: parseFloat(longitude),
 			category,
-			description,
+			description: {
+				en: description,
+			},
 			createdBy: req.user.id,
 			updatedBy: req.user.id,
 			createdAt: Date.now(),

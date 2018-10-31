@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import path from 'path';
 import passport from 'passport';
-import cookieSession from 'cookie-session';
 
 import './services/passport';
 import authRoutes from './routes/authRoutes';
@@ -11,8 +10,6 @@ import placeRoutes from './routes/placeRoutes';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
-
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 /*
 |-----------------------------------------------------------
@@ -46,13 +43,6 @@ app.set('trust proxy');
 | Express middleware
 |-----------------------------------------------------------
 */
-app.use(
-	cookieSession({
-		maxAge: 30 * 24 * 60 * 60 * 1000,
-		keys: [ process.env.COOKIE_KEY ],
-	}),
-);
-
 if (process.env.NODE_ENV === 'development') {
 	app.use(require('cors')({ origin: 'http://localhost:8000' }));
 }

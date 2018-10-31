@@ -34,14 +34,9 @@ passport.use(
       callbackURL,
     },
     function(accessToken, refreshToken, profile, done) {
-      // console.log('accessToken', accessToken);
-      // console.log('refreshToken', refreshToken);
-      // console.log('profile', profile);
-
       User.findOne({ facebookId: profile.id }).then(existingUser => {
         if (existingUser) {
           done(null, existingUser);
-          // We already have an user
         } else {
           new User({
             facebookId: profile.id,
