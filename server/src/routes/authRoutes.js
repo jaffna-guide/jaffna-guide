@@ -25,7 +25,7 @@ export default (app) => {
 		}),
 			(req, res) => {
 				console.log('req from callback', req);
-				res.redirect(`${req.query.redirect ? req.query.redirect : '/'}?token=1234`);
+				// res.redirect(`${req.query.redirect ? req.query.redirect : '/'}?token=1234`);
 			};
 	});
 
