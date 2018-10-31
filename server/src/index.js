@@ -54,6 +54,10 @@ app.use(
   }),
 );
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(require('cors')({ origin: 'http://localhost:8000' }));
+}
+
 app.use(bodyParser.json({ type: 'application/json' }));
 
 app.use(passport.initialize());
@@ -72,11 +76,8 @@ authRoutes(app);
 |-----------------------------------------------------------
 */
 if (process.env.NODE_ENV === 'development') {
-  console.log('hi from here!!');
   app.get('/', (req, res) => {
-    console.log('redirect happening');
-    res.send('something');
-    // res.redirect('http://localhost:8000');
+    res.redirect('http://localhost:8000/');
   });
 } else {
   app.use(express.static(path.join(__dirname, '../../client/build')));
