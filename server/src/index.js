@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
+import morgan from 'morgan';
 import path from 'path';
 import passport from 'passport';
 
@@ -48,6 +49,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(bodyParser.json({ type: 'application/json' }));
+
+// Logging framework
+app.use(morgan('combined'));
 
 app.use(passport.initialize());
 app.use(passport.session());

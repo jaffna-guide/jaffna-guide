@@ -1,22 +1,10 @@
-import passport from 'passport';
+import { oauthFacebook, oauthFacebookCallback } from '../controllers/auth';
 
-export default app => {
-  app.get('/auth/facebook', passport.authenticate('facebook'));
+export default (app) => {
+	app.get('/auth/facebook', oauthFacebook);
+	app.get('/auth/facebook/callback', oauthFacebookCallback);
 
-  app.get(
-    '/auth/facebook/callback',
-    passport.authenticate('facebook', {
-      successRedirect: '/',
-      failureRedirect: '/api/login',
-    }),
-  );
-
-  app.get('/api/logout', (req, res) => {
-    req.logout();
-    res.send(req.user);
-  });
-
-  app.get('/api/current_user', (req, res) => {
-    res.send(req.user);
-  });
+	app.get('/api/auth_user', (req, res) => {
+		res.send(req.user);
+	});
 };
