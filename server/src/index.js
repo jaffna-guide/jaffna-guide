@@ -4,13 +4,15 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import passport from 'passport';
 import cookieSession from 'cookie-session';
-import history from 'connect-history-api-fallback';
+
 import './models/User';
 import './services/passport';
 import authRoutes from './routes/auth';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
+
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
 
 /*
 |-----------------------------------------------------------
@@ -42,28 +44,6 @@ app.set('trust proxy');
 
 /*
 |-----------------------------------------------------------
-| Connect history API fallback
-|-----------------------------------------------------------
-|
-| Single Page Applications (SPA) typically only utilise one
-| index file that is accessible by web browsers: usually
-| index.html. Navigation in the application is then commonly
-| handled using JavaScript with the help of the HTML5 History
-| API. This results in issues when the user hits the refresh
-| button or is directly accessing a page other than the
-| landing page, e.g. /help or /help/online as the web server
-| bypasses the index file to locate the file at this location.
-| As your application is a SPA, the web server will fail
-| trying to retrieve the file and return a 404 - Not Found
-| message to the user. This tiny middleware addresses some
-| of the issues. Specifically, it will change the requested
-| location to the index you specify (default /index.html).
-|
-*/
-app.use(history());
-
-/*
-|-----------------------------------------------------------
 | Express middleware
 |-----------------------------------------------------------
 */
@@ -92,23 +72,11 @@ authRoutes(app);
 |-----------------------------------------------------------
 */
 if (process.env.NODE_ENV === 'development') {
-  const webpack = require('webpack');
-  const webpackConfig = require('../../client/webpack.config');
-  const config = webpackConfig(process.env.NODE_ENV);
-  const compiler = webpack(config);
-
-  app.use(
-    require('webpack-dev-middleware')(compiler, {
-      // https://webpack.js.org/configuration/dev-server/
-      noInfo: true,
-      publicPath: config && config.output.publicPath,
-    }),
-  );
-
-  app.use(require('webpack-hot-middleware')(compiler));
-
+  console.log('hi from here!!');
   app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    console.log('redirect happening');
+    res.send('something');
+    // res.redirect('http://localhost:8000');
   });
 } else {
   app.use(express.static(path.join(__dirname, '../../client/build')));
@@ -131,7 +99,7 @@ app.listen(PORT, err => {
 
   console.log(
     '===> jaffna.guide <===',
-    `| NODE_ENV: ${process.env.NODE_ENV || 'development'}`,
+    `| NODE_ENV: ${process.env.NODE_ENV}`,
     `| Listening on http://0.0.0.0:${PORT}.`,
   );
 });

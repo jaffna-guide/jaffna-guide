@@ -4,7 +4,7 @@
   "description": "Jaffna Guide node.js server",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_ENV=demo pm2 start ecosystem.config.js --no-daemon",
+    "start": "NODE_ENV=development pm2 start ecosystem.config.js --no-daemon",
     "prebuild": "rimraf ./build && mkdir build",
     "build": "babel src --out-dir build"
   },
@@ -24,7 +24,6 @@
   "dependencies": {
     "@babel/runtime": "^7.1.2",
     "body-parser": "^1.18.3",
-    "connect-history-api-fallback": "^1.5.0",
     "cookie-session": "^2.0.0-beta.3",
     "express": "^4.16.4",
     "mongoose": "^5.3.7",
@@ -35,7 +34,10 @@
     "@babel/cli": "^7.1.2",
     "@babel/core": "^7.1.2",
     "@babel/node": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "pm2": "^3.2.2",
     "rimraf": "^2.6.2",
     "webpack": "^4.23.1",

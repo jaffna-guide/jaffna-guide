@@ -1,5 +1,15 @@
 # jaffna-guide
 
+## Getting started
+
+```sh
+$ cd server
+$ npm start
+
+$ cd client
+$ npm start
+```
+
 ## Features
 
 * User registration with Facebook oAuth
