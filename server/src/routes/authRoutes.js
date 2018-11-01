@@ -1,11 +1,6 @@
 import passport from 'passport';
 import jwt from 'jwt-simple';
 
-function tokenForUser(user) {
-	const iat = new Date().getTime();
-	return jwt.encode({ sub: user.id, iat }, process.env.JWT_SECRET);
-}
-
 export default (app) => {
 	app.get('/auth/facebook', (req, res, next) => {
 		if (req.query.redirect) {
