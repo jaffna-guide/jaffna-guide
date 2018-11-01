@@ -11,25 +11,25 @@
 		position: absolute;
 		top: 0px;
 		width: 100%;
-		z-index: 0;
+		z-index: -1;
 
 		&:nth-child(1) {
-			background-image: url(require('../../assets/jaffna1.jpg'));
+			background-image: url('../assets/jaffna1.jpg');
 		}
 		&:nth-child(2) {
-			background-image: url(require('../../assets/jaffna2.jpg'));
+			background-image: url('../assets/jaffna2.jpg');
 			animation-delay: 6s;
 		}
 		&:nth-child(3) {
-			background-image: url(require('../../assets/jaffna3.jpg'));
+			background-image: url('../assets/jaffna3.jpg');
 			animation-delay: 12s;
 		}
 		&:nth-child(4) {
-			background-image: url(require('../../assets/jaffna1.jpg'));
+			background-image: url('../assets/jaffna1.jpg');
 			animation-delay: 18s;
 		}
 		&:nth-child(5) {
-			background-image: url(require('../../assets/jaffna2.jpg'));
+			background-image: url('../assets/jaffna2.jpg');
 			animation-delay: 24s;
 		}
 	}

@@ -7,11 +7,13 @@ import CrossFadeBackground from './components/CrossFadeBackground';
 class App extends Component {
 	render() {
 		return (
-			<main className="main">
-        <CrossFadeBackground />
-				<Header />
-				<CategoryList />
-			</main>
+			<>
+				<CrossFadeBackground />
+				<main className="main">
+					<Header />
+					<CategoryList />
+				</main>
+			</>
 		);
 	}
 }
