@@ -1,12 +1,25 @@
-import * as React from 'react'
+import * as React from 'react';
+import { observer, inject } from 'mobx-react';
 
-const CategoryList = () => {
-  return (
-    <ul>
-      <li>Restaurants</li>
-      <li>Culture</li>
-    </ul>
-  )
+@inject('CategoryStore')
+@observer
+class CategoryList extends React.Component {
+  state = {};
+  
+  componentDidMount() {
+    this.props.CategoryStore.fetchCategories();
+  }
+
+	render() {
+    console.log('this.props.CategoryStore.categories', this.props.CategoryStore.categories);
+
+		return (
+			<ul>
+				<li>Restaurants</li>
+				<li>Culture</li>
+			</ul>
+		);
+	}
 }
 
-export default CategoryList
+export default CategoryList;

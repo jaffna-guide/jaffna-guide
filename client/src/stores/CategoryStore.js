@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx';
+import axios from 'axios'
 
 class CategoryStore {
   @observable categories = [];
@@ -6,6 +7,9 @@ class CategoryStore {
 
   @action
   fetchCategories() {
+    axios.get('/api/categories').then(categories => {
+      console.log('categories', categories);
+    })
     this.categories = [];
     this.state = 'pending';
   }

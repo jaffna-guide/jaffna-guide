@@ -11,6 +11,10 @@
     "prefix": "atoms",
     "body": "import { $1 } from '../components/atoms'"
   },
+  "axios": {
+    "prefix": "axios",
+    "body": "import axios from 'axios'"
+  },
   "layout": {
     "prefix": "layout",
     "body": "import { $1 } from '../components/layout'"
