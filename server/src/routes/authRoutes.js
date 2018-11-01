@@ -10,6 +10,8 @@ export default (app) => {
 	app.get('/auth/facebook', (req, res, next) => {
 		if (req.query.redirect) {
 			req.session.redirectTo = encodeURIComponent(req.query.redirect);
+		} else {
+			delete req.session.redirectTo;
 		}
 
 		passport.authenticate('facebook')(req, res, next);
