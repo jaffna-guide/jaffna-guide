@@ -2,15 +2,16 @@
 import { Place } from '../models';
 
 export const getAllPlaces = (req, res) => {
-	return Place.find({}, (err, places) => {
+	return Place.find({}).populate('category').exec((err, places) => {
 		res.send(places);
 	});
 };
 
 export const createPlace = (req, res) => {
-	const { name, latitude, longitude, category, description } = req.body;
+	const { name, latitude, longitude, category, description, body } = req.body;
 
 	const place = new Place({
+		body,
 		name,
 		latitude: parseFloat(latitude),
 		longitude: parseFloat(longitude),

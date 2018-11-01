@@ -8,8 +8,8 @@ class Culture extends React.Component {
 	state = {};
 
 	render() {
-		const { PlaceStore } = this.props;
-
+    const { PlaceStore } = this.props;
+    
 		return (
 			<div className="culture">
         <Link to="/">Back</Link>
