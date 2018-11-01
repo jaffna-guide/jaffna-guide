@@ -16,7 +16,8 @@ export default (app) => {
 			session: false,
 		}),
 		(req, res) => {
-			const token = req.user.jwt;
+      const token = req.user.jwt;
+      console.log('req', req)
 			res.json({ token });
 		},
 	);
