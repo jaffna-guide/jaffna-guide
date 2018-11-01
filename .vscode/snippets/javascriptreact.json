@@ -25,7 +25,7 @@
   },
   "link": {
     "prefix": "link",
-    "body": "import { Link } from 'gatsby'"
+    "body": "import { Link } from 'react-router-dom'"
   },
   "react": {
     "prefix": "react",

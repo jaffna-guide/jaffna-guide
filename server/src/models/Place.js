@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const placeSchema = new Schema({
+  body: String,
 	name: {
 		en: String,
 		ta: String,

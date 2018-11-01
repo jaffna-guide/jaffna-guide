@@ -1,19 +1,41 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { inject } from 'mobx-react';
 
 import Header from './components/Header';
 import CategoryList from './components/CategoryList';
 import CrossFadeBackground from './components/CrossFadeBackground';
 
+import CulturePage from './pages/Culture';
+import EventsPage from './pages/Events';
+import RestaurantsPage from './pages/Restaurants';
+import HotelsPage from './pages/Hotels';
+import EducationPage from './pages/Education';
+
+@inject('PlaceStore')
+@inject('CategoryStore')
 class App extends Component {
+	componentDidMount() {
+		this.props.CategoryStore.fetchCategories();
+		this.props.PlaceStore.fetchPlaces();
+	}
+
 	render() {
 		return (
-			<>
-				<CrossFadeBackground />
-				<main className="main">
-					<Header />
-					<CategoryList />
-				</main>
-			</>
+			<Router>
+				<div>
+					<CrossFadeBackground />
+					<main className="main">
+						<Header />
+						<Route path="/" exact component={CategoryList} />
+						<Route path="/events" exact component={EventsPage} />
+						<Route path="/culture" exact component={CulturePage} />
+						<Route path="/restaurants" exact component={RestaurantsPage} />
+						<Route path="/hotels" exact component={HotelsPage} />
+						<Route path="/education" exact component={EducationPage} />
+					</main>
+				</div>
+			</Router>
 		);
 	}
 }
