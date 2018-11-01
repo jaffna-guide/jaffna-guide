@@ -7,25 +7,30 @@ function tokenForUser(user) {
 }
 
 export default (app) => {
-	app.get('/auth/facebook/:redirect', (req, res, next) => {
+	app.get('/auth/facebook', (req, res, next) => {
 		passport.authenticate('facebook', {
-			callbackURL: '/auth/facebook/callback' + req.params.redirect ? '/' + req.params.redirect : '',
+			callbackURL: '/auth/facebook/callback',
 			session: false,
 		})(req, res, next);
 	});
 
 	app.get('/auth/facebook/callback', (req, res, next) => {
 		passport.authenticate('facebook', {
-			callbackURL: '/auth/facebook/callback',
 			successRedirect: '/',
 			failureRedirect: '/',
 			session: false,
 		});
-	});
+  });
+  
+  app.get('/auth/facebook/vote', (req, res, next) => {
+    passport.authenticate('facebook', {
+      callbackURL: '/auth/facebook/callback/vote',
+      session: false,
+    })(req, res, next);
+  });
 
 	app.get('/auth/facebook/callback/vote', (req, res, next) => {
 		passport.authenticate('facebook', {
-			callbackURL: '/auth/facebook/callback/vote',
 			successRedirect: '/vote',
 			failureRedirect: '/vote',
 			session: false,
