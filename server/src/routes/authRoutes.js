@@ -16,6 +16,7 @@ export default (app) => {
 
 	app.get('/auth/facebook/callback', (req, res, next) => {
 		passport.authenticate('facebook', {
+      callbackURL: '/auth/facebook/callback',
 			successRedirect: '/',
 			failureRedirect: '/',
 			session: false,
@@ -31,6 +32,7 @@ export default (app) => {
 
 	app.get('/auth/facebook/callback/vote', (req, res, next) => {
 		passport.authenticate('facebook', {
+      callbackURL: '/auth/facebook/callback/vote',
 			successRedirect: '/vote',
 			failureRedirect: '/vote',
 			session: false,
