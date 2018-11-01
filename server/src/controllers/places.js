@@ -11,15 +11,11 @@ export const createPlace = (req, res) => {
 	const { name, latitude, longitude, category, description } = req.body;
 
 	const place = new Place({
-		name: {
-			en: name,
-		},
+		name,
 		latitude: parseFloat(latitude),
 		longitude: parseFloat(longitude),
 		category,
-		description: {
-			en: description,
-		},
+		description,
 		createdBy: req.user.id,
 		updatedBy: req.user.id,
 		createdAt: Date.now(),

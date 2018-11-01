@@ -9,6 +9,7 @@ import passport from 'passport';
 import './services/passport';
 import authRoutes from './routes/authRoutes';
 import placeRoutes from './routes/placeRoutes';
+import categoryRoutes from './routes/categoryRoutes';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -73,6 +74,7 @@ app.use(passport.session());
 */
 authRoutes(app);
 placeRoutes(app);
+categoryRoutes(app);
 
 /*
 |-----------------------------------------------------------
