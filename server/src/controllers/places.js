@@ -1,6 +1,12 @@
 // PlacesController
 import { Place } from '../models';
 
+export const getAllPlaces = (req, res) => {
+	return Place.find({}, (err, places) => {
+		res.send(places);
+	});
+};
+
 export const createPlace = (req, res) => {
 	const { name, latitude, longitude, category, description } = req.body;
 
