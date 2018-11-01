@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'typeface-abril-fatface';
 import { Provider } from 'mobx-react';
 
 import App from './App';
