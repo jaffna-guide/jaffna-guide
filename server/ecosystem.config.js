@@ -10,5 +10,6 @@ module.exports = {
 		JAFFNA_GUIDE_MONGO_USER: 'secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_USER',
 		JAFFNA_GUIDE_MONGO_PASSWORD: 'secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_PASSWORD',
 		JWT_SECRET: 'secret/soosap/jaffna-guide/JWT_SECRET',
+		COOKIE_KEY: 'secret/soosap/jaffna-guide/COOKIE_KEY',
 	},
 };

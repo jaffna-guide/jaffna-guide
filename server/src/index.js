@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
+import session from 'express-session';
 import path from 'path';
 import passport from 'passport';
 
@@ -47,6 +48,8 @@ app.set('trust proxy');
 if (process.env.NODE_ENV === 'development') {
 	app.use(require('cors')({ origin: 'http://localhost:8000' }));
 }
+
+app.use(session({ secret: process.env.COOKIE_KEY, cookie: { maxAge: 60000 } }));
 
 app.use(bodyParser.json({ type: 'application/json' }));
 

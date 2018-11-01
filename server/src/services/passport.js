@@ -40,7 +40,7 @@ passport.use(
         const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
 
 				if (existingUser) {
-					existingUser.jwt = token;
+          existingUser.jwt = token;
 					existingUser.save();
 					done(null, existingUser);
 				} else {
