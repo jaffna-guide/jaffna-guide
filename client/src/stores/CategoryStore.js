@@ -1,28 +1,41 @@
-import { observable, action, computed } from 'mobx';
-import axios from 'axios'
+import { observable, action, computed, runInAction } from 'mobx';
+import axios from 'axios';
 
 class CategoryStore {
-  @observable categories = [];
-  @observable state = 'pending'; // "pending" / "done" / "error"
+	@observable categories = [];
+	@observable state = 'pending'; // "pending" / "done" / "error"
 
-  @action
-  fetchCategories() {
-    axios.get('/api/categories').then(categories => {
-      console.log('categories', categories);
-    })
-    this.categories = [];
-    this.state = 'pending';
-  }
+	@action
+	fetchCategories() {
+		this.categories = [];
+		this.state = 'pending';
 
-  @action
-  addCategory = (category) => {
-    this.categories.push(category);
-  };
+		axios
+			.get('/api/categories')
+			.then((res) => {
+				const categories = res.data;
+				runInAction(() => {
+					this.categories = categories;
+					this.state = 'done';
+				});
+			})
+			.catch(() => {
+				runInAction(() => {
+					this.categories = [];
+					this.state = 'error';
+				});
+			});
+	}
 
-  @computed
-  get categoryCount() {
-    return this.categories.length;
-  }
+	@action
+	addCategory = (category) => {
+		this.categories.push(category);
+	};
+
+	@computed
+	get categoryCount() {
+		return this.categories.length;
+	}
 }
 
 const store = new CategoryStore();
