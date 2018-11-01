@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { inject, observer } from 'mobx-react';
 
-@inject('PlaceStore')
-@observer
+import Header from './components/Header';
+import CategoryList from './components/CategoryList';
+import CrossFadeBackground from './components/CrossFadeBackground';
+
 class App extends Component {
-  render() {
-    const { PlaceStore } = this.props;
-
-    return (
-      <div>
-        <h2>You have {PlaceStore.placeCount} place(s).</h2>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<main className="main">
+        <CrossFadeBackground />
+				<Header />
+				<CategoryList />
+			</main>
+		);
+	}
 }
 
 export default App;

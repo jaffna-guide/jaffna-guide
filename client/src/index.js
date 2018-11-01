@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
 
-import './index.css';
 import App from './App';
+import './styles/main.scss';
 import * as serviceWorker from './serviceWorker';
-import PlaceStore from './stores/PlaceStore';
+import { PlaceStore, CategoryStore } from './stores';
 
 const Root = (
-  <Provider PlaceStore={PlaceStore}>
+  <Provider PlaceStore={PlaceStore} CategoryStore={CategoryStore}>
     <App />
   </Provider>
 );
