@@ -7,9 +7,9 @@ function tokenForUser(user) {
 }
 
 export default (app) => {
-	app.get('/auth/facebook', (req, res, next) => {
+	app.get('/auth/facebook/:redirect', (req, res, next) => {
 		passport.authenticate('facebook', {
-			callbackURL: `/auth/facebook/callback${req.params.redirect ? '/' + req.params.redirect : ''}`,
+			callbackURL: '/auth/facebook/callback' + req.params.redirect ? '/' + req.params.redirect : '',
 			session: false,
 		})(req, res, next);
 	});
