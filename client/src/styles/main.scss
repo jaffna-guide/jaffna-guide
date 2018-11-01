@@ -4,7 +4,7 @@
 @import 'node_modules/spectre.css/src/mixins';
 @import 'node_modules/spectre.css/src/buttons';
 @import 'node_modules/spectre.css/src/forms';
-@import 'node_modules/spectre.css/src/buttons';
+@import 'node_modules/spectre.css/src/tables';
 
 // animate.css
 @import 'node_modules/animate.css/animate';
@@ -15,6 +15,7 @@
 @import 'utilities';
 
 @import 'components/buttons';
+@import 'components/icons';
 @import 'components/crossfade';
 @import 'components/category-list';
 
@@ -24,3 +25,4 @@
 
 @import 'pages/index';
 @import 'pages/contact';
+@import 'pages/admin-panel';

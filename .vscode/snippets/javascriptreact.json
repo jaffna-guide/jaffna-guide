@@ -1,8 +1,4 @@
 {
-  "console": {
-    "prefix": "console",
-    "body": "console.log('$1', $1);$2"
-  },
   "assets": {
     "prefix": "icon",
     "body": "import $1 from '../../assets/icons/$1.svg'"
@@ -15,29 +11,41 @@
     "prefix": "axios",
     "body": "import axios from 'axios'"
   },
+  "console": {
+    "prefix": "console",
+    "body": "console.log('$1', $1);$2"
+  },
+  "helmet": {
+    "prefix": "helmet",
+    "body": "import { Helmet } from 'react-helmet'"
+  },
+  "inject": {
+    "prefix": "inject",
+    "body": "import { inject } from 'mobx-react'"
+  },
   "layout": {
     "prefix": "layout",
     "body": "import { $1 } from '../components/layout'"
-  },
-  "molecules": {
-    "prefix": "molecules",
-    "body": "import { $1 } from '../components/molecules'"
   },
   "link": {
     "prefix": "link",
     "body": "import { Link } from 'react-router-dom'"
   },
-  "react": {
-    "prefix": "react",
-    "body": "import * as React from 'react'"
-  },
   "media": {
     "prefix": "media",
     "body": "import MediaQuery from 'react-responsive'"
   },
-  "helmet": {
-    "prefix": "helmet",
-    "body": "import { Helmet } from 'react-helmet'"
+  "molecules": {
+    "prefix": "molecules",
+    "body": "import { $1 } from '../components/molecules'"
+  },
+  "observer": {
+    "prefix": "observer",
+    "body": "import { observer } from 'mobx-react'"
+  },
+  "react": {
+    "prefix": "react",
+    "body": "import * as React from 'react'"
   },
   "react-transition-group": {
     "prefix": "css",
