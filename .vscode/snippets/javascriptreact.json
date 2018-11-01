@@ -1,0 +1,76 @@
+{
+  "console": {
+    "prefix": "console",
+    "body": "console.log('$1', $1);$2"
+  },
+  "assets": {
+    "prefix": "icon",
+    "body": "import $1 from '../../assets/icons/$1.svg'"
+  },
+  "atoms": {
+    "prefix": "atoms",
+    "body": "import { $1 } from '../components/atoms'"
+  },
+  "layout": {
+    "prefix": "layout",
+    "body": "import { $1 } from '../components/layout'"
+  },
+  "molecules": {
+    "prefix": "molecules",
+    "body": "import { $1 } from '../components/molecules'"
+  },
+  "link": {
+    "prefix": "link",
+    "body": "import { Link } from 'gatsby'"
+  },
+  "react": {
+    "prefix": "react",
+    "body": "import * as React from 'react'"
+  },
+  "media": {
+    "prefix": "media",
+    "body": "import MediaQuery from 'react-responsive'"
+  },
+  "helmet": {
+    "prefix": "helmet",
+    "body": "import { Helmet } from 'react-helmet'"
+  },
+  "react-transition-group": {
+    "prefix": "css",
+    "body": "import { CSSTransition } from 'react-transition-group'"
+  },
+  "react-sfc": {
+    "prefix": "sfc",
+    "body": [
+      "import * as React from 'react'",
+      "",
+      "const $1 = () => {",
+      "  return (",
+      "    <div>$1</div>",
+      "  )",
+      "}",
+      "",
+      "export default $1",
+      ""
+    ]
+  },
+  "react-class": {
+    "prefix": "cbc",
+    "body": [
+      "import * as React from 'react'",
+      "",
+      "class $1 extends React.Component {",
+      "  state = {};",
+      "",
+      "  render() {",
+      "    return (",
+      "      <div>{this.props.children}</div>",
+      "    );",
+      "  }",
+      "}",
+      "",
+      "export default $1",
+      ""
+    ]
+  }
+}
