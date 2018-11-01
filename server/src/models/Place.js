@@ -6,7 +6,8 @@ const placeSchema = new Schema({
 	name: {
 		en: String,
 		ta: String,
-	},
+  },
+  rank: Number,
 	latitude: Number,
   longitude: Number,
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },

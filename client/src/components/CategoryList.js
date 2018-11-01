@@ -15,7 +15,7 @@ class CategoryList extends React.Component {
 
 		return (
 			<ul className="category-list">
-				{CategoryStore.categories.map((category) => (
+				{CategoryStore.categories.slice().sort((a, b) => a.rank - b.rank).map((category) => (
 					<li className="category-list__item" key={category.body}>
 						{category.name.en}
 					</li>
