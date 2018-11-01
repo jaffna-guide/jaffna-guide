@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import { Place } from '../models';
 import { requireAuth } from '../middlewares';
+import { createPlace } from '../controllers/places';
 
 export default (app) => {
 	app.get('/api/places', (req, res) => {
@@ -9,23 +10,5 @@ export default (app) => {
 		});
 	});
 
-	app.post('/api/places', requireAuth, (req, res) => {
-		const { name, latitude, longitude, category, description } = req.body;
-
-		const place = new Place({
-			name: {
-				en: name,
-			},
-			latitude: parseFloat(latitude),
-			longitude: parseFloat(longitude),
-			category,
-			description: {
-				en: description,
-			},
-			createdBy: req.user.id,
-			updatedBy: req.user.id,
-			createdAt: Date.now(),
-			updatedAt: Date.now(),
-		});
-	});
+	app.post('/api/places', requireAuth, createPlace);
 };

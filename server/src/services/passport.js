@@ -66,13 +66,15 @@ passport.use(
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 		},
 		function(payload, done) {
-      console.log(process.env.JWT_SECRET)
+      console.log('payload', payload);
 			User.findById(payload.sub, function(err, user) {
+        console.log('user', user);
 				if (err) {
 					return done(err, false);
 				}
 
 				if (user) {
+          console.log('done with the user');
 					done(null, user);
 				} else {
 					done(null, false);
