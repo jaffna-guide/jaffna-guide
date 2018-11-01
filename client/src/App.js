@@ -11,6 +11,7 @@ import EventsPage from './pages/Events';
 import RestaurantsPage from './pages/Restaurants';
 import HotelsPage from './pages/Hotels';
 import EducationPage from './pages/Education';
+import PlaceDetailsPage from './pages/PlaceDetails';
 
 @inject('PlaceStore')
 @inject('CategoryStore')
@@ -33,6 +34,7 @@ class App extends Component {
 						<Route path="/restaurants" exact component={RestaurantsPage} />
 						<Route path="/hotels" exact component={HotelsPage} />
 						<Route path="/education" exact component={EducationPage} />
+            <Route path="/:place" component={PlaceDetailsPage} />
 					</main>
 				</div>
 			</Router>

@@ -4,6 +4,7 @@ import axios from 'axios';
 class PlaceStore {
 	@observable places = [];
 	@observable state = 'pending'; // "pending" / "done" / "error"
+	@observable currentPlaceBody = '';
 
 	@action
 	fetchPlaces() {
@@ -30,11 +31,21 @@ class PlaceStore {
 	@action
 	addPlace = (place) => {
 		this.places.push(place);
-	};
+  };
+  
+  @action
+  setCurrentPlace(placeBody) {
+    this.currentPlaceBody = placeBody;
+  };
 
 	@computed
 	get placeCount() {
 		return this.places.length;
+	}
+
+	@computed
+	get currentPlace() {
+		return this.places.find((place) => place.body === this.currentPlaceBody);
 	}
 
 	@computed
