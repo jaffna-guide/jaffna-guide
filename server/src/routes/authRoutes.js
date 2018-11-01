@@ -9,7 +9,7 @@ function tokenForUser(user) {
 export default (app) => {
 	app.get('/auth/facebook', (req, res, next) => {
 		if (req.query.redirect) {
-			req.session.redirectTo = req.query.redirect;
+			req.session.redirectTo = encodeURIComponent(req.query.redirect);
 		}
 
 		passport.authenticate('facebook')(req, res, next);
@@ -23,9 +23,11 @@ export default (app) => {
 		}),
 		(req, res) => {
 			const token = req.user.jwt;
-			console.log('req', req);
-			res.send({ token, redirectTo: req.session.redirectTo });
-			// res.redirect(`/?token=${token}`);
+			if (req.session.redirectTo) {
+				res.redirect(`${req.session.redirectTo}?token=${token}`);
+			} else {
+				res.send({ token });
+			}
 		},
 	);
 
