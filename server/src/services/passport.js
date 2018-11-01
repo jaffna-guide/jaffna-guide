@@ -63,9 +63,10 @@ passport.use(
 	new JwtStrategy(
 		{
 			secretOrKey: process.env.JWT_SECRET,
-			jwtFromRequest: ExtractJwt.fromHeader('authorization'),
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 		},
 		function(payload, done) {
+      console.log(process.env.JWT_SECRET)
 			User.findById(payload.sub, function(err, user) {
 				if (err) {
 					return done(err, false);

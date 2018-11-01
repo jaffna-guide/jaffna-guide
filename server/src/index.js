@@ -49,7 +49,14 @@ if (process.env.NODE_ENV === 'development') {
 	app.use(require('cors')({ origin: 'http://localhost:8000' }));
 }
 
-app.use(session({ secret: process.env.COOKIE_KEY, cookie: { maxAge: 60000 } }));
+app.use(
+	session({
+		secret: process.env.COOKIE_KEY,
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: 60000 },
+	}),
+);
 
 app.use(bodyParser.json({ type: 'application/json' }));
 
