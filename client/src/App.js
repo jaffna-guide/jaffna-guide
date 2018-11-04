@@ -12,7 +12,7 @@ import RestaurantsPage from './pages/Restaurants';
 import HotelsPage from './pages/Hotels';
 import EducationPage from './pages/Education';
 import PlaceDetailsPage from './pages/PlaceDetails';
-import AdminPanelPage from './pages/AdminPanel';
+import AdminPanelPage from './pages/admin/AdminPanel';
 
 @inject('PlaceStore')
 @inject('CategoryStore')

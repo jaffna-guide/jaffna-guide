@@ -1,9 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-const Icon = ({ icon: SVGComponent, className }) => {
-  return (
-    <SVGComponent className={className} />
-  )
-}
+const Icon = ({ icon: SVGComponent, className, onClick }) => {
+	return <SVGComponent onClick={onClick} className={className} />;
+};
 
-export default Icon
+export default Icon;

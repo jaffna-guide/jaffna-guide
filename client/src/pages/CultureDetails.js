@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-const CultureDetails = () => {
+const CultureDetails = ({ place }) => {
   return (
-    <div>CultureDetails</div>
+    <div>{place.name.en}</div>
   )
 }
 
