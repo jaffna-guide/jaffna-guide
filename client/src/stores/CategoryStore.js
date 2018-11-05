@@ -36,6 +36,11 @@ class CategoryStore {
 	get categoryCount() {
 		return this.categories.length;
 	}
+
+	@computed
+	get placeCategories() {
+		return this.categories.filter((category) => category.body !== 'events');
+	}
 }
 
 const store = new CategoryStore();

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form } from 'react-final-form';
 
-class Wizard extends React.Component {
+class WizardForm extends React.Component {
 	static Page = ({ children }) => children;
 
 	constructor(props) {
@@ -14,7 +14,8 @@ class Wizard extends React.Component {
 	}
 
 	next = (event) => {
-		event.persist();
+		console.log('event/next', event);
+		event.persist && event.persist();
 		this.setState((state) => ({
 			page: Math.min(state.page + 1, this.props.children.length - 1),
 		}));
@@ -29,7 +30,8 @@ class Wizard extends React.Component {
 		return activePage.props.validate ? activePage.props.validate(values) : {};
 	};
 
-	handleSubmit = (values, event) => {
+	handleSubmit = (values) => {
+		console.log('values/handleSubmit', values);
 		const { onSubmit, children } = this.props;
 		const { page } = this.state;
 		const isLastPage = page === React.Children.count(children) - 1;
@@ -63,7 +65,7 @@ class Wizard extends React.Component {
 									</button>
 								)}
 								{!isLastPage && (
-									<button className={`${name}__button--next btn btn-primary`} onClick={this.next}>
+									<button className={`${name}__button--next btn btn-primary`} type="submit">
 										Next »
 									</button>
 								)}
@@ -85,4 +87,4 @@ class Wizard extends React.Component {
 	}
 }
 
-export default Wizard;
+export default WizardForm;

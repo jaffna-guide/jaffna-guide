@@ -10,7 +10,7 @@ import { ReactComponent as Plus } from '../../assets/plus.svg';
 class AdminPanel extends React.Component {
 	state = {
 		selectedPlace: '',
-		modalOpen: true,
+		modalOpen: false,
 	};
 
 	toggleModal = () => {

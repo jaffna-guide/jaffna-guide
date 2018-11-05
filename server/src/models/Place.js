@@ -8,7 +8,7 @@ const placeSchema = new Schema({
 		en: String,
 		ta: String,
   },
-  rank: Number,
+  score: Number,
 	latitude: Number,
   longitude: Number,
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },

@@ -1,22 +1,38 @@
 .form {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.form-label {
+	font-size: .8rem;
+}
+
+.form-group {
+	&:not(:last-child) {
+		margin-bottom: .7rem;
+	}
 }
 
 .add-place-form {
-  min-height: 300px;
-  display: flex;
+	min-height: 300px;
+	display: flex;
   flex-direction: column;
-
-  &__buttons {
-    margin-top: .8rem;
+  
+  &__header {
     display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    flex: 1;
-  }
-
-  &__title {
+    align-items: center;
     margin-bottom: .7rem;
   }
+
+	&__buttons {
+		margin-top: .8rem;
+		display: flex;
+		justify-content: flex-end;
+		align-items: flex-end;
+		flex: 1;
+	}
+
+	&__title {
+		
+	}
 }

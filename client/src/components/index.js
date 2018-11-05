@@ -1,2 +1,2 @@
 export { default as Icon } from './Icon';
-export { default as Wizard } from './Wizard';
+export { default as WizardForm } from './WizardForm';
