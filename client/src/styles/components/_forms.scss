@@ -1,0 +1,22 @@
+.form {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.add-place-form {
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+
+  &__buttons {
+    margin-top: .8rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex: 1;
+  }
+
+  &__title {
+    margin-bottom: .7rem;
+  }
+}
