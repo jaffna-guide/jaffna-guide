@@ -23,13 +23,18 @@ class AdminRoute extends React.Component {
 			<Route
 				{...rest}
 				render={(props) => {
+					console.log('hi from render');
 					if (AuthStore.state === 'pending') {
+						console.log('case: pending');
 						return null;
 					} else if (AuthStore.isAdmin) {
+						console.log('case: admin');
 						return <Component {...props} />;
 					} else if (AuthStore.isAuthenticated || AuthStore.authenticationFailed) {
+						console.log('case: authentication completed');
 						return <Redirect to="/" />;
 					} else {
+						console.log('case: redirect');
 						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
