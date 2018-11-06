@@ -24,12 +24,14 @@ class AdminRoute extends React.Component {
 				{...rest}
 				render={(props) => {
 					if (AuthStore.isAdmin) {
+            console.log('is admin!!!!!!!!!!!');
 						return <Component {...props} />;
-					} else if (AuthStore.isAuthenticated) {
+					} else if (AuthStore.authUser !== null) {
+            console.log('either authenticated but not admin or unable to authenticate/invalid jwt');
 						return <Redirect to="/" />;
 					} else {
-            return null;
-						// window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+            console.log('is not authenticated!!!!!!!!!!!');
+						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
 			/>

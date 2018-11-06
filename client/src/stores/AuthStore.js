@@ -8,7 +8,10 @@ class AuthStore {
 	@action
 	authenticate() {
 		this.authUser = null;
-		this.state = 'pending';
+    this.state = 'pending';
+    
+    const token = localStorage.getItem('token');
+    console.log('token', token);
 
 		axios
 			.get('/api/auth_user', {
@@ -18,8 +21,9 @@ class AuthStore {
 				},
 			})
 			.then((res) => {
-        const authUser = res.data;
-        console.log('authUser', authUser);
+				const authUser = res.data;
+				console.log('authUser', authUser);
+				localStorage.setItem('token', authUser.jwt);
 				runInAction(() => {
 					this.authUser = authUser;
 					this.state = 'done';
@@ -27,6 +31,7 @@ class AuthStore {
 			})
 			.catch(() => {
         console.log('user was not able to authenticate');
+        localStorage.removeItem('token');
 				runInAction(() => {
 					this.authUser = false;
 					this.state = 'done';
