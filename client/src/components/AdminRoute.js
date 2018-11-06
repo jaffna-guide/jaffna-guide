@@ -30,7 +30,7 @@ class AdminRoute extends React.Component {
 					console.log('hi from render');
 					if (AuthStore.state === 'pending') {
 						console.log('case: pending');
-            return <div key={AuthStore.state}>pending|{AuthStore.state}</div>;
+            return <div>pending|{AuthStore.state}</div>;
 					} else if (AuthStore.isAdmin) {
 						console.log('case: admin');
 						return <Component {...props} />;
@@ -39,7 +39,8 @@ class AdminRoute extends React.Component {
 						return <Redirect to="/" />;
 					} else {
 						console.log('case: redirect');
-						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+            return <div>redirect</div>;
+						// window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
 			/>
