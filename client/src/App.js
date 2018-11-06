@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { inject } from 'mobx-react';
 
-import Header from './components/Header';
+import { AdminRoute, Header } from './components';
 import CategoryList from './components/CategoryList';
 import CrossFadeBackground from './components/CrossFadeBackground';
 
@@ -30,8 +30,8 @@ class App extends Component {
 					<main className="main">
 						<Header />
 						<Switch>
-							<Route path="/admin" exact component={AdminPanelPage} />
-              <Route path="/" exact component={CategoryList} />
+							<AdminRoute path="/admin" exact component={AdminPanelPage} />
+							<Route path="/" exact component={CategoryList} />
 							<Route path="/events" exact component={EventsPage} />
 							<Route path="/culture" exact component={CulturePage} />
 							<Route path="/restaurants" exact component={RestaurantsPage} />

@@ -32,15 +32,15 @@ passport.use(
 		{
 			clientID: process.env.FACEBOOK_APP_ID,
 			clientSecret: process.env.FACEBOOK_APP_SECRET,
-      callbackURL,
+			callbackURL,
 		},
 		function(accessToken, refreshToken, profile, done) {
 			User.findOne({ facebookId: profile.id }).then((existingUser) => {
 				const iat = new Date().getTime();
-        const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
+				const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
 
 				if (existingUser) {
-          existingUser.jwt = token;
+					existingUser.jwt = token;
 					existingUser.save();
 					done(null, existingUser);
 				} else {
@@ -48,6 +48,7 @@ passport.use(
 						jwt: token,
 						facebookId: profile.id,
 						displayName: profile.displayName,
+						roles: [ 'traveller' ],
 					})
 						.save()
 						.then((newUser) => {
@@ -63,7 +64,7 @@ passport.use(
 	new JwtStrategy(
 		{
 			secretOrKey: process.env.JWT_SECRET,
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
 		},
 		function(payload, done) {
 			User.findById(payload.sub, function(err, user) {

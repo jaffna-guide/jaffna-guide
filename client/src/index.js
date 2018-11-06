@@ -6,12 +6,12 @@ import { Provider } from 'mobx-react';
 import App from './App';
 import './styles/main.scss';
 import * as serviceWorker from './serviceWorker';
-import { PlaceStore, CategoryStore } from './stores';
+import { PlaceStore, CategoryStore, AuthStore } from './stores';
 
 const Root = (
-  <Provider PlaceStore={PlaceStore} CategoryStore={CategoryStore}>
-    <App />
-  </Provider>
+	<Provider PlaceStore={PlaceStore} CategoryStore={CategoryStore} AuthStore={AuthStore}>
+		<App />
+	</Provider>
 );
 
 ReactDOM.render(Root, document.getElementById('root'));

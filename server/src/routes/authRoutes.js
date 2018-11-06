@@ -1,5 +1,6 @@
 import passport from 'passport';
 import jwt from 'jwt-simple';
+import { requireAuth } from '../middlewares';
 
 export default (app) => {
 	app.get('/auth/facebook', (req, res, next) => {
@@ -28,7 +29,7 @@ export default (app) => {
 		},
 	);
 
-	app.get('/api/auth_user', (req, res) => {
+	app.get('/api/auth_user', requireAuth, (req, res) => {
 		res.send(req.user);
 	});
 };
