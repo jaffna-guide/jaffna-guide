@@ -5,12 +5,12 @@ import { Route, Redirect } from 'react-router-dom';
 @inject('AuthStore')
 @observer
 class AdminRoute extends React.Component {
-	componentDidMount() {
-    const { AuthStore } = this.props;
-    if (AuthStore.authUser === null) {
-      AuthStore.authenticate();
-    }
-  }
+	// componentDidMount() {
+  //   const { AuthStore } = this.props;
+  //   if (AuthStore.authUser === null) {
+  //     AuthStore.authenticate();
+  //   }
+  // }
 
 	render() {
     const { AuthStore, component: Component, ...rest } = this.props;

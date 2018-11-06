@@ -14,7 +14,7 @@ class AuthStore {
 			.get('/api/auth_user', {
 				headers: {
 					Authorization:
-						'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmQ2ODZmNzliN2EwYTRjYzM1ZGZhM2UiLCJpYXQiOjE1NDE0NzQ1MzIxMDB9.jLwqKfujCsy5tbVa_61vN5hV78oHuxr035s3KpOYnC0',
+						'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmQ2ODZmNzliN2EwYTRjYzM1ZGZhM2UiLCJpYXQiOjE1NDE0ODI2MjcxMzd9.rZvxEsVyofZHUdQFo2RO4HSQDDS2yovTrjqQTNEPiQw',
 				},
 			})
 			.then((res) => {
