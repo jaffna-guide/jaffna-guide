@@ -27,7 +27,7 @@ class AdminRoute extends React.Component {
 						return null;
 					} else if (AuthStore.isAdmin) {
 						return <Component {...props} />;
-					} else if (AuthStore.isAuthenticated) {
+					} else if (AuthStore.isAuthenticated || AuthStore.authenticationFailed) {
 						return <Redirect to="/" />;
 					} else {
 						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
