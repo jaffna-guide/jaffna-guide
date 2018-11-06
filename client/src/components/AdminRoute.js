@@ -15,9 +15,9 @@ class AdminRoute extends React.Component {
 	render() {
     const { AuthStore, component: Component, ...rest } = this.props;
     
-    console.log('this.props', this.props);
     console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
     console.log('AuthStore.isAdmin', AuthStore.isAdmin);
+    console.log('AuthStore.authUser', AuthStore.authUser);
 
 		return (
 			<Route
@@ -31,7 +31,8 @@ class AdminRoute extends React.Component {
 						return <Redirect to="/" />;
 					} else {
             console.log('is not authenticated!!!!!!!!!!!');
-						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+						// window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+            return null;
 					}
 				}}
 			/>
