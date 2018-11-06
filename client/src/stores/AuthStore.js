@@ -15,7 +15,7 @@ class AuthStore {
 
 		const headers = {};
 		if (token) {
-      headers['Authorization'] = token;
+      headers['Authorization'] = `Bearer ${token}`;
 		} else {
       this.state = 'done';
       return;
