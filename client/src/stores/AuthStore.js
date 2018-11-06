@@ -15,11 +15,12 @@ class AuthStore {
 
 		const headers = {};
 		if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+			headers['Authorization'] = `Bearer ${token}`;
 		} else {
-      this.state = 'done';
-      return;
-    }
+			return runInAction(() => {
+				this.state = 'done';
+			});
+		}
 
 		axios
 			.get('/api/auth_user', { headers })
@@ -44,7 +45,7 @@ class AuthStore {
 
 	@action
 	logout() {
-    localStorage.removeItem('token');
+		localStorage.removeItem('token');
 		this.state = 'done';
 		this.authUser = false;
 	}
@@ -52,12 +53,12 @@ class AuthStore {
 	@computed
 	get isAuthenticated() {
 		return this.authUser ? true : false;
-  }
-  
-  @computed
-  get authenticationFailed() {
-    return this.authUser === false ? true : false;
-  }
+	}
+
+	@computed
+	get authenticationFailed() {
+		return this.authUser === false ? true : false;
+	}
 
 	@computed
 	get isAdmin() {
