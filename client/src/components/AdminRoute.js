@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 import { Route, Redirect } from 'react-router-dom';
+import DevTools from 'mobx-react-devtools';
 
 @inject('AuthStore')
 @observer
@@ -20,6 +21,8 @@ class AdminRoute extends React.Component {
 		console.log('AuthStore.authUser', AuthStore.authUser);
 
 		return (
+      <>
+      <DevTools />
 			<Route
 				{...rest}
 				render={(props) => {
@@ -39,6 +42,7 @@ class AdminRoute extends React.Component {
 					}
 				}}
 			/>
+      </>
 		);
 	}
 }
