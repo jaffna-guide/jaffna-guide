@@ -14,17 +14,19 @@ class AuthStore {
 			.get('/api/auth_user', {
 				headers: {
 					Authorization:
-						'Bearer xeyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmQ2ODZmNzliN2EwYTRjYzM1ZGZhM2UiLCJpYXQiOjE1NDE0NzQ1MzIxMDB9.jLwqKfujCsy5tbVa_61vN5hV78oHuxr035s3KpOYnC0',
+						'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmQ2ODZmNzliN2EwYTRjYzM1ZGZhM2UiLCJpYXQiOjE1NDE0NzQ1MzIxMDB9.jLwqKfujCsy5tbVa_61vN5hV78oHuxr035s3KpOYnC0',
 				},
 			})
 			.then((res) => {
-				const authUser = res.data;
+        const authUser = res.data;
+        console.log('authUser', authUser);
 				runInAction(() => {
 					this.authUser = authUser;
 					this.state = 'done';
 				});
 			})
 			.catch(() => {
+        console.log('user was not able to authenticate');
 				runInAction(() => {
 					this.authUser = false;
 					this.state = 'done';
