@@ -7,6 +7,18 @@ import App from './App';
 import './styles/main.scss';
 import * as serviceWorker from './serviceWorker';
 import { PlaceStore, CategoryStore, AuthStore } from './stores';
+import queryString from 'query-string';
+
+const qs = queryString.parse(window.location.search);
+if (qs.token) {
+  localStorage.setItem('token', qs.token);
+
+  const uri = window.location.toString();
+  if (uri.indexOf("?") > 0) {
+    var clean_uri = uri.substring(0, uri.indexOf("?"));
+    window.history.replaceState({}, document.title, clean_uri);
+  }
+}
 
 const Root = (
 	<Provider PlaceStore={PlaceStore} CategoryStore={CategoryStore} AuthStore={AuthStore}>
