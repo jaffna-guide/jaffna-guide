@@ -16,11 +16,10 @@ class AuthStore {
 		const headers = {};
 		if (token) {
 			headers['Authorization'] = `Bearer ${token}`;
-    }
-    //  else {
-    //   this.state = 'done';
-    //   return;
-    // }
+		} else {
+			console.log('no token in localstorage case');
+			return (this.state = 'done');
+		}
 
 		axios
 			.get('/api/auth_user', { headers })
