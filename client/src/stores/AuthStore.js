@@ -8,18 +8,18 @@ class AuthStore {
 	@action
 	authenticate() {
 		this.authUser = null;
-    this.state = 'pending';
-    
-    const token = localStorage.getItem('token');
-    console.log('token', token);
+		this.state = 'pending';
+
+		const token = localStorage.getItem('token');
+		console.log('token', token);
+
+		const headers = {};
+		if (token) {
+			headers['Authorization'] = token;
+		}
 
 		axios
-			.get('/api/auth_user', {
-				headers: {
-					Authorization:
-						'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1YmQ2ODZmNzliN2EwYTRjYzM1ZGZhM2UiLCJpYXQiOjE1NDE0ODI2MjcxMzd9.rZvxEsVyofZHUdQFo2RO4HSQDDS2yovTrjqQTNEPiQw',
-				},
-			})
+			.get('/api/auth_user', { headers })
 			.then((res) => {
 				const authUser = res.data;
 				console.log('authUser', authUser);
@@ -30,8 +30,8 @@ class AuthStore {
 				});
 			})
 			.catch(() => {
-        console.log('user was not able to authenticate');
-        localStorage.removeItem('token');
+				console.log('user was not able to authenticate');
+				localStorage.removeItem('token');
 				runInAction(() => {
 					this.authUser = false;
 					this.state = 'done';
