@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class AuthStore {
 	@observable authUser = null;
-	@observable state = 'pending'; // "pending" / "done" / "error"
+  @observable state = 'pending'; // "pending" / "done" / "error"
 
 	@action
 	authenticate() {

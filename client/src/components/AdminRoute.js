@@ -16,6 +16,7 @@ class AdminRoute extends React.Component {
 	render() {
 		const { AuthStore, component: Component, ...rest } = this.props;
 
+    console.log('AuthStore.state', AuthStore.state);
 		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
 		console.log('AuthStore.isAdmin', AuthStore.isAdmin);
 		console.log('AuthStore.authUser', AuthStore.authUser);
