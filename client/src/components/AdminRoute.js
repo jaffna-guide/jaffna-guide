@@ -5,12 +5,12 @@ import { Route, Redirect } from 'react-router-dom';
 @inject('AuthStore')
 @observer
 class AdminRoute extends React.Component {
-	// componentDidMount() {
-  //   const { AuthStore } = this.props;
-  //   if (AuthStore.authUser === null) {
-  //     AuthStore.authenticate();
-  //   }
-  // }
+	componentDidMount() {
+    const { AuthStore } = this.props;
+    if (AuthStore.authUser === null) {
+      AuthStore.authenticate();
+    }
+  }
 
 	render() {
     const { AuthStore, component: Component, ...rest } = this.props;
@@ -28,7 +28,8 @@ class AdminRoute extends React.Component {
 					} else if (AuthStore.isAuthenticated) {
 						return <Redirect to="/" />;
 					} else {
-						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+            return null;
+						// window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
 			/>
