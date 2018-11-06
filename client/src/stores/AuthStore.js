@@ -16,11 +16,11 @@ class AuthStore {
 		const headers = {};
 		if (token) {
 			headers['Authorization'] = `Bearer ${token}`;
-		} else {
-			return runInAction(() => {
-				this.state = 'done';
-			});
-		}
+    }
+    //  else {
+    //   this.state = 'done';
+    //   return;
+    // }
 
 		axios
 			.get('/api/auth_user', { headers })
