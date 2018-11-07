@@ -39,8 +39,8 @@ class AdminRoute extends React.Component {
 						return <Redirect to="/" />;
 					} else {
 						console.log('case: redirect');
-            return <div>redirect</div>;
-						// window.location.href = `/auth/facebook?redirect=${this.props.path}`;
+            // return <div>redirect</div>;
+						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
 			/>
