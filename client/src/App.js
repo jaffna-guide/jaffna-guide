@@ -27,8 +27,8 @@ class App extends Component {
 			<Router>
 				<div>
 					<CrossFadeBackground />
+					<Header />
 					<main className="main">
-						<Header />
 						<Switch>
 							<AdminRoute path="/admin" exact component={AdminPanelPage} />
 							<Route path="/" exact component={CategoryList} />
