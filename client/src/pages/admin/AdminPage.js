@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import CreatePlaceForm from './CreatePlaceForm';
-import { Icon } from '../../components';
+import { Icon } from '../../components/atoms';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
+import CreateEditPlaceForm from './CreateEditPlaceForm';
 
 @inject('PlaceStore')
 @observer
@@ -57,7 +57,7 @@ class AdminPanel extends React.Component {
 					<div className="modal active" id="add-place">
 						<div className="modal-overlay" aria-label="Close" onClick={this.toggleModal} />
 						<div className="modal-container">
-							<CreatePlaceForm />
+							<CreateEditPlaceForm />
 						</div>
 					</div>
 				)}

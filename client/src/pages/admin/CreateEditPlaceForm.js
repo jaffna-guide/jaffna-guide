@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Field } from 'react-final-form';
 import { inject } from 'mobx-react';
 
-import { WizardForm } from '../../components';
+import { WizardForm } from '../../components/forms';
 
 @inject('CategoryStore')
 class CreatePlaceForm extends React.Component {

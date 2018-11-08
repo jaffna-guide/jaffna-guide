@@ -6,22 +6,28 @@ import { Provider } from 'mobx-react';
 import App from './App';
 import './styles/main.scss';
 import * as serviceWorker from './serviceWorker';
-import { PlaceStore, CategoryStore, AuthStore } from './stores';
+import { PlaceStore, CategoryStore, AuthStore, LanguageStore, EventStore } from './stores';
 import queryString from 'query-string';
 
 const qs = queryString.parse(window.location.search);
 if (qs.token) {
-  localStorage.setItem('token', qs.token);
+	localStorage.setItem('token', qs.token);
 
-  const uri = window.location.toString();
-  if (uri.indexOf("?") > 0) {
-    var clean_uri = uri.substring(0, uri.indexOf("?"));
-    window.history.replaceState({}, document.title, clean_uri);
-  }
+	const uri = window.location.toString();
+	if (uri.indexOf('?') > 0) {
+		var clean_uri = uri.substring(0, uri.indexOf('?'));
+		window.history.replaceState({}, document.title, clean_uri);
+	}
 }
 
 const Root = (
-	<Provider PlaceStore={PlaceStore} CategoryStore={CategoryStore} AuthStore={AuthStore}>
+	<Provider
+		PlaceStore={PlaceStore}
+		CategoryStore={CategoryStore}
+		AuthStore={AuthStore}
+		LanguageStore={LanguageStore}
+		EventStore={EventStore}
+	>
 		<App />
 	</Provider>
 );

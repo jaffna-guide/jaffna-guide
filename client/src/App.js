@@ -2,20 +2,23 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { inject } from 'mobx-react';
 
-import { AdminRoute, Header } from './components';
-import CategoryList from './components/CategoryList';
-import CrossFadeBackground from './components/CrossFadeBackground';
-
-import CulturePage from './pages/Culture';
-import EventsPage from './pages/Events';
-import RestaurantsPage from './pages/Restaurants';
-import HotelsPage from './pages/Hotels';
-import EducationPage from './pages/Education';
-import PlaceDetailsPage from './pages/PlaceDetails';
-import AdminPanelPage from './pages/admin/AdminPanel';
+import { Header, Footer, CrossFadeBackground } from './components/layout';
+import { AdminRoute } from './components/routes';
+import {
+	HomePage,
+	AboutPage,
+	CulturePage,
+	EventsPage,
+	RestaurantsPage,
+	HotelsPage,
+	EducationPage,
+	PlaceDetailsPage,
+	AdminPage,
+} from './pages';
 
 @inject('PlaceStore')
 @inject('CategoryStore')
+@inject('LanguageStore')
 class App extends Component {
 	componentDidMount() {
 		this.props.CategoryStore.fetchCategories();
@@ -23,15 +26,19 @@ class App extends Component {
 	}
 
 	render() {
+		const { LanguageStore } = this.props;
+		const { lang } = LanguageStore;
+
 		return (
 			<Router>
 				<div>
-					<CrossFadeBackground />
+					{/* <CrossFadeBackground /> */}
 					<Header />
 					<main className="main">
 						<Switch>
-							<AdminRoute path="/admin" exact component={AdminPanelPage} />
-							<Route path="/" exact component={CategoryList} />
+							<AdminRoute path="/admin" exact component={AdminPage} />
+							<Route path="/" exact component={() => <HomePage lang={lang} />} />
+							<Route path="/about" exact component={() => <AboutPage lang={lang} />} />
 							<Route path="/events" exact component={EventsPage} />
 							<Route path="/culture" exact component={CulturePage} />
 							<Route path="/restaurants" exact component={RestaurantsPage} />
@@ -40,6 +47,7 @@ class App extends Component {
 							<Route path="/:place" component={PlaceDetailsPage} />
 						</Switch>
 					</main>
+					<Footer />
 				</div>
 			</Router>
 		);

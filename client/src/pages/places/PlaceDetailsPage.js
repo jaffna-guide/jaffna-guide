@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import CultureDetailsPage from './CultureDetails';
-import RestaurantDetailsPage from './RestaurantDetails';
+import CultureDetailsPage from './CultureDetailsPage';
+import RestaurantDetailsPage from './RestaurantDetailsPage';
 
 @inject('PlaceStore')
 @observer
