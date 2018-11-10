@@ -3,6 +3,7 @@ import { observer, inject } from 'mobx-react';
 
 import { Icon } from '../../components/atoms';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
+import { ReactComponent as Delete } from '../../assets/delete.svg';
 import CreateEditPlaceForm from './CreateEditPlaceForm';
 
 @inject('PlaceStore')
@@ -15,6 +16,15 @@ class AdminPanel extends React.Component {
 
 	toggleModal = () => {
 		this.setState(({ modalOpen }) => ({ modalOpen: !modalOpen }));
+	};
+
+	togglePlaceActive = (placeId) => {
+		const { PlaceStore } = this.props;
+		PlaceStore.togglePlaceActive(placeId);
+	};
+
+	deletePlace = () => {
+		console.log('deletePlace');
 	};
 
 	render() {
@@ -36,17 +46,37 @@ class AdminPanel extends React.Component {
 							</tr>
 						</thead>
 						<tbody>
-							{PlaceStore.places.map((place) => (
-								<tr
-									key={place.body}
-									className={this.state.selectedPlace === place.body ? 'active' : ''}
-								>
-									<td>{place.name.en}</td>
-									<td>{place.category.body}</td>
-									<td>102</td>
-									<td>Delete | Deactivate</td>
-								</tr>
-							))}
+							{PlaceStore.places.map((place) => {
+								console.log('place', place._id);
+
+								return (
+									<tr
+										key={place.body}
+										className={this.state.selectedPlace === place.body ? 'active' : ''}
+									>
+										<td>{place.name.en}</td>
+										<td>{place.category.body}</td>
+										<td>102</td>
+										<td className="admin-panel__place-controls">
+											<Icon
+												className="admin-panel__delete-place-icon"
+												icon={Delete}
+												onClick={() => this.deletePlace(place._id)}
+											/>
+											<div className="admin-panel__deactivate-switch form-group">
+												<label className="form-switch">
+													<input
+														type="checkbox"
+														checked={place.active}
+														onChange={() => this.togglePlaceActive(place._id)}
+													/>
+													<i className="form-icon" />
+												</label>
+											</div>
+										</td>
+									</tr>
+								)
+							})}
 						</tbody>
 					</table>
 				</div>

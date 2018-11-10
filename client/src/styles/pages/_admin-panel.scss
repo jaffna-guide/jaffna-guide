@@ -6,8 +6,8 @@
 	margin-right: auto;
 
 	&__title-wrapper {
-    display: flex;
-    justify-content: center;
+		display: flex;
+		justify-content: center;
 	}
 
 	&__title {
@@ -29,5 +29,20 @@
 		width: 3rem;
 		height: 3rem;
 		cursor: pointer;
+	}
+
+	&__place-controls {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&__delete-place-icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		cursor: pointer;
+	}
+
+	&__deactivate-switch {
+		margin-left: .5rem;
 	}
 }

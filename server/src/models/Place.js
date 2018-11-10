@@ -11,6 +11,7 @@ const placeSchema = new Schema({
   score: Number,
 	latitude: Number,
   longitude: Number,
+  active: Boolean,
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
 	createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },

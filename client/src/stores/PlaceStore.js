@@ -31,12 +31,22 @@ class PlaceStore {
 	@action
 	addPlace = (place) => {
 		this.places.push(place);
-  };
-  
-  @action
-  setCurrentPlace(placeBody) {
-    this.currentPlaceBody = placeBody;
-  };
+	};
+
+	@action
+	togglePlaceActive = async (placeId) => {
+		const placeToUpdate = this.places.find((p) => p._id === placeId);
+		await axios.patch('/api/places', { id: placeId, active: !placeToUpdate.active });
+
+		runInAction(() => {
+			placeToUpdate.active = !placeToUpdate.active;
+		});
+	};
+
+	@action
+	setCurrentPlace(placeBody) {
+		this.currentPlaceBody = placeBody;
+	}
 
 	@computed
 	get placeCount() {

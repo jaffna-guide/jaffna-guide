@@ -27,3 +27,9 @@ export const createPlace = (req, res) => {
 
 	res.send(place);
 };
+
+export const updatePlace = async (req, res) => {
+	const { id, ...values } = req.body;
+	const place = await Place.findOneAndUpdate(id, { $set: values }, { new: false });
+	res.send(place);
+};
