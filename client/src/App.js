@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { inject } from 'mobx-react';
 
-import { Header, Footer, CrossFadeBackground } from './components/layout';
+import { Header, Footer } from './components/layout';
 import { AdminRoute } from './components/routes';
 import {
 	HomePage,
@@ -32,7 +32,6 @@ class App extends Component {
 		return (
 			<Router>
 				<div>
-					{/* <CrossFadeBackground /> */}
 					<Header />
 					<main className="main">
 						<Switch>

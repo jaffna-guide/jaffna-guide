@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import ReactDOM from 'react-dom';
 import 'typeface-abril-fatface';
 import { Provider } from 'mobx-react';
@@ -19,6 +20,8 @@ if (qs.token) {
 		window.history.replaceState({}, document.title, clean_uri);
 	}
 }
+
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 
 const Root = (
 	<Provider
