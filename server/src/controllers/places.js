@@ -33,3 +33,8 @@ export const updatePlace = async (req, res) => {
 	const place = await Place.findOneAndUpdate({ _id: id }, { $set: values }, { new: false });
 	res.send(place);
 };
+
+export const deletePlace = async (req, res) => {
+	await Place.deleteOne({ _id: req.params.placeId });
+	res.send(200);
+}

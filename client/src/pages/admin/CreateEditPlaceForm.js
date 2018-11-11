@@ -93,9 +93,11 @@ class CreatePlaceForm extends React.Component {
 									Category
 								</label>
 								<select {...input} className="form-select">
-									<option>Choose an option</option>
+									<option value="">Choose an option</option>
 									{CategoryStore.placeCategories.map((category) => (
-										<option key={category.body}>{category.name.en}</option>
+										<option key={category.body} value={category.body}>
+											{category.name.en}
+										</option>
 									))}
 								</select>
 								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}

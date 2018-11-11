@@ -23,8 +23,10 @@ class AdminPanel extends React.Component {
 		PlaceStore.togglePlaceActive(placeId);
 	};
 
-	deletePlace = () => {
+	deletePlace = (placeId) => {
 		console.log('deletePlace');
+		const { PlaceStore } = this.props;
+		PlaceStore.deletePlace(placeId);
 	};
 
 	render() {
@@ -53,7 +55,7 @@ class AdminPanel extends React.Component {
 										className={this.state.selectedPlace === place.body ? 'active' : ''}
 									>
 										<td className="admin-panel__name-column">
-											<div >{place.name.en}</div>
+											<div>{place.name.en}</div>
 										</td>
 										<td>{place.category.body}</td>
 										<td>102</td>

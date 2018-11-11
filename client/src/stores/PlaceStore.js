@@ -36,6 +36,17 @@ class PlaceStore {
 	};
 
 	@action
+	deletePlace = async (placeId) => {
+		const res = await axios.delete(`/api/places/${placeId}`);
+		if (res.status === 200) {
+			const index = this.places.map((p) => p.id).indexOf(placeId);
+			runInAction(() => {
+				this.places.splice(index, 1);
+			});
+		}
+	};
+
+	@action
 	togglePlaceActive = async (placeId) => {
 		const placeToUpdate = this.places.find((p) => p._id === placeId);
 		await axios.patch('/api/places', { id: placeId, active: !placeToUpdate.active });
