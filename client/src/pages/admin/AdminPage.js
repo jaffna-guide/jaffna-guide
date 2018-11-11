@@ -55,25 +55,27 @@ class AdminPanel extends React.Component {
 										<td>{place.name.en}</td>
 										<td>{place.category.body}</td>
 										<td>102</td>
-										<td className="admin-panel__place-controls">
-											<Icon
-												className="admin-panel__delete-place-icon"
-												icon={Delete}
-												onClick={() => this.deletePlace(place._id)}
-											/>
-											<div className="admin-panel__deactivate-switch form-group">
-												<label className="form-switch">
-													<input
-														type="checkbox"
-														checked={place.active}
-														onChange={() => this.togglePlaceActive(place._id)}
-													/>
-													<i className="form-icon" />
-												</label>
+										<td>
+											<div className="admin-panel__place-controls">
+												<Icon
+													className="admin-panel__delete-place-icon"
+													icon={Delete}
+													onClick={() => this.deletePlace(place._id)}
+												/>
+												<div className="admin-panel__deactivate-switch form-group">
+													<label className="form-switch">
+														<input
+															type="checkbox"
+															checked={place.active}
+															onChange={() => this.togglePlaceActive(place._id)}
+														/>
+														<i className="form-icon" />
+													</label>
+												</div>
 											</div>
 										</td>
 									</tr>
-								)
+								);
 							})}
 						</tbody>
 					</table>
