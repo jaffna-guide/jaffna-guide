@@ -11,13 +11,11 @@ class AuthStore {
 		this.state = 'pending';
 
 		const token = localStorage.getItem('token');
-		console.log('token', token);
 
 		const headers = {};
 		if (token) {
 			headers['Authorization'] = `Bearer ${token}`;
 		} else {
-			console.log('no token in localstorage case');
 			return (this.state = 'done');
 		}
 
@@ -25,7 +23,6 @@ class AuthStore {
 			.get('/api/auth_user', { headers })
 			.then((res) => {
 				const authUser = res.data;
-				console.log('authUser', authUser);
 				localStorage.setItem('token', authUser.jwt);
 				runInAction(() => {
 					this.authUser = authUser;
@@ -33,7 +30,6 @@ class AuthStore {
 				});
 			})
 			.catch(() => {
-				console.log('user was not able to authenticate');
 				localStorage.removeItem('token');
 				runInAction(() => {
 					this.authUser = false;

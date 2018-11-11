@@ -29,8 +29,10 @@ class PlaceStore {
 	}
 
 	@action
-	addPlace = (place) => {
-		this.places.push(place);
+	createPlace = async (place, toggleModal) => {
+		const res = await axios.post('/api/places', place);
+		toggleModal();
+		this.places.push(res.data);
 	};
 
 	@action

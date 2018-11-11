@@ -8,7 +8,9 @@ export const getAllPlaces = (req, res) => {
 };
 
 export const createPlace = (req, res) => {
-	const { name, latitude, longitude, category, description, body } = req.body;
+	const { name, description, latitude, longitude, category } = req.body;
+
+	const body = name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
 
 	const place = new Place({
 		body,
@@ -19,8 +21,6 @@ export const createPlace = (req, res) => {
 		description,
 		createdBy: req.user.id,
 		updatedBy: req.user.id,
-		createdAt: Date.now(),
-		updatedAt: Date.now(),
 	});
 
 	place.save();
@@ -30,6 +30,6 @@ export const createPlace = (req, res) => {
 
 export const updatePlace = async (req, res) => {
 	const { id, ...values } = req.body;
-	const place = await Place.findOneAndUpdate(id, { $set: values }, { new: false });
+	const place = await Place.findOneAndUpdate({ _id: id }, { $set: values }, { new: false });
 	res.send(place);
 };

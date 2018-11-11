@@ -14,7 +14,6 @@ class WizardForm extends React.Component {
 	}
 
 	next = (event) => {
-		console.log('event/next', event);
 		event.persist && event.persist();
 		this.setState((state) => ({
 			page: Math.min(state.page + 1, this.props.children.length - 1),
@@ -31,7 +30,6 @@ class WizardForm extends React.Component {
 	};
 
 	handleSubmit = (values) => {
-		console.log('values/handleSubmit', values);
 		const { onSubmit, children } = this.props;
 		const { page } = this.state;
 		const isLastPage = page === React.Children.count(children) - 1;

@@ -4,10 +4,29 @@ import { inject } from 'mobx-react';
 
 import { WizardForm } from '../../components/forms';
 
+@inject('PlaceStore')
 @inject('CategoryStore')
 class CreatePlaceForm extends React.Component {
 	handleSubmit = (values) => {
-		console.log('values', values);
+		const { PlaceStore, CategoryStore } = this.props;
+
+		const categoryId = CategoryStore.categories.find((c) => c.body === values.category.toLowerCase())._id;
+
+		const place = {
+			name: {
+				ta: values.nameTa,
+				en: values.nameEn,
+			},
+			description: {
+				ta: values.descriptionTa,
+				en: values.descriptionEn,
+			},
+			category: categoryId,
+			latitude: values.latitude,
+			longitude: values.longitude,
+		};
+
+		PlaceStore.createPlace(place, this.props.toggleModal);
 	};
 
 	render() {

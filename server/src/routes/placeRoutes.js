@@ -1,4 +1,4 @@
-import { requireAdmin } from '../middlewares';
+import { requireAdmin, requireAuth } from '../middlewares';
 import { getAllPlaces, createPlace, updatePlace } from '../controllers/places';
 
 export default (app) => {

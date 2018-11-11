@@ -8,14 +8,18 @@ const placeSchema = new Schema({
 		en: String,
 		ta: String,
   },
-  score: Number,
+  description: {
+    en: String,
+    ta: String,
+  },
+  score: { type: Number, default: 0 },
 	latitude: Number,
   longitude: Number,
-  active: Boolean,
+  active: { type: Boolean, default: true },
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
 	createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-  createdAt: Date,
+  createdAt: { type: Date, default: Date.now },
   updatedAt: Date,
 });
 

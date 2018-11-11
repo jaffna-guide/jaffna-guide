@@ -4,7 +4,6 @@ import requireAuth from './requireAuth';
 const router = express.Router();
 
 const requireAdmin = (req, res, next) => {
-	console.log('req.user', req.user);
 	if (req.user.roles.includes('admin')) {
 		next();
 	} else {

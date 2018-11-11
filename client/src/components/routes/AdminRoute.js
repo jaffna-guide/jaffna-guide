@@ -27,7 +27,6 @@ class AdminRoute extends React.Component {
 			<Route
 				{...rest}
 				render={(props) => {
-					console.log('hi from render');
 					if (AuthStore.state === 'pending') {
 						console.log('case: pending');
             return <div>pending|{AuthStore.state}</div>;

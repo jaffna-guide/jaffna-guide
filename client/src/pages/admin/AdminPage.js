@@ -47,8 +47,6 @@ class AdminPanel extends React.Component {
 						</thead>
 						<tbody>
 							{PlaceStore.places.map((place) => {
-								console.log('place', place._id);
-
 								return (
 									<tr
 										key={place.body}
@@ -87,7 +85,7 @@ class AdminPanel extends React.Component {
 					<div className="modal active" id="add-place">
 						<div className="modal-overlay" aria-label="Close" onClick={this.toggleModal} />
 						<div className="modal-container">
-							<CreateEditPlaceForm />
+							<CreateEditPlaceForm toggleModal={this.toggleModal} />
 						</div>
 					</div>
 				)}
