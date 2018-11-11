@@ -16,20 +16,18 @@ class AdminRoute extends React.Component {
 	render() {
 		const { AuthStore, component: Component, ...rest } = this.props;
 
-    console.log('AuthStore.state', AuthStore.state);
+		console.log('AuthStore.state', AuthStore.state);
 		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
 		console.log('AuthStore.isAdmin', AuthStore.isAdmin);
 		console.log('AuthStore.authUser', AuthStore.authUser);
 
 		return (
-      <>
-      <DevTools />
 			<Route
 				{...rest}
 				render={(props) => {
 					if (AuthStore.state === 'pending') {
 						console.log('case: pending');
-            return <div>pending|{AuthStore.state}</div>;
+						return <div>pending|{AuthStore.state}</div>;
 					} else if (AuthStore.isAdmin) {
 						console.log('case: admin');
 						return <Component {...props} />;
@@ -38,12 +36,11 @@ class AdminRoute extends React.Component {
 						return <Redirect to="/" />;
 					} else {
 						console.log('case: redirect');
-            // return <div>redirect</div>;
+						// return <div>redirect</div>;
 						window.location.href = `/auth/facebook?redirect=${this.props.path}`;
 					}
 				}}
 			/>
-      </>
 		);
 	}
 }

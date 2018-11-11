@@ -36,7 +36,7 @@ class AdminPanel extends React.Component {
 					<h1 className="admin-panel__title">Admin Panel</h1>
 				</div>
 				<div className="admin-panel__places">
-					<table className="table table-striped table-hover">
+					<table className="admin-panel__table table table-striped table-hover table-scroll">
 						<thead>
 							<tr>
 								<th>name</th>
@@ -52,7 +52,9 @@ class AdminPanel extends React.Component {
 										key={place.body}
 										className={this.state.selectedPlace === place.body ? 'active' : ''}
 									>
-										<td>{place.name.en}</td>
+										<td className="admin-panel__name-column">
+											<div >{place.name.en}</div>
+										</td>
 										<td>{place.category.body}</td>
 										<td>102</td>
 										<td>

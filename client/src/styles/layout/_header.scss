@@ -4,10 +4,8 @@
 	text-transform: uppercase;
 	letter-spacing: 2px;
 	word-spacing: 4px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding-top: .8rem;
+
+	padding-top: 1.2rem;
 
 	@media (min-width: 768px) {
 		font-size: 2.2rem;
@@ -15,12 +13,18 @@
 
 	&__logo {
 		width: 56px;
-		padding-top: .5rem;
+		padding-top: .3rem;
 		padding-left: .5rem;
 		padding-right: .8rem;
 
 		@media (min-width: 768px) {
 			width: 80px;
 		}
+	}
+
+	&__combination {
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 }
