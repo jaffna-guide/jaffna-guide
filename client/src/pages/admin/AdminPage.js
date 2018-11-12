@@ -35,13 +35,15 @@ class AdminPanel extends React.Component {
 										className={`admin-panel__table-row ${PlaceStore.selectedPlaceId === place._id
 											? 'active'
 											: ''}`}
-										onClick={() => PlaceStore.selectPlace(place._id)}
 									>
-										<td className="admin-panel__name-column">
+										<td
+											className="admin-panel__name-column"
+											onClick={() => PlaceStore.selectPlace(place._id)}
+										>
 											<div>{place.name.en}</div>
 										</td>
-										<td>{place.category.body}</td>
-										<td>102</td>
+										<td className="admin-panel__category-column" onClick={() => PlaceStore.selectPlace(place._id)}>{place.category.body}</td>
+										<td className="admin-panel__score-column" onClick={() => PlaceStore.selectPlace(place._id)}>102</td>
 										<td>
 											<div className="admin-panel__place-controls">
 												<Icon

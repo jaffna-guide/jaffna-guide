@@ -5,7 +5,7 @@
 	margin-left: auto;
 	margin-right: auto;
 
-	@media(min-width: 992px) {
+	@media (min-width: 992px) {
 		max-width: 768px;
 	}
 
@@ -18,7 +18,16 @@
 		display: table !important;
 	}
 
-	&__table-row {
+	&__name-column {
+		white-space: normal;
+		width: 100%;
+		min-width: 200px;
+		max-width: 260px;
+	}
+
+	&__name-column,
+	&__category-column,
+	&__score-column {
 		cursor: pointer;
 	}
 
@@ -59,12 +68,5 @@
 
 	&__deactivate-switch {
 		margin-left: .5rem;
-	}
-
-	&__name-column {
-		white-space: normal;
-		width: 100%;
-		min-width: 200px;
-		max-width: 260px;
 	}
 }
