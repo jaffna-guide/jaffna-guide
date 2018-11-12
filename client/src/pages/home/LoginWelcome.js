@@ -23,7 +23,7 @@ class LoginWelcome extends React.Component {
 							Welcome to Jaffna, <span className="login-welcome__username">{AuthStore.username}</span>.
 						</div>
 						<button className="login-welcome__logout btn btn-link" onClick={AuthStore.logout}>
-							Logout
+							(Logout)
 						</button>
 					</div>
 				) : (
