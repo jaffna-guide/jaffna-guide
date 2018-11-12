@@ -21,7 +21,8 @@ class LoginWelcome extends React.Component {
 				{AuthStore.authUser ? (
 					<div className="login-welcome__success">
 						<div className="login-welcome__text">
-							Welcome to Jaffna, {AuthStore.authUser.displayName} :)
+							Welcome, {' '}
+							<span className="login-welcome__username">{AuthStore.authUser.displayName}</span> :)
 						</div>
 						<button className="login-welcome__logout btn btn-link" onClick={AuthStore.logout}>
 							Logout

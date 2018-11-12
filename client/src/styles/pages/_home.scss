@@ -11,20 +11,25 @@
 }
 
 .login-welcome {
-  text-align: center;
-  
-  &__success {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	text-align: center;
+
+	&__success {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	&__username {
+    font-weight: 600;
+    text-transform: lowercase;
+	}
 
 	&__link {
 		color: #3b5998;
 		text-decoration: none;
-  }
-  
-  &__logout {
-    margin-left: .5rem;
-  }
+	}
+
+	&__logout {
+		margin-left: .5rem;
+	}
 }
