@@ -14,7 +14,8 @@ class LoginWelcome extends React.Component {
 
 	render() {
 		const { AuthStore } = this.props;
-		const username = localStorage.getItem('username');
+    const username = localStorage.getItem('username');
+    console.log('username', username);
 
 		return (
 			<div className="login-welcome">
