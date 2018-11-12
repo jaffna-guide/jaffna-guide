@@ -29,12 +29,13 @@ class AuthStore {
 					this.state = 'done';
 				});
 			})
-			.catch(() => {
-				localStorage.removeItem('token');
-				runInAction(() => {
-					this.authUser = false;
-					this.state = 'done';
-				});
+			.catch((e) => {
+				console.log('e', e);
+				// localStorage.removeItem('token');
+				// runInAction(() => {
+				// 	this.authUser = false;
+				// 	this.state = 'done';
+				// });
 			});
 	}
 

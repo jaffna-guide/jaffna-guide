@@ -4,7 +4,9 @@ import axios from 'axios';
 class PlaceStore {
 	@observable places = [];
 	@observable state = 'pending'; // "pending" / "done" / "error"
+	@observable selectedPlaceId = null;
 	@observable currentPlaceBody = '';
+	@observable createEditPlaceModalVisible = false;
 
 	@action
 	fetchPlaces() {
@@ -29,10 +31,22 @@ class PlaceStore {
 	}
 
 	@action
-	createPlace = async (place, toggleModal) => {
+	createPlace = async (place) => {
 		const res = await axios.post('/api/places', place);
-		toggleModal();
+		this.createEditPlaceModalVisible = false;
 		this.places.push(res.data);
+	};
+
+	@action
+	editPlace = async (place) => {
+		const res = await axios.patch('/api/places', place);
+		const index = this.places.findIndex((p) => p._id === place.id);
+
+		runInAction(() => {
+			this.places.splice(index, 1, res.data);
+			this.createEditPlaceModalVisible = false;
+			this.selectedPlaceId = null;
+		});
 	};
 
 	@action
@@ -47,6 +61,12 @@ class PlaceStore {
 	};
 
 	@action
+	selectPlace = (placeId) => {
+		this.selectedPlaceId = placeId;
+		this.createEditPlaceModalVisible = true;
+	};
+
+	@action
 	togglePlaceActive = async (placeId) => {
 		const placeToUpdate = this.places.find((p) => p._id === placeId);
 		await axios.patch('/api/places', { id: placeId, active: !placeToUpdate.active });
@@ -57,13 +77,43 @@ class PlaceStore {
 	};
 
 	@action
-	setCurrentPlace(placeBody) {
+	toggleCreateEditPlaceModal = () => {
+		this.createEditPlaceModalVisible = !this.createEditPlaceModalVisible;
+	};
+
+	@action
+	openCreateEditPlaceModal = () => {
+		this.createEditPlaceModalVisible = true;
+	};
+
+	@action
+	closeCreateEditPlaceModal = () => {
+		this.createEditPlaceModalVisible = false;
+		this.selectedPlaceId = null;
+	};
+
+	@action
+	setCurrentPlace = (placeBody) => {
 		this.currentPlaceBody = placeBody;
-	}
+	};
 
 	@computed
-	get placeCount() {
-		return this.places.length;
+	get selectedPlace() {
+		if (this.selectedPlaceId) {
+			const { name, description, category, ...rest } = this.places.find(
+				(place) => place._id === this.selectedPlaceId,
+			);
+			return {
+				...rest,
+				nameTa: name.ta,
+				nameEn: name.en,
+				descriptionTa: description.ta,
+				descriptionEn: description.en,
+				category: category.body,
+			};
+		}
+
+		return null;
 	}
 
 	@computed

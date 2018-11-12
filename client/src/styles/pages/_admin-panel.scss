@@ -18,6 +18,10 @@
 		display: table !important;
 	}
 
+	&__table-row {
+		cursor: pointer;
+	}
+
 	&__title {
 		font-size: 1.4rem;
 		display: inline-block;

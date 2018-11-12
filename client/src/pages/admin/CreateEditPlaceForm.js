@@ -22,18 +22,23 @@ class CreatePlaceForm extends React.Component {
 				en: values.descriptionEn,
 			},
 			category: categoryId,
-			latitude: values.latitude,
-			longitude: values.longitude,
+			latitude: parseFloat(values.latitude),
+			longitude: parseFloat(values.longitude),
 		};
 
-		PlaceStore.createPlace(place, this.props.toggleModal);
+		if (this.props.initialValues) {
+			place.id = PlaceStore.selectedPlaceId;
+			PlaceStore.editPlace(place);
+		} else {
+			PlaceStore.createPlace(place);
+		}
 	};
 
 	render() {
-		const { CategoryStore } = this.props;
+		const { CategoryStore, initialValues } = this.props;
 
 		return (
-			<WizardForm name="add-place-form" onSubmit={this.handleSubmit}>
+			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
 				<WizardForm.Page
 					validate={(values) => {
 						const errors = {};
@@ -55,7 +60,7 @@ class CreatePlaceForm extends React.Component {
 					}}
 				>
 					<div className="add-place-form__header">
-						<h1 className="add-place-form__title">Add place</h1>
+						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
 						&nbsp;&nbsp;&rsaquo;&nbsp;&nbsp;
 						<h2 className="add-place-form__subtitle">தமிழ்</h2>
 					</div>
@@ -129,7 +134,7 @@ class CreatePlaceForm extends React.Component {
 				</WizardForm.Page>
 				<WizardForm.Page>
 					<div className="add-place-form__header">
-						<h1 className="add-place-form__title">Add place</h1>
+						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
 						&nbsp;&nbsp;&rsaquo;&nbsp;&nbsp;
 						<h2 className="add-place-form__subtitle">English</h2>
 					</div>

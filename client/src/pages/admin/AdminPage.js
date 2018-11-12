@@ -9,26 +9,6 @@ import CreateEditPlaceForm from './CreateEditPlaceForm';
 @inject('PlaceStore')
 @observer
 class AdminPanel extends React.Component {
-	state = {
-		selectedPlace: '',
-		modalOpen: false,
-	};
-
-	toggleModal = () => {
-		this.setState(({ modalOpen }) => ({ modalOpen: !modalOpen }));
-	};
-
-	togglePlaceActive = (placeId) => {
-		const { PlaceStore } = this.props;
-		PlaceStore.togglePlaceActive(placeId);
-	};
-
-	deletePlace = (placeId) => {
-		console.log('deletePlace');
-		const { PlaceStore } = this.props;
-		PlaceStore.deletePlace(placeId);
-	};
-
 	render() {
 		const { PlaceStore } = this.props;
 
@@ -52,7 +32,10 @@ class AdminPanel extends React.Component {
 								return (
 									<tr
 										key={place.body}
-										className={this.state.selectedPlace === place.body ? 'active' : ''}
+										className={`admin-panel__table-row ${PlaceStore.selectedPlaceId === place._id
+											? 'active'
+											: ''}`}
+										onClick={() => PlaceStore.selectPlace(place._id)}
 									>
 										<td className="admin-panel__name-column">
 											<div>{place.name.en}</div>
@@ -64,14 +47,14 @@ class AdminPanel extends React.Component {
 												<Icon
 													className="admin-panel__delete-place-icon"
 													icon={Delete}
-													onClick={() => this.deletePlace(place._id)}
+													onClick={() => PlaceStore.deletePlace(place._id)}
 												/>
 												<div className="admin-panel__deactivate-switch form-group">
 													<label className="form-switch">
 														<input
 															type="checkbox"
 															checked={place.active}
-															onChange={() => this.togglePlaceActive(place._id)}
+															onChange={() => PlaceStore.togglePlaceActive(place._id)}
 														/>
 														<i className="form-icon" />
 													</label>
@@ -85,13 +68,25 @@ class AdminPanel extends React.Component {
 					</table>
 				</div>
 				<div className="admin-panel__add-place">
-					<Icon className="admin-panel__add-place-icon" icon={Plus} onClick={this.toggleModal} />
+					<Icon
+						className="admin-panel__add-place-icon"
+						icon={Plus}
+						onClick={PlaceStore.openCreateEditPlaceModal}
+					/>
 				</div>
-				{this.state.modalOpen && (
+				{PlaceStore.createEditPlaceModalVisible && (
 					<div className="modal active" id="add-place">
-						<div className="modal-overlay" aria-label="Close" onClick={this.toggleModal} />
+						<div
+							className="modal-overlay"
+							aria-label="Close"
+							onClick={PlaceStore.closeCreateEditPlaceModal}
+						/>
 						<div className="modal-container">
-							<CreateEditPlaceForm toggleModal={this.toggleModal} />
+							{PlaceStore.selectedPlace ? (
+								<CreateEditPlaceForm initialValues={PlaceStore.selectedPlace} />
+							) : (
+								<CreateEditPlaceForm />
+							)}
 						</div>
 					</div>
 				)}

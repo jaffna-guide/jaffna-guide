@@ -42,7 +42,7 @@ class WizardForm extends React.Component {
 	};
 
 	render() {
-		const { name, children } = this.props;
+		const { name, children, initialValues } = this.props;
 		const { page, values } = this.state;
 		const activePage = React.Children.toArray(children)[page];
 		const isLastPage = page === React.Children.count(children) - 1;
@@ -73,7 +73,7 @@ class WizardForm extends React.Component {
 										className={`${name}__button--submit btn btn-primary`}
 										disabled={submitting}
 									>
-										Submit
+										{initialValues ? 'Edit' : 'Submit'}
 									</button>
 								)}
 							</div>
