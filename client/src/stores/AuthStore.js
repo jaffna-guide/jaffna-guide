@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class AuthStore {
 	@observable authUser = null;
-  @observable state = 'pending'; // "pending" / "done" / "error"
+	@observable state = 'pending'; // "pending" / "done" / "error"
 
 	@action
 	authenticate = () => {
@@ -38,15 +38,18 @@ class AuthStore {
 				// 	this.state = 'done';
 				// });
 			});
-	}
+	};
 
 	@action
 	logout = () => {
 		localStorage.removeItem('token');
 		localStorage.removeItem('username');
-		this.state = 'done';
-		this.authUser = false;
-	}
+		console.log('logging out');
+		runInAction(() => {
+			this.state = 'done';
+			this.authUser = false;
+		});
+	};
 
 	@computed
 	get isAuthenticated() {
