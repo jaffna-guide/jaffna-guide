@@ -49,7 +49,14 @@ class AuthStore {
 			this.state = 'done';
 			this.authUser = false;
 		});
+
+		console.log('this.username', this.username);
 	};
+
+	@computed
+	get username() {
+		return localStorage.getItem('username') || (this.authUser && this.authUser.displayName);
+	}
 
 	@computed
 	get isAuthenticated() {

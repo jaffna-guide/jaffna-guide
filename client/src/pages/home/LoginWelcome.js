@@ -14,15 +14,13 @@ class LoginWelcome extends React.Component {
 
 	render() {
 		const { AuthStore } = this.props;
-		const username = localStorage.getItem('username') || (AuthStore.authUser && AuthStore.authUser.displayName);
-		console.log('username', username);
 
 		return (
 			<div className="login-welcome">
-				{username ? (
+				{AuthStore.username ? (
 					<div className="login-welcome__success">
 						<div className="login-welcome__text">
-							Welcome, <span className="login-welcome__username">{username}</span> :)
+							Welcome, <span className="login-welcome__username">{AuthStore.username}</span> :)
 						</div>
 						<button className="login-welcome__logout btn btn-link" onClick={AuthStore.logout}>
 							Logout
