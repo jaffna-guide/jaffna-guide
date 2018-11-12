@@ -1,4 +1,4 @@
-import { observable, action, runInAction, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import axios from 'axios';
 import localStorage from 'mobx-localstorage';
 
@@ -26,10 +26,8 @@ class AuthStore {
 				const authUser = res.data;
 				localStorage.setItem('token', authUser.jwt);
 				localStorage.setItem('username', authUser.displayName);
-				runInAction(() => {
-					this.authUser = authUser;
-					this.state = 'done';
-				});
+				this.authUser = authUser;
+				this.state = 'done';
 			})
 			.catch((e) => {
 				console.log('e', e);
