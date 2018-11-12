@@ -11,10 +11,20 @@
 }
 
 .login-welcome {
-	text-align: center;
+  text-align: center;
+  
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
 	&__link {
 		color: #3b5998;
 		text-decoration: none;
-	}
+  }
+  
+  &__logout {
+    margin-left: .5rem;
+  }
 }

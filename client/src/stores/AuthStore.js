@@ -6,7 +6,7 @@ class AuthStore {
   @observable state = 'pending'; // "pending" / "done" / "error"
 
 	@action
-	authenticate() {
+	authenticate = () => {
 		this.authUser = null;
 		this.state = 'pending';
 
@@ -40,7 +40,7 @@ class AuthStore {
 	}
 
 	@action
-	logout() {
+	logout = () => {
 		localStorage.removeItem('token');
 		this.state = 'done';
 		this.authUser = false;
