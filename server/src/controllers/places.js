@@ -7,7 +7,7 @@ export const getAllPlaces = (req, res) => {
 	});
 };
 
-export const createPlace = (req, res) => {
+export const createPlace = async (req, res) => {
 	const { name, description, latitude, longitude, category } = req.body;
 
 	const body = name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
@@ -24,12 +24,13 @@ export const createPlace = (req, res) => {
 	});
 
 	place.save();
-
-	res.send(place);
+	const populatedPlace = await Place.findById(place.id).populate({ path: 'category', select: '_id body' });
+	res.send(populatedPlace);
 };
 
 export const updatePlace = async (req, res) => {
 	const { id, ...values } = req.body;
+	values.body = values.name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
 	const place = await Place.findOneAndUpdate({ _id: id }, { $set: values }, { new: true }).populate('category');
 	res.send(place);
 };
