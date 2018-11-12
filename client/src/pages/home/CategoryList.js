@@ -9,8 +9,8 @@ class CategoryList extends React.Component {
 		const { CategoryStore, lang } = this.props;
 
 		return (
-			<div className="category-list">
-				<ul className="category-list__ul">
+			<div className="home__category-list">
+				<ul className="category-list">
 					{CategoryStore.categories.slice().sort((a, b) => a.rank - b.rank).map((category) => (
 						<li className="category-list__item" key={category.body}>
 							<Link to={`/${category.body}`}>{category.name[lang]}</Link>
