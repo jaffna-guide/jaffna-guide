@@ -1,5 +1,6 @@
 import { observable, action, runInAction, computed } from 'mobx';
 import axios from 'axios';
+import localStorage from 'mobx-localstorage';
 
 class AuthStore {
 	@observable authUser = null;
@@ -44,13 +45,8 @@ class AuthStore {
 	logout = () => {
 		localStorage.removeItem('token');
 		localStorage.removeItem('username');
-		console.log('logging out');
-		runInAction(() => {
-			this.state = 'done';
-			this.authUser = false;
-		});
-
-		console.log('this.username', this.username);
+		this.state = 'done';
+		this.authUser = false;
 	};
 
 	@computed

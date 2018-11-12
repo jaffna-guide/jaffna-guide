@@ -20,7 +20,7 @@ class LoginWelcome extends React.Component {
 				{AuthStore.username ? (
 					<div className="login-welcome__success">
 						<div className="login-welcome__text">
-							Welcome, <span className="login-welcome__username">{AuthStore.username}</span> :)
+							Welcome to Jaffna, <span className="login-welcome__username">{AuthStore.username}</span>.
 						</div>
 						<button className="login-welcome__logout btn btn-link" onClick={AuthStore.logout}>
 							Logout
