@@ -12,7 +12,7 @@ class CategoryList extends React.Component {
 			<div className="home__category-list">
 				<ul className="category-list">
 					{CategoryStore.categories.slice().sort((a, b) => a.rank - b.rank).map((category) => (
-						<li className="category-list__item" key={category.body}>
+						<li className={`category-list__item category-list__item--${category.body}`} key={category.body}>
 							<Link to={`/${category.body}`}>{category.name[lang]}</Link>
 						</li>
 					))}
