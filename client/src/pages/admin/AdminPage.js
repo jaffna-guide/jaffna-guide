@@ -23,7 +23,7 @@ class AdminPanel extends React.Component {
 							<table className="admin-panel__table table table-striped table-hover table-scroll">
 								<thead>
 									<tr>
-										<th>name</th>
+										<th className="admin-panel__name-column">name</th>
 										<th>category</th>
 										<th>score</th>
 										<th />
