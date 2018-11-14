@@ -56,7 +56,7 @@ class WizardForm extends React.Component {
 					return (
 						<form className={name} onSubmit={handleSubmit}>
 							{activePage}
-							<div className={`${name}__buttons`}>
+							<div className={`${name}__buttons btn-group`}>
 								{page > 0 && (
 									<button className={`${name}__button--prev btn`} onClick={this.previous}>
 										« Previous

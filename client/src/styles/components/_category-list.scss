@@ -68,7 +68,7 @@
 		}
 
 		&--events {
-			background: linear-gradient(#f5e3e6, #d9e4f5);
+			background: linear-gradient(#fdfbfb, #ebedee);
 
 			&:hover {
 				a {
@@ -78,11 +78,17 @@
 		}
 
 		&--restaurants {
-			background: url('../assets/restaurants.png'), linear-gradient(180deg, #cfecd0, #a0cea7);
+			background: url('../assets/restaurants.png'), linear-gradient(180deg, #96fbc4, #f9f586);
 			background-size: 100%;
 			background-position: center bottom;
 			background-repeat: no-repeat;
 			height: 10rem;
+
+			&:hover {
+				a {
+					color: $dark-color;
+				}
+			}
 
 			@media (min-width: 420px) {
 				height: 11rem;
@@ -94,13 +100,13 @@
 		}
 
 		&--hotels {
-			background: linear-gradient(180deg, #b9deed, #efefef);
+			background: linear-gradient(180deg, #accbee, #e7f0fd);
 
-			&:hover {
-				a {
-					color: $dark-color;
-				}
-			}
+			// &:hover {
+			// 	a {
+			// 		color: $dark-color;
+			// 	}
+			// }
 		}
 
 		&--education {

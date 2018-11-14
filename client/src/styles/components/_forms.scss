@@ -20,7 +20,7 @@
   
   &__header {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     margin-bottom: .7rem;
   }
 
@@ -33,6 +33,16 @@
 	}
 
 	&__title {
-		
+		font-family: $secondary-font;
+	}
+
+	&__subtitle {
+		font-weight: 400;
+	}
+
+	&__arrow {
+		font-size: 1.5rem;
+		padding-left: 1rem;
+		padding-right: .6rem;
 	}
 }

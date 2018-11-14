@@ -61,7 +61,7 @@ class CreatePlaceForm extends React.Component {
 				>
 					<div className="add-place-form__header">
 						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
-						&nbsp;&nbsp;&rsaquo;&nbsp;&nbsp;
+						<div className="add-place-form__arrow">{'//'}</div>
 						<h2 className="add-place-form__subtitle">தமிழ்</h2>
 					</div>
 					<Field name="nameTa">
@@ -135,7 +135,7 @@ class CreatePlaceForm extends React.Component {
 				<WizardForm.Page>
 					<div className="add-place-form__header">
 						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
-						&nbsp;&nbsp;&rsaquo;&nbsp;&nbsp;
+						<div className="add-place-form__arrow">{'//'}</div>
 						<h2 className="add-place-form__subtitle">English</h2>
 					</div>
 					<Field name="nameEn">
