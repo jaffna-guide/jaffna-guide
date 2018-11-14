@@ -1,8 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
-import 'typeface-abril-fatface';
 import { Provider } from 'mobx-react';
+
+// primary-font
+import 'typeface-vollkorn';
+// secondary-font
+import 'typeface-permanent-marker';
 
 import App from './App';
 import './styles/main.scss';

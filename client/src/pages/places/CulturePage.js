@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PlacesDashboard from './PlacesDashboard';
 
-const Culture = () => {
+const CulturePage = () => {
 	return (
 		<div className="culture">
 			<PlacesDashboard category="culture" />
@@ -9,4 +9,4 @@ const Culture = () => {
 	);
 };
 
-export default Culture;
+export default CulturePage;

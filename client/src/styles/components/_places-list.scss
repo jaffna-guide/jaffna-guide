@@ -1,0 +1,38 @@
+.places-list {
+  background-color: $secondary-color;
+  display: grid;
+  grid-gap: 3px;
+
+  border-top: 4px solid $secondary-color;
+  border-left: 4px solid $secondary-color;
+  border-right: 4px solid $secondary-color;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    background-color: $light-color;
+    padding: .6rem;
+
+    @media (min-width: 400px) {
+      padding: 1rem;
+    }
+
+    @media (min-width: 560px) {
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  &__title {
+    font-family: $primary-font;
+    font-weight: 600;
+  }
+
+  &__left {
+    flex: 1;
+  }
+
+  &__right {
+    width: 3rem;
+    background-color: orange;
+  }
+}

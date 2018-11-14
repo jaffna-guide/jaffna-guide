@@ -3,7 +3,7 @@
 	align-items: center;
 	justify-content: center;
 
-	font-family: $primary-font;
+	font-family: $secondary-font;
 	font-size: 1.5rem;
 	text-transform: uppercase;
 	letter-spacing: 2px;
@@ -19,7 +19,7 @@
 		width: 56px;
 		padding-top: .3rem;
 		padding-left: .5rem;
-		padding-right: .8rem;
+		padding-right: .5rem;
 
 		@media (min-width: 768px) {
 			width: 72px;

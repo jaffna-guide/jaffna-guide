@@ -2,7 +2,7 @@
 	max-width: 680px;
 	margin: 2rem auto;
 	width: 100%;
-
+	
 	@media (min-width: 992px) {
 		max-width: 768px;
 	}
@@ -26,6 +26,7 @@
 
 	&__title {
 		font-size: 1.4rem;
+		font-family: $primary-font;
 		display: inline-block;
 		padding: .3rem .5rem;
 		text-align: center;
@@ -33,6 +34,7 @@
 		text-decoration: underline;
 		background: rgba(255, 255, 255, 0.5);
 		border: 1px solid $dark-color;
+		margin-bottom: 2rem;
 	}
 
 	&__add-place {
