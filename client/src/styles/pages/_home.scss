@@ -2,18 +2,17 @@
 	&__category-list {
 		max-width: 600px;
 		border: 2px solid $dark-color;
-		margin: 1.2rem .5rem;
+		margin: 0 .5rem;
 
 		@media (min-width: 600px) {
-			margin: 2rem auto;
+			margin: 0 auto;
 		}
 	}
 }
 
 .login-welcome {
 	text-align: center;
-	padding-left: .5rem;
-	padding-right: -5rem;
+	padding: 1rem .5rem 0 .5rem;
 
 	&__success {
 		display: flex;
@@ -27,7 +26,7 @@
 	}
 
 	&__username {
-    font-weight: 600;
+    font-weight: bold;
     text-transform: lowercase;
 	}
 

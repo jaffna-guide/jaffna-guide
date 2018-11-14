@@ -1,25 +1,23 @@
 import * as React from 'react';
-import GoogleMap from 'google-map-react';
+import { GoogleApiWrapper, Map } from 'google-maps-react';
 
-const AnyReactComponent = () => <div>any</div>;
+import PlaceMarker from './PlaceMarker';
 
+
+@GoogleApiWrapper({ apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY })
 class PlacesMap extends React.Component {
 	static defaultProps = {
-		zoom: 11,
+		zoom: 12,
 	};
 
 	render() {
 		return (
 			<div className="places-map">
-				<GoogleMap
-					bootstrapURLKeys={{
-						key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
-					}}
-					defaultCenter={this.props.center}
-					defaultZoom={this.props.zoom}
-				>
-					<AnyReactComponent />
-				</GoogleMap>
+				<Map initialCenter={this.props.center} defaultZoom={this.props.zoom} google={this.props.google} gestureHandling="greedy" scrollwheel={false} />
+				{/* {this.props.places.map((place) => (
+						<PlaceMarker key={place.body} lat="9.676807" lng="80.011470" {...place} />
+					))}
+				</Map> */}
 			</div>
 		);
 	}

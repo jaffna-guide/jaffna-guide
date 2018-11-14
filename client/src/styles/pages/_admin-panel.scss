@@ -1,9 +1,7 @@
 .admin-panel {
 	max-width: 680px;
-	margin-top: 2rem;
+	margin: 2rem auto;
 	width: 100%;
-	margin-left: auto;
-	margin-right: auto;
 
 	@media (min-width: 992px) {
 		max-width: 768px;

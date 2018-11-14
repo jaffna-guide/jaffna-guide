@@ -1,8 +1,12 @@
 .footer {
   display: flex;
   justify-content: center;
+  align-items: flex-end;
   color: $gray-color;
-  padding-bottom: 1rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  background-color: lightblue;
 
 	&__heart {
     color: $primary-color;
