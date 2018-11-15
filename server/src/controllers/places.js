@@ -30,7 +30,10 @@ export const createPlace = async (req, res) => {
 
 export const updatePlace = async (req, res) => {
 	const { id, ...values } = req.body;
-	values.body = values.name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
+	if (values.name) {
+		values.body = values.name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
+	}
+
 	const place = await Place.findOneAndUpdate({ _id: id }, { $set: values }, { new: true }).populate('category');
 	res.send(place);
 };

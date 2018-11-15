@@ -16,7 +16,7 @@ const upload = multer({
 		key: function(req, file, cb) {
 			const [ filetype, filesubtype ] = file.mimetype.split('/');
 
-			cb(null, `${file.fieldname}/${req.params.placeId}.${filesubtype}`);
+			cb(null, `${file.fieldname}/${req.params.placeId}-${Date.now()}.${filesubtype}`);
 		},
 		fileFilter: (req, file, cb) => {
 			const [ filetype, filesubtype ] = file.mimetype.split('/');

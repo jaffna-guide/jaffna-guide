@@ -1,15 +1,15 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 import { inject } from 'mobx-react';
-import Dropzone from 'react-dropzone';
 
 import { WizardForm } from '../../components/forms';
+import { Icon, Spinner } from '../../components/atoms';
+import { ReactComponent as Close } from '../../assets/close.svg';
 
 @inject('PlaceStore')
 @inject('CategoryStore')
 class CreatePlaceForm extends React.Component {
 	handleSubmit = (values) => {
-		console.log('values', values);
 		const { PlaceStore, CategoryStore } = this.props;
 
 		const categoryId = CategoryStore.categories.find((c) => c.body === values.category.toLowerCase())._id;
@@ -42,7 +42,7 @@ class CreatePlaceForm extends React.Component {
 	};
 
 	render() {
-		const { CategoryStore, initialValues } = this.props;
+		const { CategoryStore, PlaceStore, initialValues } = this.props;
 
 		return (
 			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
@@ -172,13 +172,37 @@ class CreatePlaceForm extends React.Component {
 							</div>
 						)}
 					</Field>
+
 					<Field name="markerIcon">
 						{({ input, meta }) => (
 							<div className="form-group">
 								<label htmlFor="markerIcon" className="form-label">
 									Marker Icon
 								</label>
-								<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
+								{PlaceStore.state === 'pending' ? (
+									<div>
+										<Spinner className="add-place-form__marker-spinner" name="line-scale" />
+									</div>
+								) : initialValues && initialValues.marker ? (
+									<div className="add-place-form__marker-outer">
+										<div className="add-place-form__marker-inner">
+											<img
+												className="add-place-form__marker"
+												alt="marker"
+												src={initialValues.marker}
+											/>
+											<Icon
+												className="add-place-form__delete-marker-icon"
+												icon={Close}
+												onClick={() => PlaceStore.deleteMarker(initialValues._id)}
+												width="1rem"
+											/>
+										</div>
+									</div>
+								) : (
+									<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
+								)}
+								<p className="form-input-hint">Recommended: 64x64</p>
 								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 							</div>
 						)}

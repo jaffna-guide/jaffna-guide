@@ -99,14 +99,29 @@ class PlaceStore {
 
 	@action
 	uploadMarker = async (placeId, event) => {
+		this.state = 'pending';
+
 		const marker = event.target.files[0];
 		const formData = new FormData();
 		formData.append('marker', marker);
-		await axios.post(`/api/places/${placeId}/marker`, formData, {
+
+		const res = await axios.post(`/api/places/${placeId}/marker`, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
+		const place = res.data;
+		this.places.find((p) => p._id === place._id).marker = place.marker;
+
+		runInAction(() => {
+			this.state = 'done';
+		});
+	};
+
+	@action
+	deleteMarker = async (placeId) => {
+		axios.patch('/api/places', { id: placeId, marker: null });
+		delete this.places.find((p) => p._id === placeId).marker;
 	};
 
 	@computed
