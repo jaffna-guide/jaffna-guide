@@ -4,7 +4,8 @@
 }
 
 .form-label {
-	font-size: .8rem;
+	font-size: .9rem;
+	font-weight: 600;
 }
 
 .form-group {
@@ -16,13 +17,13 @@
 .add-place-form {
 	min-height: 300px;
 	display: flex;
-  flex-direction: column;
-  
-  &__header {
-    display: flex;
-    align-items: baseline;
-    margin-bottom: .7rem;
-  }
+	flex-direction: column;
+
+	&__header {
+		display: flex;
+		align-items: baseline;
+		margin-bottom: .7rem;
+	}
 
 	&__buttons {
 		margin-top: .8rem;

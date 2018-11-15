@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 import { inject } from 'mobx-react';
+import Dropzone from 'react-dropzone';
 
 import { WizardForm } from '../../components/forms';
 
@@ -8,6 +9,7 @@ import { WizardForm } from '../../components/forms';
 @inject('CategoryStore')
 class CreatePlaceForm extends React.Component {
 	handleSubmit = (values) => {
+		console.log('values', values);
 		const { PlaceStore, CategoryStore } = this.props;
 
 		const categoryId = CategoryStore.categories.find((c) => c.body === values.category.toLowerCase())._id;
@@ -32,6 +34,11 @@ class CreatePlaceForm extends React.Component {
 		} else {
 			PlaceStore.createPlace(place);
 		}
+	};
+
+	handleMarkerDrop = (acceptedFiles) => {
+		const { PlaceStore } = this.props;
+		PlaceStore.uploadMarker(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
 
 	render() {
@@ -161,6 +168,17 @@ class CreatePlaceForm extends React.Component {
 									className="form-input"
 									placeholder="i.e. The Nallur Kandaswamy Kovil is an iconic landmark."
 								/>
+								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+							</div>
+						)}
+					</Field>
+					<Field name="markerIcon">
+						{({ input, meta }) => (
+							<div className="form-group">
+								<label htmlFor="markerIcon" className="form-label">
+									Marker Icon
+								</label>
+								<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
 								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 							</div>
 						)}

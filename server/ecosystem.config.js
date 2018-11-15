@@ -11,5 +11,10 @@ module.exports = {
 		JAFFNA_GUIDE_MONGO_PASSWORD: 'secret/soosap/jaffna-guide/JAFFNA_GUIDE_MONGO_PASSWORD',
 		JWT_SECRET: 'secret/soosap/jaffna-guide/JWT_SECRET',
 		COOKIE_KEY: 'secret/soosap/jaffna-guide/COOKIE_KEY',
+		STATIC_AWS_ACCESS_KEY_ID: 'secret/soosap/jaffna-guide/STATIC_AWS_ACCESS_KEY_ID',
+		STATIC_AWS_SECRET_ACCESS_KEY: 'secret/soosap/jaffna-guide/STATIC_AWS_SECRET_ACCESS_KEY',
+		STATIC_AWS_USERNAME: 'secret/soosap/jaffna-guide/STATIC_AWS_USERNAME',
+		STATIC_AWS_REGION: 'secret/soosap/jaffna-guide/STATIC_AWS_REGION',
+		STATIC_AWS_BUCKET: 'secret/soosap/jaffna-guide/STATIC_AWS_BUCKET',
 	},
 };

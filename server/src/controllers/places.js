@@ -1,4 +1,4 @@
-// PlacesController
+import multer from 'multer';
 import { Place } from '../models';
 
 export const getAllPlaces = (req, res) => {
@@ -38,4 +38,14 @@ export const updatePlace = async (req, res) => {
 export const deletePlace = async (req, res) => {
 	await Place.deleteOne({ _id: req.params.placeId });
 	res.send(200);
+};
+
+export const uploadMarker = async (req, res) => {
+	const place = await Place.findOneAndUpdate(
+		{ _id: req.params.placeId },
+		{ $set: { marker: req.file.location } },
+		{ new: true },
+	).populate('category');
+
+	res.send(place);
 };

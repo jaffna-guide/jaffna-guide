@@ -97,6 +97,18 @@ class PlaceStore {
 		this.currentPlaceBody = placeBody;
 	};
 
+	@action
+	uploadMarker = async (placeId, event) => {
+		const marker = event.target.files[0];
+		const formData = new FormData();
+		formData.append('marker', marker);
+		await axios.post(`/api/places/${placeId}/marker`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+	};
+
 	@computed
 	get selectedPlace() {
 		if (this.selectedPlaceId) {

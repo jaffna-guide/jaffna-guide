@@ -1,6 +1,9 @@
 .spinner-main {
+    display: flex;
+    justify-content: center;
+
 	&__spinner {
-    margin-top: 4rem;
-    color: $primary-color;
+		margin-top: 4rem;
+		color: $primary-color;
 	}
 }
