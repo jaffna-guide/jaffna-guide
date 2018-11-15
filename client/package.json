@@ -72,7 +72,7 @@
 		"workbox-webpack-plugin": "3.6.3"
 	},
 	"scripts": {
-		"start": "PORT=8000 node scripts/start.js",
+		"start": "PORT=8000 REACT_APP_GOOGLE_MAPS_API_KEY=secret/soosap/jaffna-guide/GOOGLE_MAPS_API_KEY exec './scripts/vaultcar.sh' node scripts/start.js",
 		"build": "REACT_APP_GOOGLE_MAPS_API_KEY=secret/soosap/jaffna-guide/GOOGLE_MAPS_API_KEY exec './scripts/vaultcar.sh' node scripts/build.js",
 		"test": "node scripts/test.js"
 	},

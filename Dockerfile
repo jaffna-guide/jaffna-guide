@@ -1,12 +1,17 @@
 FROM saronia/node:10.9.0-alpine AS build
 LABEL maintainer="prasath.soosaithasan@protonmail.ch"
 
+ARG VAULT_ADDR
+ARG VAULT_TOKEN
+
 # client
 WORKDIR /var/www/client
 COPY client/package.json client/package-lock.json ./
 RUN npm install
 COPY client .
-RUN npm run-script build
+RUN VAULT_ADDR=${VAULT_ADDR} \
+    VAULT_TOKEN=${VAULT_TOKEN} \
+    npm run-script build
 
 # server
 WORKDIR /var/www/server
@@ -31,8 +36,6 @@ RUN npm install --production
 # Set NODE_ENV through continuous integration system
 ARG NODE_ENV
 ENV NODE_ENV=${NODE_ENV}
-
-ARG REACT_APP_GOOGLE_MAPS_API_KEY
 
 ENV COOKIE_KEY secret/soosap/jaffna-guide/COOKIE_KEY
 ENV JWT_SECRET secret/soosap/jaffna-guide/JWT_SECRET
