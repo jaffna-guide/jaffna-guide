@@ -4,18 +4,16 @@
   grid-template-rows: 1fr max-content;
 
 	&__map {
-		background-color: #ffff00;
+		background-color: $secondary-color;
     position: relative;
     min-height: 80vh;
 		// important: The container holding the <Map /> must be set to position relative
 	}
 
 	&__list {
-		background-color: green;
 	}
 }
 
 .culture {
-	background-color: lightcoral;
 	height: 100%;
 }

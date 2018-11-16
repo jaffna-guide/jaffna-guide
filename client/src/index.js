@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import { Provider } from 'mobx-react';
+import localStorage from 'mobx-localstorage';
 
 // primary-font
 import 'typeface-vollkorn';
