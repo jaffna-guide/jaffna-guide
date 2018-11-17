@@ -1,12 +1,7 @@
-import aws from 'aws-sdk';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 
-const s3 = new aws.S3({
-	secretAccessKey: process.env.STATIC_AWS_SECRET_ACCESS_KEY,
-	accessKeyId: process.env.STATIC_AWS_ACCESS_KEY_ID,
-	region: process.env.STATIC_AWS_REGION,
-});
+import s3 from './s3';
 
 const upload = multer({
 	storage: multerS3({
@@ -16,9 +11,10 @@ const upload = multer({
 		key: function(req, file, cb) {
 			const [ filetype, filesubtype ] = file.mimetype.split('/');
 
-			cb(null, `${file.fieldname}/${req.params.placeId}-${Date.now()}.${filesubtype}`);
+			cb(null, `${req.params.placeId}/${file.fieldname}-${Date.now()}.${filesubtype}`);
 		},
 		fileFilter: (req, file, cb) => {
+			console.log('file', file);
 			const [ filetype, filesubtype ] = file.mimetype.split('/');
 
 			if (filetype !== 'image') {

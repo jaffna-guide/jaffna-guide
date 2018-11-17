@@ -100,28 +100,97 @@ class PlaceStore {
 	@action
 	uploadMarker = async (placeId, event) => {
 		this.state = 'pending';
-
 		const marker = event.target.files[0];
 		const formData = new FormData();
 		formData.append('marker', marker);
-
 		const res = await axios.post(`/api/places/${placeId}/marker`, formData, {
 			headers: {
 				'Content-Type': 'multipart/form-data',
 			},
 		});
-		const place = res.data;
-		this.places.find((p) => p._id === place._id).marker = place.marker;
-
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
 		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
 			this.state = 'done';
 		});
 	};
 
 	@action
 	deleteMarker = async (placeId) => {
-		axios.patch('/api/places', { id: placeId, marker: null });
-		delete this.places.find((p) => p._id === placeId).marker;
+		const res = await axios.delete(`/api/places/${placeId}/marker`);
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		console.log('updatedPlace', updatedPlace);
+		console.log('index', index);
+		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
+			this.state = 'done';
+		});
+	};
+
+	@action
+	uploadCover = async (placeId, event) => {
+		this.state = 'pending';
+		const cover = event.target.files[0];
+		const formData = new FormData();
+		formData.append('cover', cover);
+		const res = await axios.post(`/api/places/${placeId}/cover`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
+			this.state = 'done';
+		});
+	};
+
+	@action
+	deleteCover = async (placeId) => {
+		this.state = 'pending';
+		const res = await axios.delete(`/api/places/${placeId}/cover`);
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
+			this.state = 'done';
+		});
+	};
+
+	@action
+	uploadImages = async (placeId, event) => {
+		this.state = 'pending';
+		const formData = new FormData();
+		event.target.files.forEach((image) => {
+			console.log('image', image);
+			formData.append('image', image);
+		});
+		const res = await axios.post(`/api/places/${placeId}/images`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
+			this.state = 'done';
+		});
+	};
+
+	@action
+	deleteImage = async (placeId, imageId) => {
+		this.state = 'pending';
+		const res = await axios.delete(`/api/places/${placeId}/images/${imageId}`);
+		const updatedPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		runInAction(() => {
+			this.places.splice(index, 1, updatedPlace);
+			this.state = 'done';
+		});
 	};
 
 	@computed
@@ -165,6 +234,8 @@ class PlaceStore {
 
 	@computed
 	get culture() {
+		console.log('this', this);
+		console.log('this.places', this.places);
 		return this.places.filter((place) => place.category.body === 'culture');
 	}
 

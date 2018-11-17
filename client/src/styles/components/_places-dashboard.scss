@@ -1,12 +1,12 @@
 .places-dashboard {
-  height: 100%;
-  display: grid;
-  grid-template-rows: 1fr max-content;
+	height: 100%;
+	display: grid;
+	grid-template-rows: 1fr max-content;
 
 	&__map {
 		background-color: $secondary-color;
-    position: relative;
-    min-height: 80vh;
+		position: relative;
+		min-height: 80vh;
 		// important: The container holding the <Map /> must be set to position relative
 	}
 

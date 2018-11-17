@@ -18,6 +18,8 @@ const placeSchema = new Schema({
   active: { type: Boolean, default: true },
   category: { type: Schema.Types.ObjectId, ref: 'Category' },
   marker: { type: String },
+  cover: { type: String },
+  images: [{ type: String }],
 	createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
   updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
   createdAt: { type: Date, default: Date.now },

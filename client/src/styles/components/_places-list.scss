@@ -11,14 +11,15 @@
     display: flex;
     justify-content: space-between;
     background-color: $light-color;
-    padding: .6rem;
+    // padding-right: .5rem;
+    // padding: .6rem;
 
     @media (min-width: 400px) {
-      padding: 1rem;
+      // padding: .8rem;
     }
 
     @media (min-width: 560px) {
-      padding: 1.5rem 2rem;
+      // padding: .8rem 2rem;
     }
   }
 
@@ -29,10 +30,21 @@
 
   &__left {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__right {
-    width: 3rem;
-    background-color: orange;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 8rem;
+    // background-color: orange;
+  }
+
+  &__marker {
+    height: 6rem;
+    overflow: hidden;
   }
 }

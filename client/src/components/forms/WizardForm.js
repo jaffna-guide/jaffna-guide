@@ -13,15 +13,19 @@ class WizardForm extends React.Component {
 		};
 	}
 
-	next = (event) => {
-		event.persist && event.persist();
+	next = (values) => {
+		// event.persist && event.persist();
 		this.setState((state) => ({
 			page: Math.min(state.page + 1, this.props.children.length - 1),
+			values: values,
 		}));
 	};
 
 	previous = () => {
-		this.setState((state) => ({ page: Math.max(state.page - 1, 0) }));
+		this.setState((state) => {
+			const page = Math.max(state.page - 1, 0);
+			return { page };
+		});
 	};
 
 	validate = (values) => {
@@ -58,7 +62,7 @@ class WizardForm extends React.Component {
 							{activePage}
 							<div className={`${name}__buttons btn-group`}>
 								{page > 0 && (
-									<button className={`${name}__button--prev btn`} onClick={this.previous}>
+									<button className={`${name}__button--prev btn`} type="button" onClick={this.previous}>
 										« Previous
 									</button>
 								)}

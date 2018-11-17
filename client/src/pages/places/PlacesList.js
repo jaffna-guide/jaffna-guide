@@ -15,7 +15,9 @@ class PlacesList extends React.Component {
 							<div className="places-list__title">{place.name.en}</div>
 							<div className="places-list__subtitle">{place.name.ta}</div>
 						</div>
-						<div className="places-list__right">img</div>
+						<div className="places-list__right">
+							<img className="places-list__marker" alt={`${place.name.en} Marker`} src={place.marker} />
+						</div>
 					</div>
 				))}
 			</div>

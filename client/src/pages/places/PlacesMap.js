@@ -1,8 +1,10 @@
 import * as React from 'react';
 import { GoogleApiWrapper, Map } from 'google-maps-react';
+import { inject } from 'mobx-react';
 
 import PlaceMarker from './PlaceMarker';
 
+@inject('PlaceStore')
 @GoogleApiWrapper({ apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY })
 class PlacesMap extends React.Component {
 	static defaultProps = {
@@ -10,6 +12,10 @@ class PlacesMap extends React.Component {
 	};
 
 	render() {
+		const { PlaceStore } = this.props;
+		const places = PlaceStore[this.props.category];
+		console.log('places', places);
+
 		return (
 			<div className="places-map">
 				<Map
