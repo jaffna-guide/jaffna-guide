@@ -199,79 +199,104 @@ class CreatePlaceForm extends React.Component {
 	renderImagePage = () => {
 		const { PlaceStore, initialValues } = this.props;
 
+		console.log('initialValues', initialValues);
+
 		return (
 			<WizardForm.Page>
-				<div className="add-place-form__header">
-					<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
-					<div className="add-place-form__arrow">{'//'}</div>
-					<h2 className="add-place-form__subtitle">Images</h2>
-				</div>
+				<div className="add-place-form__image-page">
+					<div className="add-place-form__header">
+						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
+						<div className="add-place-form__arrow">{'//'}</div>
+						<h2 className="add-place-form__subtitle">Images</h2>
+					</div>
 
-				<div className="add-place-form__cover-marker">
-					<Field name="cover">
-						{({ input, meta }) => (
-							<div className="form-group">
-								<label htmlFor="cover" className="form-label">
-									Cover
-								</label>
-								{PlaceStore.state === 'pending' ? (
-									<div>
-										<Spinner className="add-place-form__spinner" name="line-scale" />
-									</div>
-								) : initialValues && initialValues.cover ? (
-									<div className="add-place-form__cover-wrapper">
-										<img
-											className="add-place-form__cover"
-											alt={`${initialValues.nameEn} Cover`}
-											src={initialValues.cover}
-										/>
+					<div className="add-place-form__cover-marker">
+						<Field name="cover">
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label htmlFor="cover" className="form-label">
+										Cover
+									</label>
+									{PlaceStore.state === 'pending' ? (
+										<div>
+											<Spinner className="add-place-form__spinner" name="line-scale" />
+										</div>
+									) : initialValues && initialValues.cover ? (
+										<div className="add-place-form__cover-wrapper">
+											<img
+												className="add-place-form__cover"
+												alt={`${initialValues.nameEn} Cover`}
+												src={initialValues.cover}
+											/>
+											<Icon
+												className="add-place-form__delete-cover"
+												icon={Close}
+												onClick={() => PlaceStore.deleteCover(initialValues._id)}
+												width="1rem"
+											/>
+										</div>
+									) : (
+										<input className="form-input" type="file" onChange={this.handleCoverDrop} />
+									)}
+									<p className="form-input-hint">Recommended: 64x64</p>
+									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+								</div>
+							)}
+						</Field>
+						<Field name="marker">
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label htmlFor="marker" className="form-label">
+										Marker
+									</label>
+									{PlaceStore.state === 'pending' ? (
+										<div>
+											<Spinner className="add-place-form__spinner" name="line-scale" />
+										</div>
+									) : initialValues && initialValues.marker ? (
+										<div className="add-place-form__marker-wrapper">
+											<img
+												className="add-place-form__marker"
+												alt={`${initialValues.nameEn} Marker`}
+												src={initialValues.marker}
+											/>
+											<Icon
+												className="add-place-form__delete-marker"
+												icon={Close}
+												onClick={() => PlaceStore.deleteMarker(initialValues._id)}
+												width="1rem"
+											/>
+										</div>
+									) : (
+										<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
+									)}
+									<p className="form-input-hint">Recommended: 64x64</p>
+									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+								</div>
+							)}
+						</Field>
+					</div>
+
+					<div className="add-place-form__images-wrapper">
+						<div className="form-group">
+							<label htmlFor="marker" className="form-label">
+								Images
+							</label>
+							<div className="add-place-form__images">
+								{initialValues.images.map((image, index) => (
+									<div key={index} className="add-place-form__image">
+										<img alt={`${initialValues.nameEn} ${index}`} src={image} />
 										<Icon
-											className="add-place-form__delete-icon"
-											icon={Close}
-											onClick={() => PlaceStore.deleteCover(initialValues._id)}
-											width="1rem"
-										/>
-									</div>
-								) : (
-									<input className="form-input" type="file" onChange={this.handleCoverDrop} />
-								)}
-								<p className="form-input-hint">Recommended: 64x64</p>
-								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
-							</div>
-						)}
-					</Field>
-					<Field name="marker">
-						{({ input, meta }) => (
-							<div className="form-group">
-								<label htmlFor="marker" className="form-label">
-									Marker
-								</label>
-								{PlaceStore.state === 'pending' ? (
-									<div>
-										<Spinner className="add-place-form__spinner" name="line-scale" />
-									</div>
-								) : initialValues && initialValues.marker ? (
-									<div className="add-place-form__marker-wrapper">
-										<img
-											className="add-place-form__marker"
-											alt={`${initialValues.nameEn} Marker`}
-											src={initialValues.marker}
-										/>
-										<Icon
-											className="add-place-form__delete-icon"
+											className="add-place-form__delete-image"
 											icon={Close}
 											onClick={() => PlaceStore.deleteMarker(initialValues._id)}
 											width="1rem"
 										/>
 									</div>
-								) : (
-									<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
-								)}
-								<p className="form-input-hint">Recommended: 64x64</p>
-								{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+								))}
 							</div>
-						)}
-					</Field>
+						</div>
+					</div>
 				</div>
 			</WizardForm.Page>
 		);
