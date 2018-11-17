@@ -104,7 +104,7 @@ export const deleteCover = async (req, res) => {
 		placeToUpdate.updatedAt = Date.now();
 
 		await placeToUpdate.save();
-		res.sendStatus(200);
+		res.status(200).send(placeToUpdate);
 	});
 };
 
@@ -127,6 +127,6 @@ export const deleteImage = async (req, res) => {
 
 		placeToUpdate.images = placeToUpdate.images.filter((i) => !i.endsWith(key));
 		await placeToUpdate.save();
-		res.sendStatus(200);
+		res.status(200).send(placeToUpdate);
 	});
 };

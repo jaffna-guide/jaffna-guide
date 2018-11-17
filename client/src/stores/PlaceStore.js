@@ -153,7 +153,9 @@ class PlaceStore {
 		this.state = 'pending';
 		const res = await axios.delete(`/api/places/${placeId}/cover`);
 		const updatedPlace = res.data;
+		console.log('updatedPlace', updatedPlace);
 		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		console.log('index', index);
 		runInAction(() => {
 			this.places.splice(index, 1, updatedPlace);
 			this.state = 'done';
