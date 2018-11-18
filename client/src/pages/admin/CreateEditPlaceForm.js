@@ -251,7 +251,7 @@ class CreatePlaceForm extends React.Component {
 									) : (
 										<input className="form-input" type="file" onChange={this.handleCoverDrop} />
 									)}
-									{!initialValues.cover && <p className="form-input-hint">Recommended: 64x64</p>}
+									{!initialValues.cover && <p className="form-input-hint">Recommended: 300x200</p>}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
 							)}
