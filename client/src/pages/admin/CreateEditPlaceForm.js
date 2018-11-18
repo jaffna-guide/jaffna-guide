@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Field } from 'react-final-form';
 import { inject } from 'mobx-react';
+import Dropzone from 'react-dropzone';
 
 import { WizardForm } from '../../components/forms';
 import { Icon, Spinner } from '../../components/atoms';
@@ -44,6 +45,20 @@ class CreatePlaceForm extends React.Component {
 	handleMarkerDrop = (acceptedFiles) => {
 		const { PlaceStore } = this.props;
 		PlaceStore.uploadMarker(PlaceStore.selectedPlaceId, acceptedFiles);
+	};
+
+	handleImageDrop = (acceptedFiles, rejectedFiles) => {
+		console.log('handle image upload');
+		const { PlaceStore } = this.props;
+		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
+	};
+
+	deleteImage = (imageUrl) => {
+		const { PlaceStore } = this.props;
+		const imageUrlParts = imageUrl.split('/');
+		const imageId = imageUrlParts[imageUrlParts.length - 1];
+		const placeId = imageUrlParts[imageUrlParts.length - 2];
+		PlaceStore.deleteImage(placeId, imageId);
 	};
 
 	renderEnglishPage = () => {
@@ -199,6 +214,8 @@ class CreatePlaceForm extends React.Component {
 	renderImagePage = () => {
 		const { PlaceStore, initialValues } = this.props;
 
+		const hasError = PlaceStore.state.startsWith('error');
+
 		console.log('initialValues', initialValues);
 
 		return (
@@ -278,8 +295,8 @@ class CreatePlaceForm extends React.Component {
 					</div>
 
 					<div className="add-place-form__images-wrapper">
-						<div className="form-group">
-							<label htmlFor="marker" className="form-label">
+						<div className={`form-group ${hasError ? 'has-error' : ''}`}>
+							<label htmlFor="images" className="form-label">
 								Images
 							</label>
 							<div className="add-place-form__images">
@@ -289,13 +306,24 @@ class CreatePlaceForm extends React.Component {
 										<Icon
 											className="add-place-form__delete-image"
 											icon={Close}
-											onClick={() => PlaceStore.deleteMarker(initialValues._id)}
+											onClick={() => this.deleteImage(image)}
 											width="1rem"
 										/>
 									</div>
 								))}
+								{PlaceStore.state === 'pendingUploadImages' ? (
+									<div>
+										<Spinner className="add-place-form__dropzone-spinner" name="line-scale" />
+									</div>
+								) : (
+									<div className="add-place-form__dropzone-wrapper">
+										<Dropzone className="add-place-form__dropzone" onDrop={this.handleImageDrop} />
+										{hasError && <p className="form-input-hint">File too large.</p>}
+									</div>
+								)}
 							</div>
 						</div>
+						<p className="form-input-hint">Max file size 1 MB.</p>
 					</div>
 				</div>
 			</WizardForm.Page>

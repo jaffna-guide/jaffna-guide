@@ -3,7 +3,7 @@ import axios from 'axios';
 
 class PlaceStore {
 	@observable places = [];
-	@observable state = 'pending'; // "pending" / "done" / "error"
+	@observable state = 'pending'; // "pendingX" / "done" / "error"
 	@observable selectedPlaceId = null;
 	@observable currentPlaceBody = '';
 	@observable createEditPlaceModalVisible = false;
@@ -11,7 +11,7 @@ class PlaceStore {
 	@action
 	fetchPlaces() {
 		this.places = [];
-		this.state = 'pending';
+		this.state = 'pendingFetchPlaces';
 
 		axios
 			.get('/api/places')
@@ -32,13 +32,18 @@ class PlaceStore {
 
 	@action
 	createPlace = async (place) => {
+		this.state = 'pendingCreatePlace';
 		const res = await axios.post('/api/places', place);
-		this.createEditPlaceModalVisible = false;
-		this.places.push(res.data);
+		runInAction(() => {
+			this.createEditPlaceModalVisible = false;
+			this.places.push(res.data);
+			this.state = 'done';
+		});
 	};
 
 	@action
 	editPlace = async (place) => {
+		this.state = 'pendingEditPlace';
 		const res = await axios.patch('/api/places', place);
 		const index = this.places.findIndex((p) => p._id === place.id);
 
@@ -46,16 +51,19 @@ class PlaceStore {
 			this.places.splice(index, 1, res.data);
 			this.createEditPlaceModalVisible = false;
 			this.selectedPlaceId = null;
+			this.state = 'done';
 		});
 	};
 
 	@action
 	deletePlace = async (placeId) => {
+		this.state = 'pendingDeletePlace';
 		const res = await axios.delete(`/api/places/${placeId}`);
 		if (res.status === 200) {
 			const index = this.places.map((p) => p.id).indexOf(placeId);
 			runInAction(() => {
 				this.places.splice(index, 1);
+				this.state = 'done';
 			});
 		}
 	};
@@ -99,7 +107,7 @@ class PlaceStore {
 
 	@action
 	uploadMarker = async (placeId, event) => {
-		this.state = 'pending';
+		this.state = 'pendingUploadMarker';
 		const marker = event.target.files[0];
 		const formData = new FormData();
 		formData.append('marker', marker);
@@ -118,6 +126,7 @@ class PlaceStore {
 
 	@action
 	deleteMarker = async (placeId) => {
+		this.state = 'pendingDeleteMarker';
 		const res = await axios.delete(`/api/places/${placeId}/marker`);
 		const updatedPlace = res.data;
 		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
@@ -131,7 +140,7 @@ class PlaceStore {
 
 	@action
 	uploadCover = async (placeId, event) => {
-		this.state = 'pending';
+		this.state = 'pendingUploadCover';
 		const cover = event.target.files[0];
 		const formData = new FormData();
 		formData.append('cover', cover);
@@ -150,7 +159,7 @@ class PlaceStore {
 
 	@action
 	deleteCover = async (placeId) => {
-		this.state = 'pending';
+		this.state = 'pendingDeleteCover';
 		const res = await axios.delete(`/api/places/${placeId}/cover`);
 		const updatedPlace = res.data;
 		console.log('updatedPlace', updatedPlace);
@@ -163,29 +172,35 @@ class PlaceStore {
 	};
 
 	@action
-	uploadImages = async (placeId, event) => {
-		this.state = 'pending';
+	uploadImages = async (placeId, files) => {
+		this.state = 'pendingUploadImages';
 		const formData = new FormData();
-		event.target.files.forEach((image) => {
-			console.log('image', image);
-			formData.append('image', image);
+		files.forEach((image) => {
+			formData.append('images', image);
 		});
-		const res = await axios.post(`/api/places/${placeId}/images`, formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data',
-			},
-		});
-		const updatedPlace = res.data;
-		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
-		runInAction(() => {
-			this.places.splice(index, 1, updatedPlace);
-			this.state = 'done';
-		});
+		try {
+			const res = await axios.post(`/api/places/${placeId}/images`, formData, {
+				headers: {
+					'Content-Type': 'multipart/form-data',
+				},
+			});
+
+			const updatedPlace = res.data;
+			const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+			runInAction(() => {
+				this.places.splice(index, 1, updatedPlace);
+				this.state = 'done';
+			});
+		} catch (e) {
+			runInAction(() => {
+				this.state = 'errorFileTooLarge';
+			});
+		}
 	};
 
 	@action
 	deleteImage = async (placeId, imageId) => {
-		this.state = 'pending';
+		this.state = 'pendingDeleteImage';
 		const res = await axios.delete(`/api/places/${placeId}/images/${imageId}`);
 		const updatedPlace = res.data;
 		const index = this.places.findIndex((p) => p._id === updatedPlace._id);

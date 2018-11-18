@@ -90,10 +90,6 @@
 		cursor: pointer;
 	}
 
-	&__spinner {
-		color: $primary-color;
-	}
-
 	&__cover-marker {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -128,5 +124,39 @@
 		img {
 			max-width: 190px;
 		}
+	}
+
+	&__dropzone-wrapper {
+		position: relative;
+
+		.form-input-hint {
+			position: absolute;
+			top: .2rem;
+			left: .5rem;
+		}
+	}
+
+	&__dropzone {
+		height: 200px;
+		border-width: 2px;
+		border-color: rgb(102, 102, 102);
+		border-style: dashed;
+		border-radius: $border-radius;
+	}
+
+	&__spinner {
+		color: $primary-color;
+	}
+
+	&__dropzone-spinner {
+		color: $primary-color;
+		height: 200px;
+		border-width: 2px;
+		border-color: rgb(102, 102, 102);
+		border-style: dashed;
+		border-radius: $border-radius;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 }

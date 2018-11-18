@@ -109,14 +109,16 @@ export const deleteCover = async (req, res) => {
 };
 
 export const uploadImages = async (req, res) => {
-	console.log('req.file.location', req.file.location);
-	// const updatedPlace = await Place.findOneAndUpdate(
-	// 	{ _id: req.params.placeId },
-	// 	{ $addToSet: { images: req.file.location } },
-	// 	{ new: true },
-	// ).populate('category');
+	console.log('req.files', req.files);
+	const newImages = req.files.map((file) => file.location);
 
-	res.send(updatedPlace);
+	const updatedPlace = await Place.findOneAndUpdate(
+		{ _id: req.params.placeId },
+		{ $addToSet: { images: newImages } },
+		{ new: true },
+	).populate('category');
+
+	res.status(200).send(updatedPlace);
 };
 
 export const deleteImage = async (req, res) => {
@@ -125,8 +127,15 @@ export const deleteImage = async (req, res) => {
 	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
 		if (err) res.sendStatus(500);
 
-		placeToUpdate.images = placeToUpdate.images.filter((i) => !i.endsWith(key));
-		await placeToUpdate.save();
-		res.status(200).send(placeToUpdate);
+		const imageUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
+			.STATIC_AWS_REGION}.amazonaws.com/${key}`;
+
+		const updatedPlace = await Place.findByIdAndUpdate(req.params.placeId, {
+			$pull: { images: imageUrl },
+		}).populate('category');
+
+		console.log('updatedPlace', updatedPlace);
+
+		res.status(200).send(updatedPlace);
 	});
 };
