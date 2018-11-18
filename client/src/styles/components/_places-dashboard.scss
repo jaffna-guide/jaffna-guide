@@ -1,9 +1,18 @@
 .places-dashboard {
 	height: 100%;
+	background-color: $light-color;
+
 	display: grid;
 	grid-template-rows: 1fr max-content;
+	grid-template-columns: 1fr max-content;
+	grid-template-areas: "map" "list";
+
+	@media (min-width: 992px) {
+		grid-template-areas: "map list";
+	}
 
 	&__map {
+		grid-area: map;
 		background-color: $secondary-color;
 		position: relative;
 		min-height: 80vh;
@@ -11,6 +20,11 @@
 	}
 
 	&__list {
+		grid-area: list;
+
+		@media (min-width: 992px) {
+			margin-top: -4px;
+		}
 	}
 }
 
