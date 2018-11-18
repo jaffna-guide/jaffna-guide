@@ -251,9 +251,7 @@ class PlaceStore {
 
 	@computed
 	get culture() {
-		const places = this.places.filter((place) => place.category.body === 'culture').sort((a, b) => b.score - a.score);
-		console.log('places', places);
-		return places;
+		return this.places.filter((place) => place.category.body === 'culture').sort((a, b) => b.score - a.score);
 	}
 
 	@computed

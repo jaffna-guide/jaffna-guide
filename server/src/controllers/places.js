@@ -5,7 +5,7 @@ import { s3 } from '../services';
 import { Place } from '../models';
 
 export const getAllPlaces = (req, res) => {
-	return Place.find({}).populate('category').exec((err, places) => {
+	return Place.find({ active: true }).populate('category').exec((err, places) => {
 		res.send(places);
 	});
 };
@@ -129,9 +129,13 @@ export const deleteImage = async (req, res) => {
 		const imageUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
 			.STATIC_AWS_REGION}.amazonaws.com/${key}`;
 
-		const updatedPlace = await Place.findByIdAndUpdate(req.params.placeId, {
-			$pull: { images: imageUrl },
-		}, { new: true }).populate('category');
+		const updatedPlace = await Place.findByIdAndUpdate(
+			req.params.placeId,
+			{
+				$pull: { images: imageUrl },
+			},
+			{ new: true },
+		).populate('category');
 
 		res.status(200).send(updatedPlace);
 	});
