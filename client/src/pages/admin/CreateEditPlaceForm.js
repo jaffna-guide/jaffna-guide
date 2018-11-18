@@ -48,7 +48,6 @@ class CreatePlaceForm extends React.Component {
 	};
 
 	handleImageDrop = (acceptedFiles, rejectedFiles) => {
-		console.log('handle image upload');
 		const { PlaceStore } = this.props;
 		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
@@ -213,10 +212,7 @@ class CreatePlaceForm extends React.Component {
 
 	renderImagePage = () => {
 		const { PlaceStore, initialValues } = this.props;
-
 		const hasError = PlaceStore.state.startsWith('error');
-
-		console.log('initialValues', initialValues);
 
 		return (
 			<WizardForm.Page>
@@ -234,7 +230,7 @@ class CreatePlaceForm extends React.Component {
 									<label htmlFor="cover" className="form-label">
 										Cover
 									</label>
-									{PlaceStore.state === 'pending' ? (
+									{PlaceStore.state === 'pendingUploadCover' ? (
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
@@ -255,7 +251,7 @@ class CreatePlaceForm extends React.Component {
 									) : (
 										<input className="form-input" type="file" onChange={this.handleCoverDrop} />
 									)}
-									<p className="form-input-hint">Recommended: 64x64</p>
+									{!initialValues.cover && <p className="form-input-hint">Recommended: 64x64</p>}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
 							)}
@@ -266,7 +262,7 @@ class CreatePlaceForm extends React.Component {
 									<label htmlFor="marker" className="form-label">
 										Marker
 									</label>
-									{PlaceStore.state === 'pending' ? (
+									{PlaceStore.state === 'pendingUploadMarker' ? (
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
@@ -287,7 +283,7 @@ class CreatePlaceForm extends React.Component {
 									) : (
 										<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
 									)}
-									<p className="form-input-hint">Recommended: 64x64</p>
+									{!initialValues.marker && <p className="form-input-hint">Recommended: 64x64</p>}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
 							)}

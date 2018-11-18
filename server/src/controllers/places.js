@@ -109,7 +109,6 @@ export const deleteCover = async (req, res) => {
 };
 
 export const uploadImages = async (req, res) => {
-	console.log('req.files', req.files);
 	const newImages = req.files.map((file) => file.location);
 
 	const updatedPlace = await Place.findOneAndUpdate(
@@ -132,9 +131,7 @@ export const deleteImage = async (req, res) => {
 
 		const updatedPlace = await Place.findByIdAndUpdate(req.params.placeId, {
 			$pull: { images: imageUrl },
-		}).populate('category');
-
-		console.log('updatedPlace', updatedPlace);
+		}, { new: true }).populate('category');
 
 		res.status(200).send(updatedPlace);
 	});
