@@ -55,7 +55,7 @@ class AdminPanel extends React.Component {
 													className="admin-panel__score-column"
 													onClick={() => PlaceStore.selectPlace(place._id)}
 												>
-													102
+													{place.score}
 												</td>
 												<td>
 													<div className="admin-panel__place-controls">
