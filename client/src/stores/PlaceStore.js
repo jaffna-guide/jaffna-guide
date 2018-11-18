@@ -236,12 +236,12 @@ class PlaceStore {
 
 	@computed
 	get restaurants() {
-		return this.places.filter((place) => place.category.body === 'restaurant');
+		return this.places.filter((place) => place.category.body === 'restaurant').sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get hotels() {
-		return this.places.filter((place) => place.category.body === 'hotel');
+		return this.places.filter((place) => place.category.body === 'hotel').sort((a, b) => b.score - a.score);
 	}
 
 	@computed
@@ -251,14 +251,14 @@ class PlaceStore {
 
 	@computed
 	get culture() {
-		console.log('this', this);
-		console.log('this.places', this.places);
-		return this.places.filter((place) => place.category.body === 'culture');
+		const places = this.places.filter((place) => place.category.body === 'culture').sort((a, b) => b.score - a.score);
+		console.log('places', places);
+		return places;
 	}
 
 	@computed
 	get education() {
-		return this.places.filter((place) => place.category.body === 'education');
+		return this.places.filter((place) => place.category.body === 'education').sort((a, b) => b.score - a.score);
 	}
 }
 
