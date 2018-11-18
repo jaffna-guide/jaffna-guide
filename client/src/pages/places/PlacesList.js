@@ -10,7 +10,11 @@ class PlacesList extends React.Component {
 		return (
 			<div className="places-list">
 				{PlaceStore[this.props.category].map((place) => (
-					<div key={place.body} className="places-list__item">
+					<div
+						key={place.body}
+						className="places-list__item"
+						onClick={() => PlaceStore.selectPlace(place._id)}
+					>
 						<div className="places-list__left">
 							<div className="places-list__title">{place.name.en}</div>
 							<div className="places-list__subtitle">{place.name.ta}</div>
