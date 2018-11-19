@@ -2,7 +2,7 @@
 import { Category } from '../models';
 
 export const getAllCategories = (req, res) => {
-	return Category.find({}, (err, categories) => {
+	return Category.find({ active: true }, (err, categories) => {
 		res.send(categories);
 	});
 };

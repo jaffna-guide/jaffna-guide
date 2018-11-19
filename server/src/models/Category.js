@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema({
   body: String,
   rank: Number,
+  active: { type: Boolean, default: true },
   name: {
     en: String,
     ta: String,
