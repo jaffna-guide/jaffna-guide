@@ -105,3 +105,10 @@ $ npm install passport-facebook
 # wip
 # wip
 ```
+
+### Troubleshoot
+
+```sh
+$ lsof -i :3000 | awk 'NR > 1 {print $2}' | xargs kill -9
+```
+Kill port 3000.

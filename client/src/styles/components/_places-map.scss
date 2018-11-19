@@ -1,3 +1,22 @@
 .places-map {
   height: 100%;
+
+  &__marker-wrapper {
+    position: relative;
+  }
+
+  &__marker {
+    // position: relative;
+  }
+
+  &__overlay {
+    z-index: 10;
+  }
+
+  &__marker-label {
+    position: relative;
+    left: 0;
+    top: 0;
+    font-family: $secondary-font;
+  }
 }

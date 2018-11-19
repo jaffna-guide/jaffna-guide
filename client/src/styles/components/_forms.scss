@@ -67,7 +67,9 @@
 		display: flex;
 		// border: $border-width solid $border-color-dark;
 		// border-radius: $border-radius;
-		height: 7rem;
+		// height: 7rem;
+		max-height: 7rem;
+		max-width: 100%;
 		// min-width: 7rem;
 	}
 
