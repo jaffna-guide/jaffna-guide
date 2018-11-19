@@ -2,8 +2,10 @@ import * as React from 'react';
 import { GoogleApiWrapper, Map, Marker } from 'google-maps-react';
 import { inject, observer } from 'mobx-react';
 import MediaQuery from 'react-responsive';
+import { withRouter } from 'react-router-dom';
 
 @GoogleApiWrapper({ apiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY })
+@withRouter
 @inject('PlaceStore')
 @observer
 class PlacesMap extends React.Component {
@@ -12,9 +14,8 @@ class PlacesMap extends React.Component {
 	};
 
 	handleMarkerClick = (props, marker, e) => {
-		const { PlaceStore } = this.props;
-		PlaceStore.selectPlace(props.placeId);
-		PlaceStore.setActiveMarker(marker);
+		const { history } = this.props;
+		history.push(`/${marker.placeBody}`);
 	};
 
 	renderMarkers = () => {
@@ -25,6 +26,7 @@ class PlacesMap extends React.Component {
 			<Marker
 				key={place.body}
 				placeId={place._id}
+				placeBody={place.body}
 				onClick={this.handleMarkerClick}
 				position={{ lat: place.latitude, lng: place.longitude }}
 				name={place.name.en}

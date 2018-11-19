@@ -7,7 +7,6 @@ class PlaceStore {
 	@observable selectedPlaceId = null;
 	@observable currentPlaceBody = '';
 	@observable createEditPlaceModalVisible = false;
-	@observable activeMarkerId = null;
 
 	@action
 	fetchPlaces() {
@@ -73,11 +72,6 @@ class PlaceStore {
 	selectPlace = (placeId) => {
 		this.selectedPlaceId = placeId;
 		this.createEditPlaceModalVisible = true;
-	};
-
-	@action
-	activateMarker = (placeId) => {
-		this.activeMarkerId = placeId;
 	};
 
 	@action
