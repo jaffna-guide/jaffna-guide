@@ -16,7 +16,6 @@ const upload = multer({
 		},
 	}),
 	fileFilter: (req, file, cb) => {
-		console.log('file', file);
 		const [ filetype, filesubtype ] = file.mimetype.split('/');
 
 		if (filetype !== 'image') {

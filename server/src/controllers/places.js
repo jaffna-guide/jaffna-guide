@@ -1,5 +1,7 @@
 import multer from 'multer';
 import url from 'url';
+import sharp from 'sharp';
+import { v4 as uuid } from 'uuid';
 
 import { s3 } from '../services';
 import { Place } from '../models';
@@ -86,7 +88,7 @@ export const deleteMarker = async (req, res) => {
 	if (!markerType) res.status(400).send('markerType is required!');
 	if (markerType !== 'default' || markerType !== 'active')
 		res.status(400).send('Invalid markerType has been provided!');
-	
+
 	const placeToUpdate = await Place.findById(req.params.placeId);
 	const key = url.parse(placeToUpdate.marker[markerType]).pathname;
 	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
@@ -127,15 +129,47 @@ export const deleteCover = async (req, res) => {
 };
 
 export const uploadImages = async (req, res) => {
-	const newImages = req.files.map((file) => file.location);
+	const promises = req.files.map(
+		(file) =>
+			new Promise((resolve, reject) => {
+				s3.getObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: file.key }, async (err, data) => {
+					if (err) res.status(500).send(err);
 
-	const updatedPlace = await Place.findOneAndUpdate(
-		{ _id: req.params.placeId },
-		{ $addToSet: { images: newImages } },
-		{ new: true },
-	).populate('category');
+					const uploadedFile = data.Body;
+					const resizedFile = await sharp(uploadedFile).resize(240, 160).toBuffer();
+					const resizedKey = `${req.params.placeId}/${uuid()}.png`;
 
-	res.status(200).send(updatedPlace);
+					s3.putObject(
+						{
+							Bucket: process.env.STATIC_AWS_BUCKET,
+							StorageClass: 'REDUCED_REDUNDANCY',
+							Key: resizedKey,
+							Body: resizedFile,
+						},
+						(err, data) => {
+							if (err) res.status(500).send(err);
+
+							const original = file.location;
+							const thumbnail = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
+								.STATIC_AWS_REGION}.amazonaws.com/${resizedKey}`;
+							const image = { original, thumbnail };
+
+							resolve(
+								Place.findByIdAndUpdate(
+									req.params.placeId,
+									{ $addToSet: { images: [ image ] } },
+									{ new: true },
+								),
+							);
+						},
+					);
+				});
+			}),
+	);
+
+	await Promise.all(promises);
+	const updatedPlace = await Place.findById(req.params.placeId);
+	res.status(200).send(updatedPlace.images);
 };
 
 export const deleteImage = async (req, res) => {

@@ -304,7 +304,7 @@ class CreatePlaceForm extends React.Component {
 							<div className="add-place-form__images">
 								{initialValues.images.map((image, index) => (
 									<div key={index} className="add-place-form__image">
-										<img alt={`${initialValues.nameEn} ${index}`} src={image} />
+										<img alt={`${initialValues.nameEn} ${index}`} src={image.thumbnail} />
 										<Icon
 											className="add-place-form__delete-image"
 											icon={Close}

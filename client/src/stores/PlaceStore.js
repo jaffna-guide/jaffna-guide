@@ -181,10 +181,12 @@ class PlaceStore {
 				},
 			});
 
-			const updatedPlace = res.data;
-			const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+			const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+			const updatedImages = res.data;
+			console.log('updatedImages', updatedImages);
+
 			runInAction(() => {
-				this.places.splice(index, 1, updatedPlace);
+				placeToBeUpdated.images = updatedImages;
 				this.state = 'done';
 			});
 		} catch (e) {
