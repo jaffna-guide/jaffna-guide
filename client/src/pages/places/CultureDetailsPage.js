@@ -16,7 +16,7 @@ class CultureDetails extends React.Component {
 					<h1 className="culture-details__title">{place.name.en}</h1>
 					<h2 className="culture-details__subtitle">{place.name.ta}</h2>
 				</div>
-				<div className="culture-details__carousel">
+				{/* <div className="culture-details__carousel">
 					<Carousel>
 						{({ MainTrack, Slide, ThumbnailTrack, Thumbnail }) => {
 							return (
@@ -35,7 +35,7 @@ class CultureDetails extends React.Component {
 							);
 						}}
 					</Carousel>
-				</div>
+				</div> */}
 			</div>
 		);
 	}

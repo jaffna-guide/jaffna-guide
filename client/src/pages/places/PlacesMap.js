@@ -31,7 +31,7 @@ class PlacesMap extends React.Component {
 				position={{ lat: place.latitude, lng: place.longitude }}
 				name={place.name.en}
 				icon={{
-					url: place.marker,
+					url: place.marker.default,
 					anchor: new google.maps.Point(12, 68),
 					scaledSize: new google.maps.Size(256, 64),
 				}}
