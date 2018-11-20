@@ -6,6 +6,11 @@
 @import 'node_modules/spectre.css/src/forms';
 @import 'node_modules/spectre.css/src/tables';
 @import 'node_modules/spectre.css/src/modals';
+@import 'node_modules/spectre.css/src/carousels';
+@import 'node_modules/spectre.css/src/icons';
+@import 'node_modules/spectre.css/src/labels';
+@import 'node_modules/spectre.css/src/utilities';
+
 
 // animate.css
 @import 'node_modules/animate.css/animate';
@@ -22,10 +27,10 @@
 @import 'components/icons';
 @import 'components/spinner';
 @import 'components/crossfade';
+@import 'components/carousel';
 @import 'components/category-list';
 @import 'components/places-map';
 @import 'components/places-list';
-@import 'components/places-dashboard';
 
 @import 'layout/layout';
 @import 'layout/header';
@@ -35,3 +40,5 @@
 @import 'pages/home';
 @import 'pages/contact';
 @import 'pages/admin-panel';
+@import 'pages/places-dashboard';
+@import 'pages/culture-details';

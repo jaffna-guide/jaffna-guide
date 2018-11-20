@@ -1,0 +1,65 @@
+.carousel {
+	width: 100vw;
+	background-color: purple;
+	max-width: 992px;
+	background: orange;
+
+	&__track-outer {
+		height: 300px;
+		position: relative;
+		display: flex;
+	}
+
+	&__track-inner {
+		position: absolute;
+		display: flex;
+	}
+}
+
+.carousel-main-track {
+  &__outer {
+    position: relative;
+	}
+
+	&__inner {
+		display: flex;
+	}
+  
+}
+
+.carousel-slide {
+	background-color: green;
+	width: 100%;
+	display: block;
+
+	&__image {
+		width: 100%;
+		height: 300px;
+	}
+}
+
+.carousel-thumbnail-track {
+	&__outer {
+	}
+
+	&__inner {
+		display: flex;
+	}
+}
+
+.carousel-thumbnail {
+}
+
+.carousel-arrow {
+	&--left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+	}
+
+	&--right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+	}
+}
