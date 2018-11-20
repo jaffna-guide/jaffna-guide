@@ -42,11 +42,6 @@ class CreatePlaceForm extends React.Component {
 		PlaceStore.uploadCover(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
 
-	handleMarkerDrop = (acceptedFiles) => {
-		const { PlaceStore } = this.props;
-		PlaceStore.uploadMarker(PlaceStore.selectedPlaceId, acceptedFiles);
-	};
-
 	handleImageDrop = (acceptedFiles, rejectedFiles) => {
 		const { PlaceStore } = this.props;
 		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
@@ -262,7 +257,7 @@ class CreatePlaceForm extends React.Component {
 									<label htmlFor="marker" className="form-label">
 										Marker
 									</label>
-									{PlaceStore.state === 'pendingUploadMarker' ? (
+									{PlaceStore.state === 'pendingUploadMarkerDefault' ? (
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
@@ -276,12 +271,23 @@ class CreatePlaceForm extends React.Component {
 											<Icon
 												className="add-place-form__delete-marker"
 												icon={Close}
-												onClick={() => PlaceStore.deleteMarker(initialValues._id)}
+												onClick={() => PlaceStore.deleteMarker(initialValues._id, 'default')}
 												width="1rem"
 											/>
 										</div>
 									) : (
-										<input className="form-input" type="file" onChange={this.handleMarkerDrop} />
+										<input
+											className="form-input"
+											type="file"
+											onChange={(acceptedFiles) => {
+												const { PlaceStore } = this.props;
+												PlaceStore.uploadMarker(
+													PlaceStore.selectedPlaceId,
+													'default',
+													acceptedFiles,
+												);
+											}}
+										/>
 									)}
 									{!initialValues.marker && <p className="form-input-hint">Recommended: 64x64</p>}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}

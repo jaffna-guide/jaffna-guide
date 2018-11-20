@@ -78,7 +78,7 @@ export const uploadMarker = async (req, res) => {
 		{ new: true },
 	).populate('category');
 
-	res.send(updatedPlace);
+	res.send(updatedPlace.marker);
 };
 
 export const deleteMarker = async (req, res) => {
@@ -87,7 +87,7 @@ export const deleteMarker = async (req, res) => {
 	if (markerType !== 'default' || markerType !== 'active')
 		res.status(400).send('Invalid markerType has been provided!');
 	
-	const placeToUpdate = await Place.findById(req.params.placeId).populate('category');
+	const placeToUpdate = await Place.findById(req.params.placeId);
 	const key = url.parse(placeToUpdate.marker[markerType]).pathname;
 	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
 		if (err) res.sendStatus(500);
@@ -97,7 +97,7 @@ export const deleteMarker = async (req, res) => {
 		placeToUpdate.updatedAt = Date.now();
 
 		await placeToUpdate.save();
-		res.status(200).send(placeToUpdate);
+		res.status(200).send(placeToUpdate.marker);
 	});
 };
 
@@ -106,9 +106,9 @@ export const uploadCover = async (req, res) => {
 		{ _id: req.params.placeId },
 		{ $set: { cover: req.file.location, updatedBy: req.user._id, updatedAt: Date.now() } },
 		{ new: true },
-	).populate('category');
+	);
 
-	res.status(200).send(updatedPlace);
+	res.status(200).send(updatedPlace.cover);
 };
 
 export const deleteCover = async (req, res) => {
@@ -122,7 +122,7 @@ export const deleteCover = async (req, res) => {
 		placeToUpdate.updatedAt = Date.now();
 
 		await placeToUpdate.save();
-		res.status(200).send(placeToUpdate);
+		res.sendStatus(200);
 	});
 };
 
