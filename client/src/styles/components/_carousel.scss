@@ -1,5 +1,8 @@
 .carousel-wrapper {
 	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 1024px;	
 }
 
 .carousel-slide-track {
@@ -9,16 +12,17 @@
 	}
 
 	&__inner {
+		transition: all .5s;
+		position: relative;
 		display: flex;
 	}
 }
 
 .carousel-slide {
-	min-width: fill-available;
-	display: block;
+	// min-width: fill-available;
+	width: 100%;
 
 	&__image {
-		width: 100%;
 		height: 500px;
 	}
 }
@@ -42,6 +46,7 @@
 .carousel-arrow {
 	position: absolute;
 	transform: translateY(-50%);
+	z-index: 3;
 
 	&--left {
 		left: 1%;

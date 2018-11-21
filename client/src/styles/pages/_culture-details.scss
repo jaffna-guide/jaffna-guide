@@ -45,23 +45,9 @@
   }
 
   &__carousel {
-    // background-color: red;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    max-width: 992px;
-
-    .carousel-locator {
-      display: none;
-    }
-
-    .carousel-item {
-      // width: 100%;
-      img {
-        width: 100%;
-        
-      }
-    }
+    // max-width: 992px;
   }
-
 }

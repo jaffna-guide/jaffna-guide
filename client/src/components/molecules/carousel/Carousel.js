@@ -42,7 +42,11 @@ class Carousel extends React.Component {
 						<Thumbnail key={image._id} alt={`${name} Thumbnail ${index + 1}`} src={image.thumbnail} />
 					))}
 				</ThumbnailTrack>
-				<SlideTrack prevSlide={this.prevSlide} nextSlide={this.nextSlide}>
+				<SlideTrack
+					prevSlide={this.prevSlide}
+					nextSlide={this.nextSlide}
+					currentImageIndex={this.state.currentImageIndex}
+				>
 					{images.map((image, index) => (
 						<Slide key={image._id} alt={`${name} ${index + 1}`} src={image.original} />
 					))}
