@@ -71,8 +71,7 @@ export const deletePlace = async (req, res) => {
 export const uploadMarker = async (req, res) => {
 	const { markerType } = req.body;
 	if (!markerType) res.status(400).send('markerType is required!');
-	if (markerType !== 'default' || markerType !== 'active')
-		res.status(400).send('Invalid markerType has been provided!');
+	if (![ 'default', 'active' ].includes(markerType)) res.status(400).send('Invalid markerType has been provided!');
 
 	const updatedPlace = await Place.findOneAndUpdate(
 		{ _id: req.params.placeId },
@@ -86,8 +85,9 @@ export const uploadMarker = async (req, res) => {
 export const deleteMarker = async (req, res) => {
 	const { markerType } = req.body;
 	if (!markerType) res.status(400).send('markerType is required!');
-	if (markerType !== 'default' || markerType !== 'active')
+	if (![ 'default', 'active' ].includes(markerType)) {
 		res.status(400).send('Invalid markerType has been provided!');
+	}
 
 	const placeToUpdate = await Place.findById(req.params.placeId);
 	const key = url.parse(placeToUpdate.marker[markerType]).pathname;
@@ -173,22 +173,29 @@ export const uploadImages = async (req, res) => {
 };
 
 export const deleteImage = async (req, res) => {
-	const key = `${req.params.placeId}/${req.params.imageId}`;
+	const placeToUpdate = await Place.findById(req.params.placeId);
+	const imageToDelete = placeToUpdate.images.find((i) => i._id == req.params.imageId);
+	const imagesToKeep = placeToUpdate.images.filter((i) => i._id != req.params.imageId);
 
-	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
-		if (err) res.sendStatus(500);
+	const thumbnailPieces = imageToDelete.thumbnail.split('/');
+	const originalPieces = imageToDelete.original.split('/');
 
-		const imageUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
-			.STATIC_AWS_REGION}.amazonaws.com/${key}`;
+	const keys = [
+		`${req.params.placeId}/${thumbnailPieces[thumbnailPieces.length - 1]}`,
+		`${req.params.placeId}/${originalPieces[originalPieces.length - 1]}`,
+	];
 
-		const updatedPlace = await Place.findByIdAndUpdate(
-			req.params.placeId,
-			{
-				$pull: { images: imageUrl },
-			},
-			{ new: true },
-		).populate('category');
+	const objectsToDelete = keys.map((k) => ({ Key: k }));
 
-		res.status(200).send(updatedPlace);
-	});
+	s3.deleteObjects(
+		{ Bucket: process.env.STATIC_AWS_BUCKET, Delete: { Objects: objectsToDelete } },
+		async (err, data) => {
+			if (err) res.sendStatus(500);
+
+			placeToUpdate.images.pull(req.params.imageId);
+			await placeToUpdate.save();
+
+			res.status(200).send(placeToUpdate.images);
+		},
+	);
 };

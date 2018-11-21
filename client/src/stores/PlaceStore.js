@@ -128,7 +128,7 @@ class PlaceStore {
 	@action
 	deleteMarker = async (placeId, markerType) => {
 		this.state = `pendingDeleteMarker${markerType.charAt(0).toUpperCase()}${markerType.substr(1)}`;
-		const res = await axios.delete(`/api/places/${placeId}/marker`, { markerType });
+		const res = await axios.delete(`/api/places/${placeId}/marker`, { data: { markerType } });
 		const updatedMarker = res.data;
 		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
 		runInAction(() => {
@@ -200,10 +200,11 @@ class PlaceStore {
 	deleteImage = async (placeId, imageId) => {
 		this.state = 'pendingDeleteImage';
 		const res = await axios.delete(`/api/places/${placeId}/images/${imageId}`);
-		const updatedPlace = res.data;
-		const index = this.places.findIndex((p) => p._id === updatedPlace._id);
+		const updatedImages = res.data;
+		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+
 		runInAction(() => {
-			this.places.splice(index, 1, updatedPlace);
+			placeToBeUpdated.images = updatedImages;
 			this.state = 'done';
 		});
 	};

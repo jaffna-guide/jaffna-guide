@@ -47,14 +47,6 @@ class CreatePlaceForm extends React.Component {
 		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
 
-	deleteImage = (imageUrl) => {
-		const { PlaceStore } = this.props;
-		const imageUrlParts = imageUrl.split('/');
-		const imageId = imageUrlParts[imageUrlParts.length - 1];
-		const placeId = imageUrlParts[imageUrlParts.length - 2];
-		PlaceStore.deleteImage(placeId, imageId);
-	};
-
 	renderEnglishPage = () => {
 		const { initialValues, CategoryStore } = this.props;
 		return (
@@ -208,6 +200,7 @@ class CreatePlaceForm extends React.Component {
 	renderImagePage = () => {
 		const { PlaceStore, initialValues } = this.props;
 		const hasError = PlaceStore.state.startsWith('error');
+		console.log('initialValues', initialValues);
 
 		return (
 			<WizardForm.Page>
@@ -261,12 +254,12 @@ class CreatePlaceForm extends React.Component {
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
-									) : initialValues && initialValues.marker ? (
+									) : initialValues && initialValues.marker.default ? (
 										<div className="add-place-form__marker-wrapper">
 											<img
 												className="add-place-form__marker"
 												alt={`${initialValues.nameEn} Marker`}
-												src={initialValues.marker}
+												src={initialValues.marker.default}
 											/>
 											<Icon
 												className="add-place-form__delete-marker"
@@ -308,7 +301,7 @@ class CreatePlaceForm extends React.Component {
 										<Icon
 											className="add-place-form__delete-image"
 											icon={Close}
-											onClick={() => this.deleteImage(image)}
+											onClick={() => PlaceStore.deleteImage(initialValues._id, image._id)}
 											width="1rem"
 										/>
 									</div>
