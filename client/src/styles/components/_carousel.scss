@@ -1,30 +1,15 @@
-.carousel {
-	width: 100vw;
-	background-color: purple;
-	max-width: 992px;
-	background: orange;
-
-	&__track-outer {
-		height: 300px;
-		position: relative;
-		display: flex;
-	}
-
-	&__track-inner {
-		position: absolute;
-		display: flex;
-	}
+.carousel-wrapper {
+	position: relative;
 }
 
 .carousel-main-track {
-  &__outer {
-    position: relative;
+	&__outer {
+		position: relative;
 	}
 
 	&__inner {
 		display: flex;
 	}
-  
 }
 
 .carousel-slide {
@@ -40,6 +25,10 @@
 
 .carousel-thumbnail-track {
 	&__outer {
+		position: absolute;
+		top: 0;
+		left: 0;
+		// z-index: 1;
 	}
 
 	&__inner {
@@ -51,15 +40,28 @@
 }
 
 .carousel-arrow {
+	position: absolute;
+	transform: translateY(-50%);
+
 	&--left {
-    position: absolute;
-    left: 0;
-    top: 50%;
+		left: 1%;
+		top: 50%;
 	}
 
 	&--right {
-    position: absolute;
-    right: 0;
-    top: 50%;
+		right: 1%;
+		top: 50%;
+	}
+
+	&__icon {
+		width: 3rem;
+		height: 3rem;
+		cursor: pointer;
+		fill: $dark-color;
+		transition: all .3s;
+
+		&:hover {
+			transform: scale(1.3);
+		}
 	}
 }

@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-const Slide = ({ url }) => {
+const Slide = ({ src }) => {
 	const style = {
-		backgroundImage: `url(${url})`,
+		backgroundImage: `url(${src})`,
 		backgroundSize: 'cover',
 		backgroundPosition: 'center',
 	};

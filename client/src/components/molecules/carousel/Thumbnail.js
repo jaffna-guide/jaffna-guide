@@ -1,9 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 
-const Thumbnail = () => {
-  return (
-    <div>Thumbnail</div>
-  )
-}
+const Thumbnail = ({ alt, src }) => {
+	return (
+		<figure>
+			<img alt={alt} src={src} />
+		</figure>
+	);
+};
 
-export default Thumbnail
+export default Thumbnail;

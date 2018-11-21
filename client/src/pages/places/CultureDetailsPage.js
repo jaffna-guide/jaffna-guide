@@ -16,26 +16,9 @@ class CultureDetails extends React.Component {
 					<h1 className="culture-details__title">{place.name.en}</h1>
 					<h2 className="culture-details__subtitle">{place.name.ta}</h2>
 				</div>
-				{/* <div className="culture-details__carousel">
-					<Carousel>
-						{({ MainTrack, Slide, ThumbnailTrack, Thumbnail }) => {
-							return (
-								<div>
-									<ThumbnailTrack>
-										{place.images.map((image) => (
-											<Thumbnail key={image.thumbnail} url={image.thumbnail} />
-										))}
-									</ThumbnailTrack>
-									<MainTrack>
-										{place.images.map((image) => (
-											<Slide key={image.original} url={image.original} />
-										))}
-									</MainTrack>
-								</div>
-							);
-						}}
-					</Carousel>
-				</div> */}
+				<div className="culture-details__carousel">
+					<Carousel name={place.name.en} images={place.images} />
+				</div>
 			</div>
 		);
 	}

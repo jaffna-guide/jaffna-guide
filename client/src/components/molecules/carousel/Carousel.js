@@ -1,9 +1,10 @@
 import * as React from 'react';
 
 import Slide from './Slide';
-import Arrow from './Arrow';
-import MainTrack from './MainTrack';
+import SlideTrack from './SlideTrack';
 import ThumbnailTrack from './ThumbnailTrack';
+import Thumbnail from './Thumbnail';
+import Wrapper from './Wrapper';
 
 class Carousel extends React.Component {
 	state = {
@@ -11,34 +12,42 @@ class Carousel extends React.Component {
 	};
 
 	prevSlide = () => {
-		const { children } = this.props;
-		console.log('children', children);
+		const { images } = this.props;
 		const { currentImageIndex } = this.state;
-		const lastIndex = React.Children.count(children) - 1;
+		const lastIndex = images.length - 1;
 		const shouldResetIndex = currentImageIndex === 0;
 		const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
-		this.setState({ currentImageIndex: index });
+		this.setState({ currentImageIndex: index }, () => {
+			console.log('this.state.currentImageIndex', this.state.currentImageIndex);
+		});
 	};
 
 	nextSlide = () => {
-		const { children } = this.props;
+		const { images } = this.props;
 		const { currentImageIndex } = this.state;
-		const lastIndex = React.Children.count(children) - 1;
+		const lastIndex = images.length - 1;
 		const shouldResetIndex = currentImageIndex === lastIndex;
 		const index = shouldResetIndex ? 0 : currentImageIndex + 1;
-		this.setState({ currentImageIndex: index });
+		this.setState({ currentImageIndex: index }, () => {
+			console.log('this.state.currentImageIndex', this.state.currentImageIndex);
+		});
 	};
 
 	render() {
-		const EnhancedMainTrack = React.cloneElement(MainTrack, {
-			prevSlide: this.prevSlide,
-			nextSlide: this.nextSlide,
-		});
-
+		const { name, images } = this.props;
 		return (
-			<div className="carousel">
-				{this.props.children({ Slide, Arrow, MainTrack: EnhancedMainTrack, ThumbnailTrack })}
-			</div>
+			<Wrapper>
+				<ThumbnailTrack>
+					{images.map((image, index) => (
+						<Thumbnail key={image._id} alt={`${name} Thumbnail ${index + 1}`} src={image.thumbnail} />
+					))}
+				</ThumbnailTrack>
+				<SlideTrack prevSlide={this.prevSlide} nextSlide={this.nextSlide}>
+					{images.map((image, index) => (
+						<Slide key={image._id} alt={`${name} ${index + 1}`} src={image.original} />
+					))}
+				</SlideTrack>
+			</Wrapper>
 		);
 	}
 }
