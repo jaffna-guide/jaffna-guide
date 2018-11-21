@@ -17,9 +17,7 @@ class Carousel extends React.Component {
 		const lastIndex = images.length - 1;
 		const shouldResetIndex = currentImageIndex === 0;
 		const index = shouldResetIndex ? lastIndex : currentImageIndex - 1;
-		this.setState({ currentImageIndex: index }, () => {
-			console.log('this.state.currentImageIndex', this.state.currentImageIndex);
-		});
+		this.setState({ currentImageIndex: index });
 	};
 
 	nextSlide = () => {
@@ -28,20 +26,17 @@ class Carousel extends React.Component {
 		const lastIndex = images.length - 1;
 		const shouldResetIndex = currentImageIndex === lastIndex;
 		const index = shouldResetIndex ? 0 : currentImageIndex + 1;
-		this.setState({ currentImageIndex: index }, () => {
-			console.log('this.state.currentImageIndex', this.state.currentImageIndex);
-		});
+		this.setState({ currentImageIndex: index });
+	};
+
+	goToSlide = (index) => {
+		this.setState({ currentImageIndex: index });
 	};
 
 	render() {
 		const { name, images } = this.props;
 		return (
 			<Wrapper>
-				<ThumbnailTrack>
-					{images.map((image, index) => (
-						<Thumbnail key={image._id} alt={`${name} Thumbnail ${index + 1}`} src={image.thumbnail} />
-					))}
-				</ThumbnailTrack>
 				<SlideTrack
 					prevSlide={this.prevSlide}
 					nextSlide={this.nextSlide}
@@ -51,6 +46,17 @@ class Carousel extends React.Component {
 						<Slide key={image._id} alt={`${name} ${index + 1}`} src={image.original} />
 					))}
 				</SlideTrack>
+				<ThumbnailTrack>
+					{images.map((image, index) => (
+						<Thumbnail
+							key={image._id}
+							alt={`${name} Thumbnail ${index + 1}`}
+							src={image.thumbnail}
+							index={index}
+							goToSlide={this.goToSlide}
+						/>
+					))}
+				</ThumbnailTrack>
 			</Wrapper>
 		);
 	}

@@ -1,12 +1,13 @@
 .culture-details {
   display: grid;
+  padding-bottom: 2rem;
 
   &__header {
-    margin-top: 3rem;
+    margin-top: 2rem;
     margin-left: auto;
     margin-right: auto;
-    padding-left: .5rem;
-    padding-right: .5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     text-align: center;
   }
 
@@ -36,7 +37,7 @@
 
     @media (min-width: 768px) {
       font-size: 1.6rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 1.75rem;
     }
 
     @media (min-width: 992px) {
