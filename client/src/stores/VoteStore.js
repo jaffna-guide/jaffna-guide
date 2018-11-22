@@ -15,7 +15,7 @@ class VoteStore {
 
     const authUser = AuthStore.authUser;
     authUser[currentPlace.category.body].votes = updatedVotes.user;
-	};
+  };
 }
 
 const store = new VoteStore();

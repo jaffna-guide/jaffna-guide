@@ -2,15 +2,13 @@
 // spectre.css
 @import 'node_modules/spectre.css/src/variables';
 @import 'node_modules/spectre.css/src/mixins';
+@import 'node_modules/spectre.css/src/utilities';
 @import 'node_modules/spectre.css/src/buttons';
 @import 'node_modules/spectre.css/src/forms';
 @import 'node_modules/spectre.css/src/tables';
 @import 'node_modules/spectre.css/src/modals';
-@import 'node_modules/spectre.css/src/carousels';
-@import 'node_modules/spectre.css/src/icons';
-@import 'node_modules/spectre.css/src/labels';
-@import 'node_modules/spectre.css/src/utilities';
-
+@import 'node_modules/spectre.css/src/popovers';
+@import 'node_modules/spectre.css/src/cards';
 
 // animate.css
 @import 'node_modules/animate.css/animate';

@@ -10,7 +10,6 @@ import { Carousel } from '../../components/molecules';
 @observer
 class CultureDetails extends React.Component {
 	componentDidMount() {
-		console.log('this.props', this.props);
 		const { AuthStore, match } = this.props;
 		const token = localStorage.getItem('token');
 		const { place } = match.params;
@@ -21,7 +20,7 @@ class CultureDetails extends React.Component {
 	}
 
 	render() {
-		const { PlaceStore, AuthStore, match } = this.props;
+		const { PlaceStore, AuthStore, VoteStore, match } = this.props;
 		const place = PlaceStore.currentPlace;
 
 		return (
@@ -32,12 +31,12 @@ class CultureDetails extends React.Component {
 						<h2 className="culture-details__subtitle">{place.name.ta}</h2>
 					</div>
 					<div className="culture-details__votes-wrapper">
-						<div className="culture-details__votes">
-							<div>{place.votes}</div>
-							<div>votes</div>
+						<div className="culture-details__votes-box">
+							<div className="culture-details__votes-box-count">{place.votes}</div>
+							<div className="culture-details__votes-box-label">votes</div>
 						</div>
 						{!AuthStore.isAuthenticated ? (
-							<a className="login-welcome__link" href={`/auth/facebook?redirect=${match.url}`}>
+							<a className="culture-details__login-link btn btn-link" href={`/auth/facebook?redirect=${match.url}`}>
 								Login w/ Facebook
 							</a>
 						) : AuthStore.hasCastedVoteForCurrentPlace ? (
@@ -45,7 +44,37 @@ class CultureDetails extends React.Component {
 								{AuthStore.currentPlaceVotes} votes
 							</button>
 						) : (
-							<button className="culture-details__vote-button btn">vote</button>
+							<div className="culture-details__votes-popover popover popover-left">
+								<a className="culture-details__votes-button btn btn-block btn-sm" href="#vote">
+									vote
+								</a>
+								<div className="popover-container">
+									<div className="card">
+										<div className="card-header">
+											<div className="culture-details__votes-title card-title">Vote</div>
+											<div className="culture-details__votes-subtitle card-subtitle">
+												Make your voice count!
+											</div>
+										</div>
+										<div className="card-body">
+											We conduct an annual voting on the popularity of listed entities in any
+											given category. Each authenticated user has a total of <strong>10</strong>{' '}
+											votes per category to give away.
+										</div>
+										<div className="card-footer">
+											<div className="btn-group btn-group-block">
+												<button className="culture-details__votes-button btn">1 vote</button>
+												<button className="culture-details__votes-button btn">2 votes</button>
+												<button className="culture-details__votes-button btn">3 votes</button>
+											</div>
+											<button className="culture-details__votes-button btn btn-link">
+												Remove votes
+											</button>
+											<div className="culture-details__votes-left">You have x vote(s) left!</div>
+										</div>
+									</div>
+								</div>
+							</div>
 						)}
 					</div>
 				</div>
