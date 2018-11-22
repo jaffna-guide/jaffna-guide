@@ -1,4 +1,4 @@
-import { requireAdmin, requireAuth } from '../middlewares';
+import { requireAdmin } from '../middlewares';
 import { upload } from '../services';
 import {
 	getAllPlaces,

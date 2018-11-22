@@ -25,7 +25,7 @@ class AdminPanel extends React.Component {
 									<tr>
 										<th className="admin-panel__name-column">name</th>
 										<th>category</th>
-										<th>score</th>
+										<th>votes</th>
 										<th />
 									</tr>
 								</thead>
@@ -52,10 +52,10 @@ class AdminPanel extends React.Component {
 													{place.category.body}
 												</td>
 												<td
-													className="admin-panel__score-column"
+													className="admin-panel__votes-column"
 													onClick={() => PlaceStore.selectPlace(place._id)}
 												>
-													{place.score}
+													{place.votes}
 												</td>
 												<td>
 													<div className="admin-panel__place-controls">

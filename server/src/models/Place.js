@@ -15,7 +15,7 @@ const placeSchema = new Schema({
 		en: String,
 		ta: String,
 	},
-	score: { type: Number, default: 0 },
+	votes: { type: Number, default: 0 },
 	latitude: Number,
 	longitude: Number,
 	active: { type: Boolean, default: true },
