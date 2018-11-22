@@ -73,3 +73,42 @@ export const undoVote = async (req, res) => {
 		res.sendStatus(400);
 	}
 };
+
+export const getCurrentVotes = async (req, res) => {
+	const { userId, placeId, placeBody } = req.body;
+	let place;
+
+	if (userId && (placeId || placeBody)) {
+		if (placeId) {
+			place = await Place.findOne({ _id: placeId });
+		} else {
+			place = await Place.findOne({ body: placeBody });
+		}
+
+		const user = req.user;
+		const vote = await Vote.findOne({ place, user });
+
+		if (!vote) return res.status(404).send('User has not voted for this place yet.');
+
+		return res.status(200).send(vote);
+	}
+
+	if (userId) {
+		const user = req.user;
+		const votes = await Vote.find({ user });
+		return res.status(200).send(votes);
+	}
+
+	if (placeId || placeBody) {
+		if (placeId) {
+			place = await Place.findOne({ _id: placeId });
+		} else {
+			place = await Place.findOne({ body: placeBody });
+		}
+
+		const votes = await Vote.find({ place });
+		return res.status(200).send(votes);
+	}
+
+	res.status(400).send('Either userId and/or placeId/placeBody is/are required.');
+};

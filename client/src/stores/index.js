@@ -3,3 +3,4 @@ export { default as PlaceStore } from './PlaceStore';
 export { default as AuthStore } from './AuthStore';
 export { default as EventStore } from './EventStore';
 export { default as LanguageStore } from './LanguageStore';
+export { default as VoteStore } from './VoteStore';

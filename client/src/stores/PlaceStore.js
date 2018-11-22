@@ -34,9 +34,10 @@ class PlaceStore {
 	createPlace = async (place) => {
 		this.state = 'pendingCreatePlace';
 		const res = await axios.post('/api/places', place);
+		const createdPlace = res.data;
 		runInAction(() => {
 			this.createEditPlaceModalVisible = false;
-			this.places.push(res.data);
+			this.places.push(createdPlace);
 			this.state = 'done';
 		});
 	};
@@ -45,10 +46,11 @@ class PlaceStore {
 	editPlace = async (place) => {
 		this.state = 'pendingEditPlace';
 		const res = await axios.patch('/api/places', place);
+		const editedPlace = res.data;
 		const index = this.places.findIndex((p) => p._id === place.id);
 
 		runInAction(() => {
-			this.places.splice(index, 1, res.data);
+			this.places.splice(index, 1, editedPlace);
 			this.createEditPlaceModalVisible = false;
 			this.selectedPlaceId = null;
 			this.state = 'done';

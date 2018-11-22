@@ -12,7 +12,7 @@ import 'typeface-permanent-marker';
 import App from './App';
 import './styles/main.scss';
 import * as serviceWorker from './serviceWorker';
-import { PlaceStore, CategoryStore, AuthStore, LanguageStore, EventStore } from './stores';
+import { PlaceStore, CategoryStore, AuthStore, LanguageStore, EventStore, VoteStore } from './stores';
 import queryString from 'query-string';
 
 const qs = queryString.parse(window.location.search);
@@ -38,6 +38,7 @@ const Root = (
 		AuthStore={AuthStore}
 		LanguageStore={LanguageStore}
 		EventStore={EventStore}
+		VoteStore={VoteStore}
 	>
 		<App />
 	</Provider>

@@ -174,7 +174,8 @@ export const uploadImages = async (req, res) => {
 
 export const deleteImage = async (req, res) => {
 	const placeToUpdate = await Place.findById(req.params.placeId);
-	const imageToDelete = placeToUpdate.images.find((i) => i._id == req.params.imageId);
+	// const imageToDelete = placeToUpdate.images.find((i) => i._id == req.params.imageId);
+	const imageToDelete = placeToUpdate.images.id(req.params.imageId);
 	const imagesToKeep = placeToUpdate.images.filter((i) => i._id != req.params.imageId);
 
 	const thumbnailPieces = imageToDelete.thumbnail.split('/');

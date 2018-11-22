@@ -1,13 +1,14 @@
-import { observable, action, computed } from 'mobx';
+import { observable, action, computed, runInAction } from 'mobx';
 import axios from 'axios';
 import localStorage from 'mobx-localstorage';
 
 class AuthStore {
 	@observable authUser = null;
 	@observable state = 'pending'; // "pending" / "done" / "error"
+	@observable hasCastedVoteForCurrentPlace = null;
 
 	@action
-	authenticate = () => {
+	authenticate = async (currentPlaceBody) => {
 		this.authUser = null;
 		this.state = 'pending';
 
@@ -20,28 +21,41 @@ class AuthStore {
 			return (this.state = 'done');
 		}
 
-		axios
-			.get('/api/auth_user', { headers })
-			.then((res) => {
-				const authUser = res.data;
-				localStorage.setItem('token', authUser.jwt);
-				localStorage.setItem('username', authUser.displayName);
-				this.authUser = authUser;
-				this.state = 'done';
-			})
-			.catch((e) => {
-				console.log('e', e);
-				// localStorage.removeItem('token');
-				// runInAction(() => {
-				// 	this.authUser = false;
-				// 	this.state = 'done';
-				// });
-			});
+		const res = await axios.get('/api/auth_user', { headers });
+		const authUser = res.data;
+		localStorage.setItem('token', authUser.jwt);
+		localStorage.setItem('username', authUser.displayName);
+
+		runInAction(() => {
+			this.authUser = authUser;
+		});
+
+		if (currentPlaceBody) {
+			try {
+				const res = await axios.get('/api/votes/current', {
+					placeBody: currentPlaceBody,
+					userId: authUser._id,
+				});
+				const vote = res.data;
+				runInAction(() => {
+					this.hasCastedVoteForCurrentPlace = true;
+					this.currentPlaceVotes = vote.votes;
+					this.state = 'done';
+				});
+			} catch (err) {
+				if (err.response.status === 400) {
+					runInAction(() => {
+						this.hasCastedVoteForCurrentPlace = false;
+						this.currentPlaceVotes = undefined;
+						this.state = 'done';
+					});
+				}
+			}
+		}
 	};
 
 	@action
 	logout = () => {
-		console.log('Logging out...');
 		localStorage.delete('token');
 		localStorage.delete('username');
 		this.state = 'done';
