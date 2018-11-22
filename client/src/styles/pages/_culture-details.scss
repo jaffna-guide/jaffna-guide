@@ -4,10 +4,10 @@
 	&__header {
 		display: grid;
 
-		grid-template-areas: "culture-details-heading" "culture-details-votes";
+		grid-template-areas: "culture-details-heading" "culture-details-ballot";
 
 		@media (min-width: 768px) {
-			grid-template-areas: "culture-details-heading culture-details-votes";
+			grid-template-areas: "culture-details-heading culture-details-ballot";
 			grid-column-gap: 2rem;
 		}
 
@@ -23,34 +23,15 @@
 		grid-template: "culture-details-heading";
 	}
 
-	&__votes-wrapper {
-		grid-template: "culture-details-votes";
-    display: flex;
-    flex-direction: column;
-    padding-top: .8rem;
-    
-    
-    // width: 100px;
-    margin-left: auto;
-    margin-right: auto;
-	}
+	&__ballot {
+		grid-template: "culture-details-ballot";
+		display: flex;
+		flex-direction: column;
+		padding-top: .8rem;
 
-	&__votes-box {
-		border: 1px solid $primary-color;
-		padding: 0 .5rem;
-		margin-bottom: .2rem;
-    border-radius: $border-radius;
-	}
-
-	&__votes-box-count {
-		font-weight: 600;
-		font-size: 1.1rem;
-	}
-
-	&__votes-box-label {
-		margin-top: -.25rem;
-		font-size: .7rem;
-		color: $gray-color;
+		// width: 100px;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	&__title {
@@ -118,18 +99,5 @@
 
 		&--ta {
 		}
-	}
-
-	&__votes-left {
-		font-size: .8rem;
-		color: $gray-color;
-  }
-
-  &__votes-title {
-    font-weight: 600;
-	}
-
-	&__votes-subtitle {
-		color: $gray-color;
 	}
 }
