@@ -6,16 +6,20 @@ import AuthStore from './AuthStore';
 
 class VoteStore {
 	@action
-	vote = async (placeId, votes) => {
-		const res = await axios.post(`/api/places/${placeId}/vote`, { votes });
+	vote = async (votesToBeAdded) => {
+    console.log('PlaceStore.currentPlaceBody', PlaceStore.currentPlaceBody);
+		const res = await axios.post(`/api/places/${PlaceStore.currentPlaceBody}/vote`, { votesToBeAdded });
     const updatedVotes = res.data;
-    
+    console.log('updatedVotes', updatedVotes);
+
     const currentPlace = PlaceStore.currentPlace();
-    currentPlace.votes = updatedVotes.place;
+    console.log('currentPlace', currentPlace);
+		currentPlace.votes = updatedVotes.place;
 
     const authUser = AuthStore.authUser;
-    authUser[currentPlace.category.body].votes = updatedVotes.user;
-  };
+    console.log('authUser', authUser);
+		authUser[currentPlace.category.body].votes = updatedVotes.user;
+	};
 }
 
 const store = new VoteStore();

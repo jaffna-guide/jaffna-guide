@@ -1,12 +1,16 @@
 import { Place, Vote } from '../models';
 
 export const vote = async (req, res) => {
-	const votesToBeAdded = req.body.votes;
-	const placeToUpvote = Place.findById(req.params.placeId);
+	const { votesToBeAdded } = req.body;
+	if (!votesToBeAdded) return res.status(400).send('votesToBeAdded is a required parameter.');
+	if (votesToBeAdded > 3 || votesToBeAdded <= 0) {
+		return res.status(400).send('Invalid value provided for votesToBeAdded. Must range between 1 and 3.');
+	}
+
+	const placeToUpvote = await Place.findOne({ body: req.params.placeBody }).populate('category');
 	const userToUpvote = req.user;
 	const categoryToUpvote = placeToUpvote.category;
 
-	// check whether current year vote exists
 	const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
 	const beginningOfNextYear = new Date(new Date().getFullYear() + 1, 0, 1);
 	const existingVote = await Vote.findOne({
@@ -27,6 +31,8 @@ export const vote = async (req, res) => {
 		userToUpvote.votes[categoryToUpvote.body] += existingVote.votes;
 		userToUpvote.votes[categoryToUpvote.body] -= votesToBeAdded;
 		await userToUpvote.save();
+
+		return res.status(200).send({ place: placeToUpvote.votes, user: userToUpvote.votes[categoryToUpvote.body] });
 	} else if (votesToBeAdded <= userToUpvote.votes[categoryToUpvote.body]) {
 		const vote = new Vote({
 			place: placeToUpvote,
@@ -35,6 +41,7 @@ export const vote = async (req, res) => {
 			votes: votesToBeAdded,
 			votedAt: Date.now(),
 		});
+
 		await vote.save();
 
 		placeToUpvote.votes += votesToBeAdded;
@@ -42,13 +49,13 @@ export const vote = async (req, res) => {
 
 		userToUpvote.votes[categoryToUpvote.body] -= votesToBeAdded;
 		await userToUpvote.save();
-	}
 
-	res.status(200).send(placeToUpvote.votes);
+		return res.status(200).send({ place: placeToUpvote.votes, user: userToUpvote.votes[categoryToUpvote.body] });
+	}
 };
 
 export const undoVote = async (req, res) => {
-	const placeToUndoVote = Place.findById(req.params.placeId);
+	const placeToUndoVote = Place.findOne({ body: req.params.placeBody });
 	const userToUndoVote = req.user;
 	const categoryToUndoVote = placeToUpvote.category;
 
@@ -74,41 +81,22 @@ export const undoVote = async (req, res) => {
 	}
 };
 
-export const getCurrentVotes = async (req, res) => {
-	const { userId, placeId, placeBody } = req.body;
-	let place;
+export const getLatestVotes = async (req, res) => {
+	const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
+	const beginningOfNextYear = new Date(new Date().getFullYear() + 1, 0, 1);
+	const { placeBody, userId } = req.params;
 
-	if (userId && (placeId || placeBody)) {
-		if (placeId) {
-			place = await Place.findOne({ _id: placeId });
-		} else {
-			place = await Place.findOne({ body: placeBody });
-		}
+	let q = Vote.find({ votedAt: { $gte: beginningOfCurrentYear, $lt: beginningOfNextYear } });
 
-		const user = req.user;
-		const vote = await Vote.findOne({ place, user });
-
-		if (!vote) return res.status(404).send('User has not voted for this place yet.');
-
-		return res.status(200).send(vote);
+	if (placeBody) {
+		const place = Place.find({ body: placeBody });
+		q = q.find({ place });
 	}
 
 	if (userId) {
-		const user = req.user;
-		const votes = await Vote.find({ user });
-		return res.status(200).send(votes);
+		q = q.find({ user: userId });
 	}
 
-	if (placeId || placeBody) {
-		if (placeId) {
-			place = await Place.findOne({ _id: placeId });
-		} else {
-			place = await Place.findOne({ body: placeBody });
-		}
-
-		const votes = await Vote.find({ place });
-		return res.status(200).send(votes);
-	}
-
-	res.status(400).send('Either userId and/or placeId/placeBody is/are required.');
+	const votes = await q.exec();
+	return res.status(200).send(votes);
 };

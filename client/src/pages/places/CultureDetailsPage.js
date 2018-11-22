@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import { Carousel } from '../../components/molecules';
 
 @withRouter
+@inject('VoteStore')
 @inject('AuthStore')
 @inject('PlaceStore')
 @observer
@@ -35,8 +36,11 @@ class CultureDetails extends React.Component {
 							<div className="culture-details__votes-box-count">{place.votes}</div>
 							<div className="culture-details__votes-box-label">votes</div>
 						</div>
-						{!AuthStore.isAuthenticated ? (
-							<a className="culture-details__login-link btn btn-link" href={`/auth/facebook?redirect=${match.url}`}>
+						{!AuthStore.isAuthenticated && !AuthStore.state === 'pending' ? (
+							<a
+								className="culture-details__login-link btn btn-link"
+								href={`/auth/facebook?redirect=${match.url}`}
+							>
 								Login w/ Facebook
 							</a>
 						) : AuthStore.hasCastedVoteForCurrentPlace ? (
@@ -63,14 +67,36 @@ class CultureDetails extends React.Component {
 										</div>
 										<div className="card-footer">
 											<div className="btn-group btn-group-block">
-												<button className="culture-details__votes-button btn">1 vote</button>
-												<button className="culture-details__votes-button btn">2 votes</button>
-												<button className="culture-details__votes-button btn">3 votes</button>
+												<button
+													className="culture-details__votes-button btn"
+													onClick={() => VoteStore.vote(1)}
+												>
+													1 vote
+												</button>
+												<button
+													className="culture-details__votes-button btn"
+													onClick={() => VoteStore.vote(2)}
+												>
+													2 votes
+												</button>
+												<button
+													className="culture-details__votes-button btn"
+													onClick={() => VoteStore.vote(3)}
+												>
+													3 votes
+												</button>
 											</div>
 											<button className="culture-details__votes-button btn btn-link">
 												Remove votes
 											</button>
-											<div className="culture-details__votes-left">You have x vote(s) left!</div>
+											{AuthStore.authUser && (
+												<div className="culture-details__votes-left">
+													{`You have ${AuthStore.authUser.votes.culture} vote${AuthStore
+														.authUser.votes.culture > 1
+														? 's'
+														: ''} left!`}
+												</div>
+											)}
 										</div>
 									</div>
 								</div>

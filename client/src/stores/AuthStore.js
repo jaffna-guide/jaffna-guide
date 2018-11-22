@@ -6,6 +6,7 @@ class AuthStore {
 	@observable authUser = null;
 	@observable state = 'pending'; // "pending" / "done" / "error"
 	@observable hasCastedVoteForCurrentPlace = null;
+	@observable currentPlaceVotes = null;
 
 	@action
 	authenticate = async (currentPlaceBody) => {
@@ -25,31 +26,38 @@ class AuthStore {
 		const authUser = res.data;
 		localStorage.setItem('token', authUser.jwt);
 		localStorage.setItem('username', authUser.displayName);
-
+		console.log('authUser', authUser);
 		runInAction(() => {
 			this.authUser = authUser;
 		});
 
 		if (currentPlaceBody) {
+			console.log('currentPlaceBody', currentPlaceBody);
 			try {
-				const res = await axios.get('/api/votes/current', {
-					placeBody: currentPlaceBody,
-					userId: authUser._id,
+				console.log('hi');
+				const res = await axios.get(`/api/votes/latest`, {
+					params: { placeBody: currentPlaceBody, userId: authUser._id },
 				});
-				const vote = res.data;
-				runInAction(() => {
-					this.hasCastedVoteForCurrentPlace = true;
-					this.currentPlaceVotes = vote.votes;
-					this.state = 'done';
-				});
-			} catch (err) {
-				if (err.response.status === 400) {
+				console.log('there');
+				console.log('res', res);
+				console.log('currentPlaceBody', currentPlaceBody);
+				const vote = res.data[0];
+				console.log('vote', vote);
+				if (vote) {
+					runInAction(() => {
+						this.hasCastedVoteForCurrentPlace = true;
+						this.currentPlaceVotes = vote.votes;
+						this.state = 'done';
+					});
+				} else {
 					runInAction(() => {
 						this.hasCastedVoteForCurrentPlace = false;
 						this.currentPlaceVotes = undefined;
 						this.state = 'done';
 					});
 				}
+			} catch (err2) {
+				console.log('err2', err2);
 			}
 		}
 	};

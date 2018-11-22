@@ -123,6 +123,10 @@
 	&__votes-left {
 		font-size: .8rem;
 		color: $gray-color;
+  }
+
+  &__votes-title {
+    font-weight: 600;
 	}
 
 	&__votes-subtitle {
