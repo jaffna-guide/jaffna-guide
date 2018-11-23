@@ -4,7 +4,7 @@ import localStorage from 'mobx-localstorage';
 
 class AuthStore {
 	@observable authUser = null;
-	@observable state = 'pending'; // "pending" / "done" / "error"
+	@observable state = 'initial'; // "pending" / "done" / "error"
 	@observable hasCastedVoteForCurrentPlace = null;
 	@observable currentPlaceVotes = null;
 
@@ -61,6 +61,8 @@ class AuthStore {
 		localStorage.delete('username');
 		this.state = 'done';
 		this.authUser = false;
+		this.hasCastedVoteForCurrentPlace = null;
+		this.currentPlaceVotes = null;
 	};
 
 	@computed

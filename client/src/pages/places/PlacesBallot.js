@@ -3,6 +3,9 @@ import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
+import { Icon } from '../../components/atoms';
+import { ReactComponent as Facebook } from '../../assets/facebook.svg';
+
 @withRouter
 @inject('VoteStore')
 @inject('AuthStore')
@@ -96,15 +99,21 @@ class PlacesBallot extends React.Component {
 		const { authUser, currentPlaceVotes, hasCastedVoteForCurrentPlace } = AuthStore;
 		const { vote, undoVote, state } = VoteStore;
 
+		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
+		console.log('AuthStore.state', AuthStore.state);
+
 		return (
 			<div className="places-ballot">
 				<div className="places-ballot__votes-box">
 					<div className="places-ballot__votes-box-count">{place.votes}</div>
 					<div className="places-ballot__votes-box-label">{`vote${place.votes !== 1 ? 's' : ''}`}</div>
 				</div>
-				{!AuthStore.isAuthenticated && !AuthStore.state === 'pending' ? (
-					<a className="places-ballot__login-link btn btn-link" href={`/auth/facebook?redirect=${match.url}`}>
-						Login w/ Facebook
+				{!AuthStore.isAuthenticated && !AuthStore.state.startsWith('pending') ? (
+					<a
+						className="places-ballot__login-link btn btn-primary"
+						href={`/auth/facebook?redirect=${match.url}`}
+					>
+						<Icon className="places-ballot__facebook-icon" icon={Facebook} />Login to Vote
 					</a>
 				) : (
 					<MediaQuery minWidth={768}>

@@ -3,6 +3,24 @@
 	flex-direction: column;
 	min-width: 60px;
 
+	&__login-link {
+		padding-top: .2rem;
+		padding-bottom: 0;
+		height: initial;
+		background-color: #3b5998 !important;
+		text-decoration: none;
+		font-size: .7rem;
+		display: flex;
+		align-items: center;
+	}
+
+	&__facebook-icon {
+		fill: $light-color;
+		padding-right: .3rem;
+		margin-top: -.1rem;
+		width: 1.1rem;
+	}
+
 	&__votes-box {
 		border: 1px solid $primary-color;
 		padding: 0 .5rem;
