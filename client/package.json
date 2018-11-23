@@ -75,7 +75,7 @@
 	},
 	"scripts": {
 		"start": "PORT=8000 REACT_APP_GOOGLE_MAPS_API_KEY=secret/soosap/jaffna-guide/GOOGLE_MAPS_API_KEY exec './scripts/vaultcar.sh' node scripts/start.js",
-		"build": "REACT_APP_GOOGLE_MAPS_API_KEY=secret/soosap/jaffna-guide/GOOGLE_MAPS_API_KEY exec './scripts/vaultcar.sh' node scripts/build.js",
+		"build": "REACT_APP_GOOGLE_MAPS_API_KEY=secret/soosap/jaffna-guide/GOOGLE_MAPS_API_KEY REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=secret/soosap/jaffna-guide/GOOGLE_ANALYTICS_TRACKING_ID exec './scripts/vaultcar.sh' node scripts/build.js",
 		"test": "node scripts/test.js"
 	},
 	"proxy": "http://localhost:3000/",
