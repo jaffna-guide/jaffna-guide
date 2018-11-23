@@ -99,7 +99,7 @@ export const undoVote = async (req, res) => {
 export const getLatestVotes = async (req, res) => {
 	const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
 	const beginningOfNextYear = new Date(new Date().getFullYear() + 1, 0, 1);
-	const { placeBody, userId } = req.params;
+	const { placeBody, userId } = req.query;
 
 	let q = Vote.find({ votedAt: { $gte: beginningOfCurrentYear, $lt: beginningOfNextYear } });
 
