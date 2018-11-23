@@ -7,7 +7,7 @@ import { s3 } from '../services';
 import { Place } from '../models';
 
 export const getAllPlaces = (req, res) => {
-	return Place.find({ active: true }).sort([['votes', -1]]).populate('category').exec((err, places) => {
+	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').exec((err, places) => {
 		res.send(places);
 	});
 };

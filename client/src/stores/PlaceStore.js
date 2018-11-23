@@ -9,26 +9,17 @@ class PlaceStore {
 	@observable createEditPlaceModalVisible = false;
 
 	@action
-	fetchPlaces() {
+	fetchPlaces = async () => {
 		this.places = [];
 		this.state = 'pendingFetchPlaces';
 
-		axios
-			.get('/api/places')
-			.then((res) => {
-				const places = res.data;
-				runInAction(() => {
-					this.places = places;
-					this.state = 'done';
-				});
-			})
-			.catch(() => {
-				runInAction(() => {
-					this.places = [];
-					this.state = 'error';
-				});
-			});
-	}
+		const res = await axios.get('/api/places');
+		const places = res.data;
+		runInAction(() => {
+			this.places = places;
+			this.state = 'done';
+		});
+	};
 
 	@action
 	createPlace = async (place) => {
@@ -231,33 +222,46 @@ class PlaceStore {
 	}
 
 	@computed
+	get activePlaces() {
+		return this.places.find((place) => place.active === true);
+	}
+
+	@computed
 	get currentPlace() {
 		return this.places.find((place) => place.body === this.currentPlaceBody);
 	}
 
 	@computed
 	get restaurants() {
-		return this.places.filter((place) => place.category.body === 'restaurant').sort((a, b) => b.score - a.score);
+		return this.places
+			.filter((place) => place.active === true && place.category.body === 'restaurant')
+			.sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get hotels() {
-		return this.places.filter((place) => place.category.body === 'hotel').sort((a, b) => b.score - a.score);
+		return this.places
+			.filter((place) => place.active === true && place.category.body === 'hotel')
+			.sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get events() {
-		return this.places.filter((place) => place.category.body === 'event');
+		return this.events.filter((event) => event.active === true && event.category.body === 'event');
 	}
 
 	@computed
 	get culture() {
-		return this.places.filter((place) => place.category.body === 'culture').sort((a, b) => b.score - a.score);
+		return this.places
+			.filter((place) => place.active === true && place.category.body === 'culture')
+			.sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get education() {
-		return this.places.filter((place) => place.category.body === 'education').sort((a, b) => b.score - a.score);
+		return this.places
+			.filter((place) => place.active === true && place.category.body === 'education')
+			.sort((a, b) => b.score - a.score);
 	}
 }
 
