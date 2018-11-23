@@ -8,19 +8,26 @@ import MediaQuery from 'react-responsive';
 @inject('AuthStore')
 @observer
 class PlacesBallot extends React.Component {
-	renderPopover = (AuthStore, VoteStore, category) => {
-		const { authUser } = AuthStore;
+	renderPopover = ({
+		authUser,
+		currentPlaceVotes,
+		hasCastedVoteForCurrentPlace,
+		vote,
+		undoVote,
+		voteState,
+		category,
+	}) => {
 		return (
 			<div>
 				<a
-					className={`places-ballot__votes-button btn btn-block btn-sm ${AuthStore.hasCastedVoteForCurrentPlace
+					className={`places-ballot__votes-button btn btn-block btn-sm ${hasCastedVoteForCurrentPlace
 						? 'btn-primary'
 						: ''}`}
 					href="#vote"
 				>
-					{`${AuthStore.hasCastedVoteForCurrentPlace
-						? `${AuthStore.currentPlaceVotes} `
-						: ''}vote${AuthStore.currentPlaceVotes > 1 ? 's' : ''}`}{' '}
+					{`${hasCastedVoteForCurrentPlace ? `${currentPlaceVotes} ` : ''}vote${currentPlaceVotes > 1
+						? 's'
+						: ''}`}{' '}
 				</a>
 				<div className="popover-container">
 					<div className="card">
@@ -35,46 +42,44 @@ class PlacesBallot extends React.Component {
 						<div className="card-footer">
 							<div className="places-ballot__votes-buttons btn-group btn-group-block">
 								<button
-									className={`places-ballot__votes-button btn ${AuthStore.currentPlaceVotes === 1
+									className={`places-ballot__votes-button btn ${currentPlaceVotes === 1
 										? 'btn-primary'
-										: ''} ${VoteStore.state === 'pendingVote1' ? 'loading' : ''}`}
-									onClick={() => VoteStore.vote(1)}
+										: ''} ${voteState === 'pendingVote1' ? 'loading' : ''}`}
+									onClick={() => vote(1)}
 									disabled={authUser && authUser.votes[category] < 1}
 								>
 									1 vote
 								</button>
 								<button
-									className={`places-ballot__votes-button btn ${AuthStore.currentPlaceVotes === 2
+									className={`places-ballot__votes-button btn ${currentPlaceVotes === 2
 										? 'btn-primary'
-										: ''} ${VoteStore.state === 'pendingVote2' ? 'loading' : ''}`}
-									onClick={() => VoteStore.vote(2)}
+										: ''} ${voteState === 'pendingVote2' ? 'loading' : ''}`}
+									onClick={() => vote(2)}
 									disabled={authUser && authUser.votes[category] < 2}
 								>
 									2 votes
 								</button>
 								<button
-									className={`places-ballot__votes-button btn ${AuthStore.currentPlaceVotes === 3
+									className={`places-ballot__votes-button btn ${currentPlaceVotes === 3
 										? 'btn-primary'
-										: ''} ${VoteStore.state === 'pendingVote3' ? 'loading' : ''}`}
-									onClick={() => VoteStore.vote(3)}
+										: ''} ${voteState === 'pendingVote3' ? 'loading' : ''}`}
+									onClick={() => vote(3)}
 									disabled={authUser && authUser.votes[category] < 3}
 								>
 									3 votes
 								</button>
 							</div>
-							{AuthStore.hasCastedVoteForCurrentPlace && (
+							{hasCastedVoteForCurrentPlace && (
 								<button
 									className="places-ballot__votes-button places-ballot__votes-button--remove btn btn-link"
-									onClick={VoteStore.undoVote}
+									onClick={undoVote}
 								>
 									Remove votes
 								</button>
 							)}
-							{AuthStore.authUser && (
+							{authUser && (
 								<div className="places-ballot__votes-remaining">
-									{`You have ${AuthStore.authUser.votes[category]} vote${AuthStore.authUser.votes[
-										category
-									] > 1
+									{`You have ${authUser.votes[category]} vote${authUser.votes[category] > 1
 										? 's'
 										: ''} left!`}
 								</div>
@@ -88,6 +93,8 @@ class PlacesBallot extends React.Component {
 
 	render() {
 		const { place, category, match, AuthStore, VoteStore } = this.props;
+		const { authUser, currentPlaceVotes, hasCastedVoteForCurrentPlace } = AuthStore;
+		const { vote, undoVote, state } = VoteStore;
 
 		return (
 			<div className="places-ballot">
@@ -104,11 +111,27 @@ class PlacesBallot extends React.Component {
 						{(match) =>
 							match ? (
 								<div className="places-ballot__votes-popover popover popover-left">
-									{this.renderPopover(AuthStore, VoteStore, category)}
+									{this.renderPopover({
+										authUser,
+										currentPlaceVotes,
+										hasCastedVoteForCurrentPlace,
+										vote,
+										undoVote,
+										voteState: state,
+										category,
+									})}
 								</div>
 							) : (
 								<div className="places-ballot__votes-popover popover popover-bottom">
-									{this.renderPopover(AuthStore, VoteStore, category)}
+									{this.renderPopover({
+										authUser,
+										currentPlaceVotes,
+										hasCastedVoteForCurrentPlace,
+										vote,
+										undoVote,
+										voteState: state,
+										category,
+									})}
 								</div>
 							)}
 					</MediaQuery>

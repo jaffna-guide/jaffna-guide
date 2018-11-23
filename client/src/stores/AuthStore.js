@@ -34,7 +34,7 @@ class AuthStore {
 			const res = await axios.get(`/api/votes/latest`, {
 				params: { placeBody: currentPlaceBody, userId: authUser._id },
 			});
-			const vote = res.data[0];
+			const vote = res.data && res.data[0];
 			if (vote) {
 				runInAction(() => {
 					this.hasCastedVoteForCurrentPlace = true;
