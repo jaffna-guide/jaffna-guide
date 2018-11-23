@@ -26,38 +26,27 @@ class AuthStore {
 		const authUser = res.data;
 		localStorage.setItem('token', authUser.jwt);
 		localStorage.setItem('username', authUser.displayName);
-		console.log('authUser', authUser);
 		runInAction(() => {
 			this.authUser = authUser;
 		});
 
 		if (currentPlaceBody) {
-			console.log('currentPlaceBody', currentPlaceBody);
-			try {
-				console.log('hi');
-				const res = await axios.get(`/api/votes/latest`, {
-					params: { placeBody: currentPlaceBody, userId: authUser._id },
+			const res = await axios.get(`/api/votes/latest`, {
+				params: { placeBody: currentPlaceBody, userId: authUser._id },
+			});
+			const vote = res.data[0];
+			if (vote) {
+				runInAction(() => {
+					this.hasCastedVoteForCurrentPlace = true;
+					this.currentPlaceVotes = vote.votes;
+					this.state = 'done';
 				});
-				console.log('there');
-				console.log('res', res);
-				console.log('currentPlaceBody', currentPlaceBody);
-				const vote = res.data[0];
-				console.log('vote', vote);
-				if (vote) {
-					runInAction(() => {
-						this.hasCastedVoteForCurrentPlace = true;
-						this.currentPlaceVotes = vote.votes;
-						this.state = 'done';
-					});
-				} else {
-					runInAction(() => {
-						this.hasCastedVoteForCurrentPlace = false;
-						this.currentPlaceVotes = undefined;
-						this.state = 'done';
-					});
-				}
-			} catch (err2) {
-				console.log('err2', err2);
+			} else {
+				runInAction(() => {
+					this.hasCastedVoteForCurrentPlace = false;
+					this.currentPlaceVotes = undefined;
+					this.state = 'done';
+				});
 			}
 		}
 	};

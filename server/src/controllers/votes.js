@@ -1,4 +1,4 @@
-import { Place, Vote } from '../models';
+import { Place, Vote, User } from '../models';
 
 export const vote = async (req, res) => {
 	const { votesToBeAdded } = req.body;
@@ -20,19 +20,23 @@ export const vote = async (req, res) => {
 	});
 
 	if (existingVote) {
+		const upvotedPlace = await Place.findByIdAndUpdate(
+			placeToUpvote._id,
+			{ $inc: { votes: -1 * existingVote.votes + votesToBeAdded } },
+			{ new: true },
+		);
+
+		const upvotedUser = await User.findByIdAndUpdate(
+			userToUpvote._id,
+			{ $inc: { [`votes.${categoryToUpvote.body}`]: existingVote.votes + -1 * votesToBeAdded } },
+			{ new: true },
+		);
+
 		existingVote.votes = votesToBeAdded;
 		existingVote.votedAt = Date.now();
 		await existingVote.save();
 
-		placeToUpvote.votes -= existingVote.votes;
-		placeToUpvote.votes += votesToBeAdded;
-		await placeToUpvote.save();
-
-		userToUpvote.votes[categoryToUpvote.body] += existingVote.votes;
-		userToUpvote.votes[categoryToUpvote.body] -= votesToBeAdded;
-		await userToUpvote.save();
-
-		return res.status(200).send({ place: placeToUpvote.votes, user: userToUpvote.votes[categoryToUpvote.body] });
+		return res.status(200).send({ place: upvotedPlace.votes, user: upvotedUser.votes[categoryToUpvote.body] });
 	} else if (votesToBeAdded <= userToUpvote.votes[categoryToUpvote.body]) {
 		const vote = new Vote({
 			place: placeToUpvote,
@@ -47,10 +51,19 @@ export const vote = async (req, res) => {
 		placeToUpvote.votes += votesToBeAdded;
 		await placeToUpvote.save();
 
-		userToUpvote.votes[categoryToUpvote.body] -= votesToBeAdded;
-		await userToUpvote.save();
+		const upvotedPlace = await Place.findByIdAndUpdate(
+			placeToUpvote._id,
+			{ $inc: { votes: votesToBeAdded } },
+			{ new: true },
+		);
 
-		return res.status(200).send({ place: placeToUpvote.votes, user: userToUpvote.votes[categoryToUpvote.body] });
+		const upvotedUser = await User.findByIdAndUpdate(
+			userToUpvote._id,
+			{ $inc: { [`votes.${categoryToUpvote.body}`]: -1 * votesToBeAdded } },
+			{ new: true },
+		);
+
+		return res.status(200).send({ place: upvotedPlace.votes, user: upvotedUser.votes[categoryToUpvote.body] });
 	}
 };
 
