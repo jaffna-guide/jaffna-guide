@@ -29,6 +29,8 @@ if (process.env.NODE_ENV === 'production') {
 	callbackURL = '/auth/facebook/callback';
 }
 
+console.log('callbackURL', callbackURL);
+
 passport.use(
 	new FacebookStrategy(
 		{
