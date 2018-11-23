@@ -36,8 +36,8 @@ passport.use(
 		},
 		async (accessToken, refreshToken, profile, done) => {
 			const iat = new Date().getTime();
-			const existingUser = await User.findOne({ facebookId: profile.id });
 
+			const existingUser = await User.findOne({ facebookId: profile.id });
 			if (existingUser) {
 				const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
 				existingUser.jwt = token;
@@ -45,11 +45,12 @@ passport.use(
 				done(null, existingUser);
 			} else {
 				const newUser = new User({
-					jwt: token,
 					facebookId: profile.id,
 					displayName: profile.displayName,
 					roles: [ 'traveller' ],
 				});
+				const token = jwt.encode({ sub: newUser.id, iat }, process.env.JWT_SECRET);
+				newUser.jwt = token;
 				await newUser.save();
 				done(null, newUser);
 			}
