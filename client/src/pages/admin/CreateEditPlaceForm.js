@@ -200,7 +200,6 @@ class CreatePlaceForm extends React.Component {
 	renderImagePage = () => {
 		const { PlaceStore, initialValues } = this.props;
 		const hasError = PlaceStore.state.startsWith('error');
-		console.log('initialValues', initialValues);
 
 		return (
 			<WizardForm.Page>
@@ -254,7 +253,7 @@ class CreatePlaceForm extends React.Component {
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
-									) : initialValues && initialValues.marker.default ? (
+									) : initialValues && initialValues.marker && initialValues.marker.default ? (
 										<div className="add-place-form__marker-wrapper">
 											<img
 												className="add-place-form__marker"
