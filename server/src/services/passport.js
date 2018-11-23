@@ -16,6 +16,8 @@ passport.deserializeUser((id, done) => {
 	});
 });
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+
 let callbackURL;
 if (process.env.NODE_ENV === 'production') {
 	callbackURL = 'https://jaffna.guide/auth/facebook/callback';
