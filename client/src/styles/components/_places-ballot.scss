@@ -31,7 +31,16 @@
 	}
 
 	&__votes-remaining {
+		margin-top: .4rem;
 		font-size: .8rem;
 		color: $gray-color;
+	}
+
+	&__votes-button {
+		&--remove {
+			height: initial;
+			margin-top: .4rem;
+			padding: 0 .2rem;
+		}
 	}
 }

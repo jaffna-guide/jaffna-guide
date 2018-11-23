@@ -20,9 +20,10 @@ export const vote = async (req, res) => {
 	});
 
 	if (existingVote) {
+		const voteDelta = -1 * existingVote.votes + votesToBeAdded;
 		const upvotedPlace = await Place.findByIdAndUpdate(
 			placeToUpvote._id,
-			{ $inc: { votes: -1 * existingVote.votes + votesToBeAdded } },
+			{ $inc: { votes: voteDelta } },
 			{ new: true },
 		);
 
@@ -51,26 +52,20 @@ export const vote = async (req, res) => {
 		placeToUpvote.votes += votesToBeAdded;
 		await placeToUpvote.save();
 
-		const upvotedPlace = await Place.findByIdAndUpdate(
-			placeToUpvote._id,
-			{ $inc: { votes: votesToBeAdded } },
-			{ new: true },
-		);
-
 		const upvotedUser = await User.findByIdAndUpdate(
 			userToUpvote._id,
 			{ $inc: { [`votes.${categoryToUpvote.body}`]: -1 * votesToBeAdded } },
 			{ new: true },
 		);
 
-		return res.status(200).send({ place: upvotedPlace.votes, user: upvotedUser.votes[categoryToUpvote.body] });
+		return res.status(200).send({ place: placeToUpvote.votes, user: upvotedUser.votes[categoryToUpvote.body] });
 	}
 };
 
 export const undoVote = async (req, res) => {
-	const placeToUndoVote = Place.findOne({ body: req.params.placeBody });
+	const placeToUndoVote = await Place.findOne({ body: req.params.placeBody }).populate('category');
 	const userToUndoVote = req.user;
-	const categoryToUndoVote = placeToUpvote.category;
+	const categoryToUndoVote = placeToUndoVote.category;
 
 	const beginningOfCurrentYear = new Date(new Date().getFullYear(), 0, 1);
 	const beginningOfNextYear = new Date(new Date().getFullYear() + 1, 0, 1);
@@ -81,14 +76,21 @@ export const undoVote = async (req, res) => {
 	});
 
 	if (existingVote) {
-		userToUndoVote.votes[categoryToUndoVote.body] += existingVote.votes;
-		await userToUndoVote.save();
+		const unvotedPlace = await Place.findByIdAndUpdate(
+			placeToUndoVote._id,
+			{ $inc: { votes: -1 * existingVote.votes } },
+			{ new: true },
+		);
 
-		placeToUndoVote.votes -= existingVote.votes;
-		await placeToUndoVote.save();
+		const unvotedUser = await User.findByIdAndUpdate(
+			userToUndoVote._id,
+			{ $inc: { [`votes.${categoryToUndoVote.body}`]: existingVote.votes } },
+			{ new: true },
+		);
 
 		await existingVote.delete();
-		res.status(200).send({ place: placeToUndoVote.votes, user: userToUndoVote.votes[categoryToUndoVote.body] });
+
+		res.status(200).send({ place: unvotedPlace.votes, user: unvotedUser.votes[categoryToUndoVote.body] });
 	} else {
 		res.sendStatus(400);
 	}

@@ -8,13 +8,14 @@ import { withRouter } from 'react-router-dom';
 @observer
 class PlacesBallot extends React.Component {
 	render() {
-		const { place, match, AuthStore, VoteStore } = this.props;
+		const { place, category, match, AuthStore, VoteStore } = this.props;
+		const { authUser } = AuthStore;
 
 		return (
 			<div className="places-ballot">
 				<div className="places-ballot__votes-box">
 					<div className="places-ballot__votes-box-count">{place.votes}</div>
-					<div className="places-ballot__votes-box-label">{`vote${place.votes > 1 ? 's' : ''}`}</div>
+					<div className="places-ballot__votes-box-label">{`vote${place.votes !== 1 ? 's' : ''}`}</div>
 				</div>
 				{!AuthStore.isAuthenticated && !AuthStore.state === 'pending' ? (
 					<a className="places-ballot__login-link btn btn-link" href={`/auth/facebook?redirect=${match.url}`}>
@@ -41,18 +42,18 @@ class PlacesBallot extends React.Component {
 									</div>
 								</div>
 								<div className="card-body">
-									We conduct an annual voting on the popularity of listed entities in any given
-									category. Each authenticated user has a total of <strong>10</strong> votes per
-									category to give away.
+									We conduct a voting on the popularity of Jaffna's treasures. Each authenticated user
+									has a total of <strong>10</strong> votes per category to give away.
 								</div>
 								<div className="card-footer">
-									<div className="btn-group btn-group-block">
+									<div className="places-ballot__votes-buttons btn-group btn-group-block">
 										<button
 											className={`places-ballot__votes-button btn ${AuthStore.currentPlaceVotes ===
 											1
 												? 'btn-primary'
 												: ''} ${VoteStore.state === 'pendingVote1' ? 'loading' : ''}`}
 											onClick={() => VoteStore.vote(1)}
+											disabled={authUser && authUser.votes[category] < 1}
 										>
 											1 vote
 										</button>
@@ -62,6 +63,7 @@ class PlacesBallot extends React.Component {
 												? 'btn-primary'
 												: ''} ${VoteStore.state === 'pendingVote2' ? 'loading' : ''}`}
 											onClick={() => VoteStore.vote(2)}
+											disabled={authUser && authUser.votes[category] < 2}
 										>
 											2 votes
 										</button>
@@ -71,15 +73,23 @@ class PlacesBallot extends React.Component {
 												? 'btn-primary'
 												: ''} ${VoteStore.state === 'pendingVote3' ? 'loading' : ''}`}
 											onClick={() => VoteStore.vote(3)}
+											disabled={authUser && authUser.votes[category] < 3}
 										>
 											3 votes
 										</button>
 									</div>
-									<button className="places-ballot__votes-button btn btn-link">Remove votes</button>
+									{AuthStore.hasCastedVoteForCurrentPlace && (
+										<button
+											className="places-ballot__votes-button places-ballot__votes-button--remove btn btn-link"
+											onClick={VoteStore.undoVote}
+										>
+											Remove votes
+										</button>
+									)}
 									{AuthStore.authUser && (
 										<div className="places-ballot__votes-remaining">
-											{`You have ${AuthStore.authUser.votes.culture} vote${AuthStore.authUser
-												.votes.culture > 1
+											{`You have ${AuthStore.authUser.votes[category]} vote${AuthStore.authUser
+												.votes[category] > 1
 												? 's'
 												: ''} left!`}
 										</div>
