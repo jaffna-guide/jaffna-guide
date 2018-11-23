@@ -48,6 +48,10 @@ class AuthStore {
 					this.state = 'done';
 				});
 			}
+		} else {
+			runInAction(() => {
+				this.state = 'done';
+			});
 		}
 	};
 
