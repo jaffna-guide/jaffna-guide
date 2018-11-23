@@ -34,28 +34,26 @@ passport.use(
 			clientSecret: process.env.FACEBOOK_APP_SECRET,
 			callbackURL,
 		},
-		function(accessToken, refreshToken, profile, done) {
-			User.findOne({ facebookId: profile.id }).then((existingUser) => {
-				const iat = new Date().getTime();
-				const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
+		async (accessToken, refreshToken, profile, done) => {
+			const iat = new Date().getTime();
+			const existingUser = await User.findOne({ facebookId: profile.id });
 
-				if (existingUser) {
-					existingUser.jwt = token;
-					existingUser.save();
-					done(null, existingUser);
-				} else {
-					new User({
-						jwt: token,
-						facebookId: profile.id,
-						displayName: profile.displayName,
-						roles: [ 'traveller' ],
-					})
-						.save()
-						.then((newUser) => {
-							done(null, newUser);
-						});
-				}
-			});
+			if (existingUser) {
+				const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
+				existingUser.jwt = token;
+				existingUser.save();
+				done(null, existingUser);
+			} else {
+				const newUser = new User({
+					jwt: token,
+					facebookId: profile.id,
+					displayName: profile.displayName,
+					roles: [ 'traveller' ],
+				});
+
+				await newUser.save();
+				done(null, newUser);
+			}
 		},
 	),
 );
