@@ -105,7 +105,6 @@ export const getLatestVotes = async (req, res) => {
 
 	if (placeBody) {
 		const place = await Place.find({ body: placeBody });
-		console.log('place', place);
 		q = q.find({ place });
 	}
 
@@ -114,7 +113,6 @@ export const getLatestVotes = async (req, res) => {
 	}
 
 	const votes = await q.exec();
-	console.log('votes', votes);
 
 	return res.status(200).send(votes);
 };
