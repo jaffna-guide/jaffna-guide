@@ -1,11 +1,13 @@
 import * as React from 'react';
 import { inject, observer } from 'mobx-react';
+import { withRouter } from 'react-router-dom';
 
+@withRouter
 @inject('PlaceStore')
 @observer
 class PlacesList extends React.Component {
 	render() {
-		const { PlaceStore } = this.props;
+		const { PlaceStore, history } = this.props;
 
 		return (
 			<div className="places-list">
@@ -14,6 +16,7 @@ class PlacesList extends React.Component {
 						key={place.body}
 						className="places-list__item"
 						onClick={() => PlaceStore.selectPlace(place._id)}
+						onDoubleClick={() => history.push(`/${place.body}`)}
 					>
 						<div className="places-list__left">
 							<div className="places-list__title">{place.name.en}</div>
