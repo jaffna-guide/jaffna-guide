@@ -18,7 +18,7 @@ const placeSchema = new Schema({
 	votes: { type: Number, default: 0 },
 	latitude: Number,
 	longitude: Number,
-	active: { type: Boolean, default: true },
+	active: { type: Boolean, default: false },
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
 	cover: { type: String },
 	marker: markerSchema,
