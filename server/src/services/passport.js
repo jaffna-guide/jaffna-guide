@@ -41,7 +41,7 @@ passport.use(
 			if (existingUser) {
 				const token = jwt.encode({ sub: existingUser.id, iat }, process.env.JWT_SECRET);
 				existingUser.jwt = token;
-				existingUser.save();
+				await existingUser.save();
 				done(null, existingUser);
 			} else {
 				const newUser = new User({
@@ -50,7 +50,6 @@ passport.use(
 					displayName: profile.displayName,
 					roles: [ 'traveller' ],
 				});
-
 				await newUser.save();
 				done(null, newUser);
 			}
