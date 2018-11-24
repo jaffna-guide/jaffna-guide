@@ -9,7 +9,7 @@ import PlacesBallot from './PlacesBallot';
 @inject('AuthStore')
 @inject('PlaceStore')
 @observer
-class CultureDetails extends React.Component {
+class CultureDetailsPage extends React.Component {
 	componentDidMount() {
 		const { AuthStore, match } = this.props;
 		const token = localStorage.getItem('token');
@@ -47,4 +47,4 @@ class CultureDetails extends React.Component {
 	}
 }
 
-export default CultureDetails;
+export default CultureDetailsPage;
