@@ -15,9 +15,17 @@
 		text-align: center;
 	}
 
-	&__description {
-		@media (min-width: 768px) {
-			font-size: 1.2rem;
-		}
+	&__google-analytics {
+    font-size: .9rem;
+    padding-bottom: 3rem;
+	}
+
+	&__provider {
+		padding-bottom: 2rem;
+	}
+
+	&__copyright {
+		padding-bottom: 1rem;
+		font-size: .9rem;
 	}
 }
