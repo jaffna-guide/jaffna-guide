@@ -1,9 +1,9 @@
 .layout {
   min-height: 100vh;
   display: grid;
-  grid-template-rows: 5rem 1fr 5rem;
+  grid-template-rows: 5rem 1fr 10rem;
 
-  @media (min-width: 768px) {
+  @media (min-width: 580px) {
     grid-template-rows: 6rem 1fr 5rem;
   }
 }

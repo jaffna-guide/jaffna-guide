@@ -1,5 +1,8 @@
 export { default as HomePage } from './home/HomePage';
 export { default as AboutPage } from './AboutPage';
+export { default as CreditPage } from './CreditPage';
+export { default as FeedbackPage } from './FeedbackPage';
+export { default as ImprintPage } from './ImprintPage';
 
 // admin
 export { default as AdminPage } from './admin/AdminPage';

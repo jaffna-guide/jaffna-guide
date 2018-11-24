@@ -6,7 +6,7 @@ import { ReactComponent as MobXLogo } from '../assets/mobx.svg';
 import { ReactComponent as ReactLogo } from '../assets/react.svg';
 import { ReactComponent as MongoDBLogo } from '../assets/mongodb.svg';
 
-const About = () => {
+const AboutPage = () => {
 	return (
 		<div className="about">
 			<div className="about__title">
@@ -90,4 +90,4 @@ const About = () => {
 	);
 };
 
-export default About;
+export default AboutPage;

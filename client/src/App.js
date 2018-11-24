@@ -7,6 +7,9 @@ import { AdminRoute } from './components/routes';
 import {
 	HomePage,
 	AboutPage,
+	CreditPage,
+	FeedbackPage,
+	ImprintPage,
 	CulturePage,
 	EventsPage,
 	RestaurantsPage,
@@ -38,6 +41,9 @@ class App extends Component {
 							<AdminRoute path="/admin" exact component={AdminPage} />
 							<Route path="/" exact component={() => <HomePage lang={lang} />} />
 							<Route path="/about" exact component={AboutPage} />
+							<Route path="/imprint" exact component={ImprintPage} />
+							<Route path="/credit" exact component={CreditPage} />
+							<Route path="/feedback" exact component={FeedbackPage} />
 							<Route path="/events" exact component={EventsPage} />
 							<Route path="/culture" exact component={CulturePage} />
 							<Route path="/restaurants" exact component={RestaurantsPage} />
