@@ -18,6 +18,6 @@ export { default as CultureDetailsPage } from './places/CultureDetailsPage';
 export { default as EducationPage } from './places/EducationPage';
 export { default as EducationDetailsPage } from './places/EducationDetailsPage';
 export { default as HotelsPage } from './places/HotelsPage';
-export { default as HotelDetailsPage } from './places/HotelDetailsPage';
+export { default as HotelsDetailsPage } from './places/HotelsDetailsPage';
 export { default as RestaurantsPage } from './places/RestaurantsPage';
-export { default as RestaurantDetailsPage } from './places/RestaurantDetailsPage';
+export { default as RestaurantsDetailsPage } from './places/RestaurantsDetailsPage';

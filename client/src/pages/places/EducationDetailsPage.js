@@ -1,9 +1,7 @@
-import * as React from 'react'
+import * as React from 'react';
 
-const EducationDetails = () => {
-  return (
-    <div>EducationDetails</div>
-  )
-}
+const EducationDetailsPage = () => {
+	return <div>EducationDetailsPage</div>;
+};
 
-export default EducationDetails
+export default EducationDetailsPage;

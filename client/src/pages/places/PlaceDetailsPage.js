@@ -2,7 +2,9 @@ import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
 import CultureDetailsPage from './CultureDetailsPage';
-import RestaurantDetailsPage from './RestaurantDetailsPage';
+import RestaurantsDetailsPage from './RestaurantsDetailsPage';
+import HotelsDetailsPage from './HotelsDetailsPage';
+import EducationDetailsPage from './EducationDetailsPage';
 
 @inject('PlaceStore')
 @observer
@@ -17,8 +19,12 @@ class PlaceDetails extends React.Component {
 			switch (PlaceStore.currentPlace.category.body) {
 				case 'culture':
 					return <CultureDetailsPage place={PlaceStore.currentPlace} />;
-				case 'restaurant':
-					return <RestaurantDetailsPage place={PlaceStore.currentPlace} />;
+				case 'hotels':
+					return <HotelsDetailsPage place={PlaceStore.currentPlace} />;
+				case 'restaurants':
+					return <RestaurantsDetailsPage place={PlaceStore.currentPlace} />;
+				case 'education':
+					return <EducationDetailsPage place={PlaceStore.currentPlace} />;
 				default:
 					return null;
 			}
