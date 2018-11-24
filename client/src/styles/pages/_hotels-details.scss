@@ -1,13 +1,13 @@
-.restaurants-details {
+.hotels-details {
 	display: grid;
 
 	&__header {
 		display: grid;
 
-		grid-template-areas: "restaurants-details-heading" "restaurants-details-ballot";
+		grid-template-areas: "hotels-details-heading" "hotels-details-ballot";
 
 		@media (min-width: 768px) {
-			grid-template-areas: "restaurants-details-heading restaurants-details-ballot";
+			grid-template-areas: "hotels-details-heading hotels-details-ballot";
 			grid-column-gap: 2rem;
 		}
 
@@ -20,11 +20,11 @@
 	}
 
 	&__heading {
-		grid-template: "restaurants-details-heading";
+		grid-template: "hotels-details-heading";
 	}
 
 	&__ballot {
-		grid-template: "restaurants-details-ballot";
+		grid-template: "hotels-details-ballot";
 		display: flex;
 		flex-direction: column;
 		margin-left: auto;
