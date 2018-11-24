@@ -11,6 +11,10 @@
 
 	background-color: $secondary-color;
 
+	@media (min-width: 480px) {
+		font-size: 1.8rem;
+	}
+
 	@media (min-width: 768px) {
 		font-size: 2rem;
 	}
