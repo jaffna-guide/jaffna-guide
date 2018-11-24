@@ -9,6 +9,9 @@ class PlacesList extends React.Component {
 	render() {
 		const { PlaceStore, history } = this.props;
 
+		console.log('this.props.category', this.props.category);
+		console.log('PlaceStore[this.props.category]', PlaceStore[this.props.category]);
+
 		return (
 			<div className="places-list">
 				{PlaceStore[this.props.category].map((place) => (

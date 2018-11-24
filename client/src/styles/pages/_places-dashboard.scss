@@ -5,14 +5,14 @@
 	display: grid;
 	grid-template-rows: 1fr max-content;
 	grid-template-columns: 1fr max-content;
-	grid-template-areas: "map" "list";
+	grid-template-areas: "places-map" "places-list";
 
 	@media (min-width: 992px) {
-		grid-template-areas: "map list";
+		grid-template-areas: "places-map places-list";
 	}
 
 	&__map {
-		grid-area: map;
+		grid-area: "places-map";
 		background-color: $secondary-color;
 		position: relative;
 		min-height: 70vh;
@@ -20,14 +20,10 @@
 	}
 
 	&__list {
-		grid-area: list;
+		grid-area: "places-list";
 
 		@media (min-width: 992px) {
 			margin-top: -4px;
 		}
 	}
-}
-
-.culture {
-	height: 100%;
 }

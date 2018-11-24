@@ -20,9 +20,9 @@ const FeedbackPage = () => {
 					<strong>Photos:</strong> If you have good photographs from any of the places listed on our platform
 					that you are willing you share with the world, we would be happy to receive them via email. Please
 					provide some context about the photo such as where and when it was taken. We give you credit for the
-					photos that you provide. Just provide the credit text, i.e. "@ramasamy (Australia)" or "Firstname
-					Lastname", which we will engrave into the photo. We ask for raw photos upon which we add the credit
-					text in order to maintain the same look and feel across all photos.
+					photos that you provide. Just let us know the credit text, i.e. "@ramasamy (Australia)" or
+					"Firstname Lastname", which we will engrave into the photo. We ask for raw photos upon which we add
+					the credit text in order to maintain the same look and feel across all photos.
 				</li>
 				<li className="feedback__contribution-item">
 					<strong>Research:</strong> We are not into copying Wikipedia or other travel site as source for our

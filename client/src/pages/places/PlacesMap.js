@@ -22,24 +22,23 @@ class PlacesMap extends React.Component {
 		const { PlaceStore, google } = this.props;
 		const places = PlaceStore[this.props.category];
 
-		return places.map(
-			(place) =>
-				place.marker ? (
-					<Marker
-						key={place.body}
-						placeId={place._id}
-						placeBody={place.body}
-						onClick={this.handleMarkerClick}
-						position={{ lat: place.latitude, lng: place.longitude }}
-						name={place.name.en}
-						icon={{
-							url: place.marker.default,
-							anchor: new google.maps.Point(12, 68),
-							scaledSize: new google.maps.Size(256, 64),
-						}}
-					/>
-				) : null,
-		);
+		return places.map((place) => {
+			return place.marker && place.marker.default ? (
+				<Marker
+					key={place.body}
+					placeId={place._id}
+					placeBody={place.body}
+					onClick={this.handleMarkerClick}
+					position={{ lat: place.latitude, lng: place.longitude }}
+					name={place.name.en}
+					icon={{
+						url: place.marker.default,
+						anchor: new google.maps.Point(12, 68),
+						scaledSize: new google.maps.Size(256, 64),
+					}}
+				/>
+			) : null;
+		});
 	};
 
 	render() {

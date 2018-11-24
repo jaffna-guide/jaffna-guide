@@ -234,20 +234,20 @@ class PlaceStore {
 	@computed
 	get restaurants() {
 		return this.places
-			.filter((place) => place.active === true && place.category.body === 'restaurant')
+			.filter((place) => place.active === true && place.category.body === 'restaurants')
 			.sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get hotels() {
 		return this.places
-			.filter((place) => place.active === true && place.category.body === 'hotel')
+			.filter((place) => place.active === true && place.category.body === 'hotels')
 			.sort((a, b) => b.score - a.score);
 	}
 
 	@computed
 	get events() {
-		return this.events.filter((event) => event.active === true && event.category.body === 'event');
+		return this.events.filter((event) => event.active === true && event.category.body === 'events');
 	}
 
 	@computed
