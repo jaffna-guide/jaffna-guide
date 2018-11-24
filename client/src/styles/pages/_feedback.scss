@@ -13,5 +13,26 @@
 		margin-top: 2.5rem;
 		width: 100%;
 		text-align: center;
+	}
+
+	&__description {
+		@media (min-width: 768px) {
+			font-size: 1.2rem;
+		}
+  }
+  
+  &__email {
+    font-weight: 600;
+    color: $primary-color;
+  }
+
+  &__contribution-list {
+    list-style-type: none;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  &__contribution-item {
+    padding-bottom: 1rem;
   }
 }
