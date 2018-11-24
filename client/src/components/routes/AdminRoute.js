@@ -16,16 +16,16 @@ class AdminRoute extends React.Component {
 	render() {
 		const { AuthStore, component: Component, ...rest } = this.props;
 
-		console.log('AuthStore.state', AuthStore.state);
-		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
-		console.log('AuthStore.isAdmin', AuthStore.isAdmin);
-		console.log('AuthStore.authUser', AuthStore.authUser);
+		// console.log('AuthStore.state', AuthStore.state);
+		// console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
+		// console.log('AuthStore.isAdmin', AuthStore.isAdmin);
+		// console.log('AuthStore.authUser', AuthStore.authUser);
 
 		return (
 			<Route
 				{...rest}
 				render={(props) => {
-					if (AuthStore.state === 'pending') {
+					if (AuthStore.state === 'pending' || AuthStore.state === 'initial') {
 						return (
 							<div className="spinner-main">
 								<Spinner className="spinner-main__spinner" name="line-scale" />
