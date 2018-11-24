@@ -20,6 +20,7 @@ class AdminRoute extends React.Component {
 		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
 		console.log('AuthStore.isAdmin', AuthStore.isAdmin);
 		console.log('AuthStore.authUser', AuthStore.authUser);
+		console.log('AuthStore.authUser', AuthStore.authUser);
 
 		return (
 			<Route
