@@ -22,7 +22,7 @@ const AboutPage = () => {
 
 				<p className="about__description--p2">
 					Most travel guides present our city from a purely touristic point of view chasing visitors from one
-					iconic landmark to another while providing wikipedia-type of information. With the Jaffna Guide we
+					iconic landmark to another while providing wikipedia-type information. With the Jaffna Guide we
 					invite you to experience the treasures of our beautiful city through an alternative lens, our eyes.
 				</p>
 			</div>
