@@ -1,0 +1,128 @@
+.about {
+	display: grid;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 600px;
+
+	grid-template-rows: 130px 1fr;
+	text-align: left;
+
+	&__title {
+		margin-top: 3rem;
+		width: 100%;
+		text-align: center;
+	}
+
+	&__members {
+		display: flex;
+		justify-content: center;
+		margin-top: 1rem;
+		margin-bottom: 2.2rem;
+
+		@media (min-width: 768px) {
+			margin-top: 1.8rem;
+		}
+	}
+
+	&__member-list {
+		list-style-type: none;
+		display: inline-block;
+	}
+
+	&__member {
+		margin-bottom: .5rem;
+	}
+
+	&__description {
+		@media (min-width: 768px) {
+			font-size: 1.2rem;
+		}
+
+		&--p1 {
+			margin-bottom: 1rem;
+		}
+
+		&--p2 {
+			margin-bottom: 1rem;
+		}
+	}
+
+	&__chip {
+		position: relative;
+		padding-left: 1.7rem;
+		padding-right: .6rem;
+		border: 1px solid $gray-color;
+		border-radius: 11px;
+		background-color: $bg-color;
+	}
+
+	&__chip-initials {
+		position: absolute;
+		left: -.1rem;
+		top: 0;
+		color: $light-color;
+		font-size: .7rem;
+		width: 1.55rem;
+		height: 1.55rem;
+		border-radius: 50%;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: .1rem;
+
+		&--1 {
+			background-color: #5755d9;
+		}
+
+		&--2 {
+			background-color: rebeccapurple;
+		}
+
+		&--3 {
+			background-color: $code-color;
+		}
+
+		&--4 {
+			background-color: $error-color;
+		}
+
+		&--5 {
+			background-color: $warning-color;
+		}
+
+		&--6 {
+			background-color: $primary-color;
+		}
+	}
+
+	&__chip-text {
+		margin: 0;
+		margin-top: .25rem;
+		padding: 0;
+		// background-color: gray;
+		line-height: 1.3rem;
+	}
+
+	&__tech-stack {
+		display: grid;
+		grid-template-columns: 3rem 3rem 3rem 5rem;
+		padding-top: 1rem;
+    padding-bottom: 2rem;
+    
+    @media (min-width: 768px) {
+      padding-top: 1.5rem;
+    }
+	}
+
+	&__tech-icon {
+    width: 2rem;
+    height: 2rem;
+
+    &--mongodb {
+      width: 5rem;
+    }
+	}
+}

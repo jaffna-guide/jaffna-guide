@@ -37,7 +37,7 @@ class App extends Component {
 						<Switch>
 							<AdminRoute path="/admin" exact component={AdminPage} />
 							<Route path="/" exact component={() => <HomePage lang={lang} />} />
-							<Route path="/about" exact component={() => <AboutPage lang={lang} />} />
+							<Route path="/about" exact component={AboutPage} />
 							<Route path="/events" exact component={EventsPage} />
 							<Route path="/culture" exact component={CulturePage} />
 							<Route path="/restaurants" exact component={RestaurantsPage} />

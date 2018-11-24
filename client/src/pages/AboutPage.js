@@ -1,14 +1,93 @@
 import * as React from 'react';
 
-const About = ({ lang }) => {
-	switch (lang) {
-		case 'de':
-			return <div>Dieses Projekt wurde von Uki Studenten gebaut.</div>;
-		case 'ta':
-			return <div>Intha project uki students mulama kadhapadhathu.</div>;
-		default:
-			return <div>This project is developed by Uki students.</div>;
-	}
+import { Title, Icon } from '../components/atoms';
+import { ReactComponent as NodeJsLogo } from '../assets/nodejs.svg';
+import { ReactComponent as MobXLogo } from '../assets/mobx.svg';
+import { ReactComponent as ReactLogo } from '../assets/react.svg';
+import { ReactComponent as MongoDBLogo } from '../assets/mongodb.svg';
+
+const About = () => {
+	return (
+		<div className="about">
+			<div className="about__title">
+				<Title>About</Title>
+			</div>
+
+			<div className="about__description">
+				<p className="about__description--p1">
+					<i>The Jaffna Guide</i> is a joint venture between <a href="http://uki.life/">Uki Coding School</a>{' '}
+					batch 3 graduates and <a href="https://soosap.co">soosap GmbH</a> software engineering based in
+					Switzerland. The project has been designed and built by Jaffna residents.
+				</p>
+
+				<p className="about__description--p2">
+					Most travel guides present our city from a purely touristic point of view chasing visitors from one
+					iconic landmark to another while providing wikipedia-type of information. With the Jaffna Guide we
+					invite you to experience the treasures of our beautiful city through an alternative lens, our eyes.
+				</p>
+			</div>
+			<div className="about__members">
+				<ul className="about__member-list">
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--1">DH</div>
+							<div className="about__chip-text">Darshana H.</div>
+						</div>
+					</li>
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--2">VP</div>
+							<div className="about__chip-text">Vavitha P.</div>
+						</div>
+					</li>
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--3">SJ</div>
+							<div className="about__chip-text">Shanuja J.</div>
+						</div>
+					</li>
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--4">BB</div>
+							<div className="about__chip-text">Babitha B.</div>
+						</div>
+					</li>
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--5">TT</div>
+							<div className="about__chip-text">Tharshana T.</div>
+						</div>
+					</li>
+					<li className="about__member">
+						<div className="about__chip">
+							<div className="about__chip-initials about__chip-initials--6">PS</div>
+							<div className="about__chip-text">Prasath S.</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div className="about__technology">
+				<div className="about__description">
+					We use a number of modern server and client technologies to build the features of{' '}
+					<i>The Jaffna Guide</i>.
+				</div>
+				<div className="about__tech-stack">
+					<div className="about__technology">
+						<Icon className="about__tech-icon about__tech-icon--react" icon={ReactLogo} />
+					</div>
+					<div className="about__technology">
+						<Icon className="about__tech-icon about__tech-icon--mobx" icon={MobXLogo} />
+					</div>
+					<div className="about__technology">
+						<Icon className="about__tech-icon about__tech-icon--nodejs" icon={NodeJsLogo} />
+					</div>
+					<div className="about__technology">
+						<Icon className="about__tech-icon about__tech-icon--mongodb" icon={MongoDBLogo} />
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export default About;

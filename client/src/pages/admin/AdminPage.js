@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { observer, inject } from 'mobx-react';
 
-import { Icon } from '../../components/atoms';
+import { Icon, Title } from '../../components/atoms';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 import { ReactComponent as Delete } from '../../assets/delete.svg';
 import CreateEditPlaceForm from './CreateEditPlaceForm';
@@ -17,7 +17,7 @@ class AdminPanel extends React.Component {
 				{PlaceStore.state === 'done' && (
 					<div>
 						<div className="admin-panel__title-wrapper">
-							<h1 className="admin-panel__title">Admin Panel</h1>
+							<Title>Admin Panel</Title>
 						</div>
 						<div className="admin-panel__places">
 							<table className="admin-panel__table table table-striped table-hover table-scroll">
