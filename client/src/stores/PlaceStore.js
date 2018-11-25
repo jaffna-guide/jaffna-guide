@@ -161,6 +161,36 @@ class PlaceStore {
 	};
 
 	@action
+	uploadLogo = async (placeId, event) => {
+		this.state = 'pendingUploadLogo';
+		const logo = event.target.files[0];
+		const formData = new FormData();
+		formData.append('logo', logo);
+		const res = await axios.post(`/api/places/${placeId}/logo`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data',
+			},
+		});
+		const updatedLogo = res.data;
+		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+		runInAction(() => {
+			placeToBeUpdated.logo = updatedLogo;
+			this.state = 'done';
+		});
+	};
+
+	@action
+	deleteLogo = async (placeId) => {
+		this.state = 'pendingDeleteLogo';
+		await axios.delete(`/api/places/${placeId}/logo`);
+		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+		runInAction(() => {
+			placeToBeUpdated.logo = undefined;
+			this.state = 'done';
+		});
+	};
+
+	@action
 	uploadImages = async (placeId, files) => {
 		this.state = 'pendingUploadImages';
 		const formData = new FormData();

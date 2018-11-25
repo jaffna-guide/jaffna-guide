@@ -21,6 +21,7 @@ const placeSchema = new Schema({
 	active: { type: Boolean, default: false },
 	category: { type: Schema.Types.ObjectId, ref: 'Category' },
 	cover: { type: String },
+	logo: { type: String },
 	marker: markerSchema,
 	images: [ imageSchema ],
 	createdBy: { type: Schema.Types.ObjectId, ref: 'User' },

@@ -9,6 +9,8 @@ import {
 	deleteMarker,
 	uploadCover,
 	deleteCover,
+	uploadLogo,
+	deleteLogo,
 	uploadImages,
 	deleteImage,
 } from '../controllers/places';
@@ -22,6 +24,8 @@ export default (app) => {
 	app.delete('/api/places/:placeId/marker', requireAdmin, deleteMarker);
 	app.post('/api/places/:placeId/cover', requireAdmin, upload.single('cover'), uploadCover);
 	app.delete('/api/places/:placeId/cover', requireAdmin, deleteCover);
+	app.post('/api/places/:placeId/logo', requireAdmin, upload.single('logo'), uploadLogo);
+	app.delete('/api/places/:placeId/logo', requireAdmin, deleteLogo);
 	app.post('/api/places/:placeId/images', requireAdmin, upload.array('images', 6), uploadImages);
 	app.delete('/api/places/:placeId/images/:imageId', requireAdmin, deleteImage);
 };

@@ -115,11 +115,37 @@ export const uploadCover = async (req, res) => {
 
 export const deleteCover = async (req, res) => {
 	const placeToUpdate = await Place.findById(req.params.placeId);
+	console.log('placeToUpdate', placeToUpdate);
 	const key = url.parse(placeToUpdate.cover).pathname;
 	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
 		if (err) res.sendStatus(500);
 
 		placeToUpdate.cover = undefined;
+		placeToUpdate.updatedBy = req.user._id;
+		placeToUpdate.updatedAt = Date.now();
+
+		await placeToUpdate.save();
+		res.sendStatus(200);
+	});
+};
+
+export const uploadLogo = async (req, res) => {
+	const updatedPlace = await Place.findOneAndUpdate(
+		{ _id: req.params.placeId },
+		{ $set: { logo: req.file.location, updatedBy: req.user._id, updatedAt: Date.now() } },
+		{ new: true },
+	);
+
+	res.status(200).send(updatedPlace.logo);
+};
+
+export const deleteLogo = async (req, res) => {
+	const placeToUpdate = await Place.findById(req.params.placeId);
+	const key = url.parse(placeToUpdate.logo).pathname;
+	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
+		if (err) res.sendStatus(500);
+
+		placeToUpdate.logo = undefined;
 		placeToUpdate.updatedBy = req.user._id;
 		placeToUpdate.updatedAt = Date.now();
 

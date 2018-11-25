@@ -67,6 +67,17 @@
 		}
 	}
 
+	&__logo-wrapper {
+		display: flex;
+		justify-content: center;
+		margin-bottom: 1rem;
+	}
+
+	&__logo-image {
+		width: 150px;
+		height: 100%;
+	}
+
 	&__carousel {
 		margin-left: auto;
 		margin-right: auto;

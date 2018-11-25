@@ -37,11 +37,6 @@ class CreatePlaceForm extends React.Component {
 		}
 	};
 
-	handleCoverDrop = (acceptedFiles) => {
-		const { PlaceStore } = this.props;
-		PlaceStore.uploadCover(PlaceStore.selectedPlaceId, acceptedFiles);
-	};
-
 	handleImageDrop = (acceptedFiles, rejectedFiles) => {
 		const { PlaceStore } = this.props;
 		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
@@ -210,7 +205,7 @@ class CreatePlaceForm extends React.Component {
 						<h2 className="add-place-form__subtitle">Images</h2>
 					</div>
 
-					<div className="add-place-form__cover-marker">
+					<div className="add-place-form__cover-logo-wrapper">
 						<Field name="cover">
 							{({ input, meta }) => (
 								<div className="form-group">
@@ -224,44 +219,93 @@ class CreatePlaceForm extends React.Component {
 									) : initialValues && initialValues.cover ? (
 										<div className="add-place-form__cover-wrapper">
 											<img
-												className="add-place-form__cover"
+												className="add-place-form__cover-image"
 												alt={`${initialValues.nameEn} Cover`}
 												src={initialValues.cover}
 											/>
 											<Icon
-												className="add-place-form__delete-cover"
+												className="add-place-form__delete-icon"
 												icon={Close}
 												onClick={() => PlaceStore.deleteCover(initialValues._id)}
 												width="1rem"
 											/>
 										</div>
 									) : (
-										<input className="form-input" type="file" onChange={this.handleCoverDrop} />
+										<input
+											className="form-input"
+											type="file"
+											onChange={(acceptedFiles) => {
+												const { PlaceStore } = this.props;
+												PlaceStore.uploadCover(PlaceStore.selectedPlaceId, acceptedFiles);
+											}}
+										/>
 									)}
 									{!initialValues.cover && <p className="form-input-hint">Recommended: 300x200</p>}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
 							)}
 						</Field>
-						<Field name="marker">
+						<Field name="logo">
 							{({ input, meta }) => (
 								<div className="form-group">
-									<label htmlFor="marker" className="form-label">
-										Marker
+									<label htmlFor="logo" className="form-label">
+										Logo
+									</label>
+									{PlaceStore.state === 'pendingUploadLogo' ? (
+										<div>
+											<Spinner className="add-place-form__spinner" name="line-scale" />
+										</div>
+									) : initialValues && initialValues.logo ? (
+										<div className="add-place-form__logo-wrapper">
+											<img
+												className="add-place-form__logo-image"
+												alt={`${initialValues.nameEn} Logo`}
+												src={initialValues.logo}
+											/>
+											<Icon
+												className="add-place-form__delete-icon"
+												icon={Close}
+												onClick={() => PlaceStore.deleteLogo(initialValues._id)}
+												width="1rem"
+											/>
+										</div>
+									) : (
+										<input
+											className="form-input"
+											type="file"
+											onChange={(acceptedFiles) => {
+												const { PlaceStore } = this.props;
+												PlaceStore.uploadLogo(PlaceStore.selectedPlaceId, acceptedFiles);
+											}}
+										/>
+									)}
+									{!initialValues.logo && <p className="form-input-hint">Recommended: 200x200</p>}
+									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+								</div>
+							)}
+						</Field>
+					</div>
+
+					<div className="add-place-form__marker-default-active-wrapper">
+						<Field name="marker-default">
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label htmlFor="marker-default" className="form-label">
+										Marker (default)
 									</label>
 									{PlaceStore.state === 'pendingUploadMarkerDefault' ? (
 										<div>
 											<Spinner className="add-place-form__spinner" name="line-scale" />
 										</div>
 									) : initialValues && initialValues.marker && initialValues.marker.default ? (
-										<div className="add-place-form__marker-wrapper">
+										<div className="add-place-form__marker-default-wrapper">
 											<img
-												className="add-place-form__marker"
-												alt={`${initialValues.nameEn} Marker`}
+												className="add-place-form__marker-default-image"
+												alt={`${initialValues.nameEn} Marker Default`}
 												src={initialValues.marker.default}
 											/>
 											<Icon
-												className="add-place-form__delete-marker"
+												className="add-place-form__delete-icon"
 												icon={Close}
 												onClick={() => PlaceStore.deleteMarker(initialValues._id, 'default')}
 												width="1rem"
@@ -281,7 +325,56 @@ class CreatePlaceForm extends React.Component {
 											}}
 										/>
 									)}
-									{!initialValues.marker && <p className="form-input-hint">Recommended: 64x64</p>}
+									{((initialValues && initialValues.marker && !initialValues.marker.default) ||
+										(initialValues && !initialValues.marker)) && (
+										<p className="form-input-hint">Recommended: 300x200</p>
+									)}
+									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+								</div>
+							)}
+						</Field>
+						<Field name="marker-active">
+							{({ input, meta }) => (
+								<div className="form-group">
+									<label htmlFor="marker-active" className="form-label">
+										Marker (active)
+									</label>
+									{PlaceStore.state === 'pendingUploadMarkerActive' ? (
+										<div>
+											<Spinner className="add-place-form__spinner" name="line-scale" />
+										</div>
+									) : initialValues && initialValues.marker && initialValues.marker.active ? (
+										<div className="add-place-form__marker-active-wrapper">
+											<img
+												className="add-place-form__marker-active-image"
+												alt={`${initialValues.nameEn} Marker Active`}
+												src={initialValues.marker.active}
+											/>
+											<Icon
+												className="add-place-form__delete-icon"
+												icon={Close}
+												onClick={() => PlaceStore.deleteMarker(initialValues._id, 'active')}
+												width="1rem"
+											/>
+										</div>
+									) : (
+										<input
+											className="form-input"
+											type="file"
+											onChange={(acceptedFiles) => {
+												const { PlaceStore } = this.props;
+												PlaceStore.uploadMarker(
+													PlaceStore.selectedPlaceId,
+													'active',
+													acceptedFiles,
+												);
+											}}
+										/>
+									)}
+									{((initialValues && initialValues.marker && !initialValues.marker.active) ||
+										(initialValues && !initialValues.marker)) && (
+										<p className="form-input-hint">Recommended: 300x200</p>
+									)}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
 							)}
@@ -317,7 +410,7 @@ class CreatePlaceForm extends React.Component {
 								)}
 							</div>
 						</div>
-						<p className="form-input-hint">Max file size 1 MB.</p>
+						<p className="form-input-hint">Max file size 1.5 MB.</p>
 					</div>
 				</div>
 			</WizardForm.Page>
