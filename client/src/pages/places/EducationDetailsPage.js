@@ -26,14 +26,12 @@ class EducationDetailsPage extends React.Component {
 
 		return (
 			<div className="education-details">
-
+				{place.logo && (
+					<div className="education-details__logo-wrapper">
+						<img className="education-details__logo-image" src={place.logo} alt={`${place.name.en} Logo`} />
+					</div>
+				)}
 				<div className="education-details__header">
-          {place.logo && (
-            <div className="education-details__logo-wrapper">
-              <img className="education-details__logo-image" src={place.logo} alt={`${place.name.en} Logo`} />
-            </div>
-          )}
-
 					<div className="education-details__heading">
 						<h1 className="education-details__title">{place.name.en}</h1>
 						<h2 className="education-details__subtitle">{place.name.ta}</h2>

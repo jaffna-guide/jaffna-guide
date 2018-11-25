@@ -30,7 +30,11 @@ class AdminPanel extends React.Component {
 									</tr>
 								</thead>
 								<tbody>
-									{PlaceStore.places.map((place) => {
+									{PlaceStore.places.sort((a, b) => {
+										if (a.category.body < b.category.body) return -1;
+										if (a.category.body > b.category.body) return 1;
+										return 0;
+									}).map((place) => {
 										return (
 											<tr
 												key={place.body}
