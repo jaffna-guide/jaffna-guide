@@ -32,7 +32,7 @@ class HotelsDetailsPage extends React.Component {
 						<h2 className="hotels-details__subtitle">{place.name.ta}</h2>
 					</div>
 					<div className="hotels-details__ballot">
-						<PlacesBallot place={place} category="culture" />
+						<PlacesBallot place={place} category="hotels" />
 					</div>
 				</div>
 				<div className="hotels-details__carousel">

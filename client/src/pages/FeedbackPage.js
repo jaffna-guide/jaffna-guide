@@ -37,7 +37,7 @@ const FeedbackPage = () => {
 					Tamil is equally welcome.
 				</li>
 				<li className="feedback__contribution-item">
-					<strong>Feature requests:</strong> if you have suggestions for new features we would be thrilled to
+					<strong>Feature requests:</strong> If you have suggestions for new features we would be thrilled to
 					learn more about them. Please provide a detailed description on how the traveller experience can be
 					enhanced. If technically feasible and useful in nature we will try our best to make that feature a
 					reality.

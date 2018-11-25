@@ -99,9 +99,6 @@ class PlacesBallot extends React.Component {
 		const { authUser, currentPlaceVotes, hasCastedVoteForCurrentPlace } = AuthStore;
 		const { vote, undoVote, state } = VoteStore;
 
-		console.log('AuthStore.isAuthenticated', AuthStore.isAuthenticated);
-		console.log('AuthStore.state', AuthStore.state);
-
 		return (
 			<div className="places-ballot">
 				<div className="places-ballot__votes-box">
