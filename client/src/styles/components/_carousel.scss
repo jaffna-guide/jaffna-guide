@@ -8,16 +8,22 @@
 	grid-template-areas: "slide-track";
 
 	@media (min-width: 768px) {
+		height: 530px;
 		grid-template-areas: "slide-track thumbnail-track";
 		grid-column-gap: .5rem;
+	}
+
+	@media (min-width: 992px) {
+		height: 600px;
 	}
 }
 
 .carousel-slide-track {
 	&__outer {
-		grid-template: "slide-track";
+		grid-area: slide-track;
 		position: relative;
 		overflow-x: hidden;
+		height: max-content;
 	}
 
 	&__inner {
@@ -51,8 +57,9 @@
 
 .carousel-thumbnail-track {
 	&__outer {
-		grid-template: "thumbnail-track";
+		grid-area: thumbnail-track;
 		display: none;
+		overflow-y: scroll;
 
 		@media (min-width: 768px) {
 			display: initial;
@@ -67,10 +74,10 @@
 		max-width: 130px;
 		grid-template-rows: repeat(auto-fit, 94px);
 
-			@media (min-width: 992px) {
-				max-width: 150px;
-				grid-template-rows: repeat(auto-fit, 107px);
-			}
+		@media (min-width: 992px) {
+			max-width: 150px;
+			grid-template-rows: repeat(auto-fit, 107px);
+		}
 	}
 }
 
@@ -78,6 +85,10 @@
 	cursor: pointer;
 	img {
 		max-width: 100%;
+	}
+
+	&:last-child {
+		background-color: lighten($dark-color, 10%);
 	}
 }
 
