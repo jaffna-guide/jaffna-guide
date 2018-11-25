@@ -35,7 +35,6 @@ class AuthStore {
 				params: { placeBody: currentPlaceBody, userId: authUser._id },
 			});
 			const vote = res.data && res.data[0];
-			console.log('vote', vote);
 			if (vote) {
 				runInAction(() => {
 					this.hasCastedVoteForCurrentPlace = true;

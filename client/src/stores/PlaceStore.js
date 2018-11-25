@@ -206,7 +206,6 @@ class PlaceStore {
 
 			const placeToBeUpdated = this.places.find((p) => p._id === placeId);
 			const updatedImages = res.data;
-			console.log('updatedImages', updatedImages);
 
 			runInAction(() => {
 				placeToBeUpdated.images = updatedImages;
