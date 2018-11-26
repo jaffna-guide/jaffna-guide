@@ -5,8 +5,10 @@ class PlaceStore {
 	@observable places = [];
 	@observable state = 'pending'; // "pendingX" / "done" / "error"
 	@observable selectedPlaceId = null;
+	@observable hoveredPlaceId = null;
 	@observable currentPlaceBody = '';
 	@observable createEditPlaceModalVisible = false;
+	@observable shallMarkerAnimate = true;
 
 	@action
 	fetchPlaces = async () => {
@@ -63,8 +65,19 @@ class PlaceStore {
 
 	@action
 	selectPlace = (placeId) => {
+		this.shallMarkerAnimate = true;
 		this.selectedPlaceId = placeId;
+		this.hoveredPlaceId = placeId;
 		this.createEditPlaceModalVisible = true;
+
+		setTimeout(() => {
+			this.shallMarkerAnimate = false;
+		}, 500);
+	};
+
+	@action
+	hoverPlace = (placeId) => {
+		this.hoveredPlaceId = placeId;
 	};
 
 	@action

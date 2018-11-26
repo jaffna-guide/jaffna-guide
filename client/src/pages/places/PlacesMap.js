@@ -19,9 +19,9 @@ class PlacesMap extends React.Component {
 	};
 
 	handleMarkerHover = (props, marker, e) => {
-		console.log('props', props);
-		console.log('marker', marker);
-	}
+		const { PlaceStore } = this.props;
+		PlaceStore.hoverPlace(marker.placeId);
+	};
 
 	renderMarkers = () => {
 		const { PlaceStore, google } = this.props;
@@ -33,7 +33,6 @@ class PlacesMap extends React.Component {
 			return place.marker && place.marker.default ? (
 				<Marker
 					key={place.body}
-					animation={google.maps.Animation.DROP}
 					placeId={place._id}
 					placeBody={place.body}
 					onClick={this.handleMarkerClick}
@@ -41,10 +40,20 @@ class PlacesMap extends React.Component {
 					position={{ lat: place.latitude, lng: place.longitude }}
 					name={place.name.en}
 					icon={{
-						url: place.marker.default,
+						url: place._id === PlaceStore.hoveredPlaceId ? place.marker.active : place.marker.default,
 						anchor: new google.maps.Point(12, 68),
-						scaledSize: new google.maps.Size(256, 64),
+						scaledSize:
+							place._id === PlaceStore.hoveredPlaceId
+								? new google.maps.Size(200, 75)
+								: new google.maps.Size(53, 75),
 					}}
+					animation={
+						place._id === PlaceStore.selectedPlaceId && PlaceStore.shallMarkerAnimate ? (
+							google.maps.Animation.DROP
+						) : (
+							0
+						)
+					}
 					zIndex={place.votes}
 				/>
 			) : null;
@@ -56,7 +65,10 @@ class PlacesMap extends React.Component {
 		const places = PlaceStore[this.props.category];
 		const selectedPlace = PlaceStore.selectedPlace;
 		const initialCenter = this.props.center || (places[0] && { lat: places[0].latitude, lng: places[0].longitude });
-		const center = selectedPlace && { lat: selectedPlace.latitude, lng: selectedPlace.longitude };
+		const center =
+			selectedPlace && PlaceStore.shallMarkerAnimate
+				? { lat: selectedPlace.latitude, lng: selectedPlace.longitude }
+				: {};
 
 		return initialCenter ? (
 			<div className="places-map">
