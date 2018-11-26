@@ -15,7 +15,7 @@ class PlacesList extends React.Component {
 					<div
 						key={place.body}
 						className="places-list__item"
-						onClick={() => setTimeout(() => PlaceStore.selectPlace(place._id), 100)}
+						onClick={() => setTimeout(() => PlaceStore.selectPlace(place._id), 300)}
 						onDoubleClick={() => history.push(`/${place.body}`)}
 					>
 						<div className="places-list__left">
