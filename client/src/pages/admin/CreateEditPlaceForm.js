@@ -327,7 +327,7 @@ class CreatePlaceForm extends React.Component {
 									)}
 									{((initialValues && initialValues.marker && !initialValues.marker.default) ||
 										(initialValues && !initialValues.marker)) && (
-										<p className="form-input-hint">Recommended: 300x200</p>
+										<p className="form-input-hint">Recommended: 105x150</p>
 									)}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>
@@ -373,7 +373,7 @@ class CreatePlaceForm extends React.Component {
 									)}
 									{((initialValues && initialValues.marker && !initialValues.marker.active) ||
 										(initialValues && !initialValues.marker)) && (
-										<p className="form-input-hint">Recommended: 300x200</p>
+										<p className="form-input-hint">Recommended: ?x150</p>
 									)}
 									{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
 								</div>

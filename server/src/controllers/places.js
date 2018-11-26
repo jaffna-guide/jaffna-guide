@@ -75,7 +75,7 @@ export const uploadMarker = async (req, res) => {
 
 	const updatedPlace = await Place.findOneAndUpdate(
 		{ _id: req.params.placeId },
-		{ $set: { marker: { [markerType]: req.file.location }, updatedBy: req.user._id, updatedAt: Date.now() } },
+		{ $set: { [`marker.${markerType}`]: req.file.location, updatedBy: req.user._id, updatedAt: Date.now() } },
 		{ new: true },
 	).populate('category');
 

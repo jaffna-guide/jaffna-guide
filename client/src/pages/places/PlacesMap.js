@@ -18,17 +18,26 @@ class PlacesMap extends React.Component {
 		history.push(`/${marker.placeBody}`);
 	};
 
+	handleMarkerHover = (props, marker, e) => {
+		console.log('props', props);
+		console.log('marker', marker);
+	}
+
 	renderMarkers = () => {
 		const { PlaceStore, google } = this.props;
 		const places = PlaceStore[this.props.category];
+
+		// google.maps.Animation.DROP || google.maps.Animation.BOUNCE
 
 		return places.map((place) => {
 			return place.marker && place.marker.default ? (
 				<Marker
 					key={place.body}
+					animation={google.maps.Animation.DROP}
 					placeId={place._id}
 					placeBody={place.body}
 					onClick={this.handleMarkerClick}
+					onMouseover={this.handleMarkerHover}
 					position={{ lat: place.latitude, lng: place.longitude }}
 					name={place.name.en}
 					icon={{
@@ -36,6 +45,7 @@ class PlacesMap extends React.Component {
 						anchor: new google.maps.Point(12, 68),
 						scaledSize: new google.maps.Size(256, 64),
 					}}
+					zIndex={place.votes}
 				/>
 			) : null;
 		});
