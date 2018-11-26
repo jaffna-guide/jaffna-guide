@@ -54,7 +54,7 @@ class PlacesMap extends React.Component {
 							0
 						)
 					}
-					zIndex={place._id === PlaceStore.selectedPlaceId ? 10000 : place.votes}
+					zIndex={place._id === PlaceStore.hoveredPlaceId ? 10000 : place.votes}
 				/>
 			) : null;
 		});
