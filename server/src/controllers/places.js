@@ -15,7 +15,7 @@ export const getAllPlaces = (req, res) => {
 export const createPlace = async (req, res) => {
 	const { name, description, latitude, longitude, category } = req.body;
 
-	const body = name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
+	const body = name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-').replace(/[^a-zA-Z-]/g, '');
 
 	const place = new Place({
 		body,
@@ -36,7 +36,7 @@ export const createPlace = async (req, res) => {
 export const updatePlace = async (req, res) => {
 	const { id, ...values } = req.body;
 	if (values.name) {
-		values.body = values.name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-');
+		values.body = values.name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-').replace(/[^a-zA-Z-]/g, '');
 	}
 
 	const place = await Place.findOneAndUpdate({ _id: id }, { $set: values }, { new: true }).populate('category');

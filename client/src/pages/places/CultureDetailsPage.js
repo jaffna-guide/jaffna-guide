@@ -35,9 +35,11 @@ class CultureDetailsPage extends React.Component {
 						<PlacesBallot place={place} category="culture" />
 					</div>
 				</div>
-				<div className="culture-details__carousel">
-					<Carousel name={place.name.en} images={place.images} />
-				</div>
+				{place.images.length > 0 && (
+					<div className="culture-details__carousel">
+						<Carousel name={place.name.en} images={place.images} />
+					</div>
+				)}
 				<div className="culture-details__description">
 					<div className="culture-details__description--en">{place.description.en}</div>
 					<div className="culture-details__description--ta">{place.description.ta}</div>

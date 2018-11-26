@@ -30,60 +30,63 @@ class AdminPanel extends React.Component {
 									</tr>
 								</thead>
 								<tbody>
-									{PlaceStore.places.sort((a, b) => {
-										if (a.category.body < b.category.body) return -1;
-										if (a.category.body > b.category.body) return 1;
-										return 0;
-									}).map((place) => {
-										return (
-											<tr
-												key={place.body}
-												className={`admin-panel__table-row ${PlaceStore.selectedPlaceId ===
-												place._id
-													? 'active'
-													: ''}`}
-											>
-												<td
-													className="admin-panel__name-column"
-													onClick={() => PlaceStore.selectPlace(place._id)}
+									{PlaceStore.places
+										.slice()
+										.sort((a, b) => {
+											if (a.category.body < b.category.body) return -1;
+											if (a.category.body > b.category.body) return 1;
+											return 0;
+										})
+										.map((place) => {
+											return (
+												<tr
+													key={place.body}
+													className={`admin-panel__table-row ${PlaceStore.selectedPlaceId ===
+													place._id
+														? 'active'
+														: ''}`}
 												>
-													<div>{place.name.en}</div>
-												</td>
-												<td
-													className="admin-panel__category-column"
-													onClick={() => PlaceStore.selectPlace(place._id)}
-												>
-													{place.category.body}
-												</td>
-												<td
-													className="admin-panel__votes-column"
-													onClick={() => PlaceStore.selectPlace(place._id)}
-												>
-													{place.votes}
-												</td>
-												<td>
-													<div className="admin-panel__place-controls">
-														<Icon
-															className="admin-panel__delete-place-icon"
-															icon={Delete}
-															onClick={() => PlaceStore.deletePlace(place._id)}
-														/>
-														<div className="admin-panel__deactivate-switch form-group">
-															<label className="form-switch">
-																<input
-																	type="checkbox"
-																	checked={place.active}
-																	onChange={() =>
-																		PlaceStore.togglePlaceActive(place._id)}
-																/>
-																<i className="form-icon" />
-															</label>
+													<td
+														className="admin-panel__name-column"
+														onClick={() => PlaceStore.selectPlace(place._id)}
+													>
+														<div>{place.name.en}</div>
+													</td>
+													<td
+														className="admin-panel__category-column"
+														onClick={() => PlaceStore.selectPlace(place._id)}
+													>
+														{place.category.body}
+													</td>
+													<td
+														className="admin-panel__votes-column"
+														onClick={() => PlaceStore.selectPlace(place._id)}
+													>
+														{place.votes}
+													</td>
+													<td>
+														<div className="admin-panel__place-controls">
+															<Icon
+																className="admin-panel__delete-place-icon"
+																icon={Delete}
+																onClick={() => PlaceStore.deletePlace(place._id)}
+															/>
+															<div className="admin-panel__deactivate-switch form-group">
+																<label className="form-switch">
+																	<input
+																		type="checkbox"
+																		checked={place.active}
+																		onChange={() =>
+																			PlaceStore.togglePlaceActive(place._id)}
+																	/>
+																	<i className="form-icon" />
+																</label>
+															</div>
 														</div>
-													</div>
-												</td>
-											</tr>
-										);
-									})}
+													</td>
+												</tr>
+											);
+										})}
 								</tbody>
 							</table>
 						</div>

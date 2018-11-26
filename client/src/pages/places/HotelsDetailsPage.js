@@ -35,9 +35,11 @@ class HotelsDetailsPage extends React.Component {
 						<PlacesBallot place={place} category="hotels" />
 					</div>
 				</div>
-				<div className="hotels-details__carousel">
-					<Carousel name={place.name.en} images={place.images} />
-				</div>
+				{place.images.length > 0 && (
+					<div className="hotels-details__carousel">
+						<Carousel name={place.name.en} images={place.images} />
+					</div>
+				)}
 				<div className="hotels-details__description">
 					<div className="hotels-details__description--en">{place.description.en}</div>
 					<div className="hotels-details__description--ta">{place.description.ta}</div>

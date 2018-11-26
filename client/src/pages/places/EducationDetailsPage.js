@@ -22,7 +22,7 @@ class EducationDetailsPage extends React.Component {
 
 	render() {
 		const { PlaceStore } = this.props;
-		const place = PlaceStore.currentPlace;
+    const place = PlaceStore.currentPlace;
 
 		return (
 			<div className="education-details">
@@ -40,10 +40,11 @@ class EducationDetailsPage extends React.Component {
 						<PlacesBallot place={place} category="education" />
 					</div>
 				</div>
-
-				<div className="education-details__carousel">
-					<Carousel name={place.name.en} images={place.images} />
-				</div>
+				{place.images.length > 0 && (
+					<div className="education-details__carousel">
+						<Carousel name={place.name.en} images={place.images} />
+					</div>
+				)}
 				<div className="education-details__description">
 					<div className="education-details__description--en">{place.description.en}</div>
 					<div className="education-details__description--ta">{place.description.ta}</div>
