@@ -36,7 +36,7 @@ class PlacesMap extends React.Component {
 					placeId={place._id}
 					placeBody={place.body}
 					onClick={this.handleMarkerClick}
-					onMouseover={this.handleMarkerHover}
+					// onMouseover={this.handleMarkerHover}
 					position={{ lat: place.latitude, lng: place.longitude }}
 					name={place.name.en}
 					icon={{
