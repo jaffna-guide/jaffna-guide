@@ -30,7 +30,21 @@ class PlacesMap extends React.Component {
 		// google.maps.Animation.DROP || google.maps.Animation.BOUNCE
 
 		return places.map((place) => {
-			return place.marker && place.marker.default ? (
+			const icon =
+				place.marker &&
+				((place._id === PlaceStore.hoveredPlaceId && place.marker.active) ||
+					(place._id !== PlaceStore.hoveredPlaceId && place.marker.default))
+					? {
+							url: place._id === PlaceStore.hoveredPlaceId ? place.marker.active : place.marker.default,
+							anchor: new google.maps.Point(12, 68),
+							scaledSize:
+								place._id === PlaceStore.hoveredPlaceId
+									? new google.maps.Size(200, 75)
+									: new google.maps.Size(53, 75),
+						}
+					: {};
+
+			return (
 				<Marker
 					key={place.body}
 					placeId={place._id}
@@ -39,14 +53,7 @@ class PlacesMap extends React.Component {
 					// onMouseover={this.handleMarkerHover}
 					position={{ lat: place.latitude, lng: place.longitude }}
 					name={place.name.en}
-					icon={{
-						url: place._id === PlaceStore.hoveredPlaceId ? place.marker.active : place.marker.default,
-						anchor: new google.maps.Point(12, 68),
-						scaledSize:
-							place._id === PlaceStore.hoveredPlaceId
-								? new google.maps.Size(200, 75)
-								: new google.maps.Size(53, 75),
-					}}
+					icon={icon}
 					animation={
 						place._id === PlaceStore.selectedPlaceId && PlaceStore.shallMarkerAnimate ? (
 							google.maps.Animation.DROP
@@ -56,7 +63,7 @@ class PlacesMap extends React.Component {
 					}
 					zIndex={place._id === PlaceStore.hoveredPlaceId ? 10000 : place.votes}
 				/>
-			) : null;
+			);
 		});
 	};
 
