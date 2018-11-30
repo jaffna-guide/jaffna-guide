@@ -9,6 +9,7 @@ class PlaceStore {
 	@observable currentPlaceBody = '';
 	@observable createEditPlaceModalVisible = false;
 	@observable shallMarkerAnimate = true;
+	@observable tapedTwice = false;
 
 	@action
 	fetchPlaces = async () => {
@@ -242,6 +243,11 @@ class PlaceStore {
 			placeToBeUpdated.images = updatedImages;
 			this.state = 'done';
 		});
+	};
+
+	@action
+	setTapedTwice = (tapValue) => {
+		this.tapedTwice = tapValue;
 	};
 
 	@computed
