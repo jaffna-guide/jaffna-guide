@@ -6,25 +6,17 @@ class CategoryStore {
 	@observable state = 'pending'; // "pending" / "done" / "error"
 
 	@action
-	fetchCategories() {
+	fetchCategories = async () => {
 		this.categories = [];
 		this.state = 'pending';
 
-		axios
-			.get('/api/categories')
-			.then((res) => {
-				const categories = res.data;
-				runInAction(() => {
-					this.categories = categories;
-					this.state = 'done';
-				});
-			})
-			.catch(() => {
-				runInAction(() => {
-					this.categories = [];
-					this.state = 'error';
-				});
-			});
+		const res = await axios.get('/api/categories');
+		const categories = res.data;
+		console.log('categories', categories);
+		runInAction(() => {
+			this.categories = categories;
+			this.state = 'done';
+		});
 	}
 
 	@action
