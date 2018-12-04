@@ -12,7 +12,6 @@ class CategoryStore {
 
 		const res = await axios.get('/api/categories');
 		const categories = res.data;
-		console.log('categories', categories);
 		runInAction(() => {
 			this.categories = categories;
 			this.state = 'done';

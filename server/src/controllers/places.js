@@ -28,8 +28,8 @@ export const createPlace = async (req, res) => {
 		updatedBy: req.user.id,
 	});
 
-	place.save();
-	const populatedPlace = await Place.findById(place.id).populate({ path: 'category', select: '_id body' });
+	await place.save();
+	const populatedPlace = await Place.findById(place.id).populate('category');
 	res.send(populatedPlace);
 };
 
