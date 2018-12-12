@@ -19,6 +19,7 @@ $ npm start
 * React
 * mongodb
 * node.js
++ Facebook oAuth
 
 ## Working with git
 
