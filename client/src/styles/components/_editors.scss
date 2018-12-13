@@ -1,27 +1,27 @@
 .editor {
 	// @extend .form-input:focus;
-  // font-family: system-ui;
-  font-size: 1rem;
+	// font-family: system-ui;
+	font-size: 1rem;
 	min-height: 6rem;
-  height: unset;
-  color: $dark-color;
-  
-  h1 {
-    line-height: 2rem;
-    padding-top: .75rem;
-    padding-bottom: 1rem;
-    text-align: center;
-    font-family: $primary-font;
-    color: darken($primary-color, 5%);
-  }
+	height: unset;
+	color: $dark-color;
 
-  h2 {
-    text-align: center;
-    line-height: 1.8rem;
-    padding-bottom: 1rem;
-    padding-top: .5rem;
-    color: $dark-color;
-  }
+	h1 {
+		line-height: 2rem;
+		padding-top: .75rem;
+		padding-bottom: 1rem;
+		text-align: center;
+		font-family: $primary-font;
+		color: darken($primary-color, 5%);
+	}
+
+	h2 {
+		text-align: center;
+		line-height: 1.8rem;
+		padding-bottom: 1rem;
+		padding-top: .5rem;
+		color: $dark-color;
+	}
 
 	// draft-js-linkify-plugin
 	.draftJsLinkifyPlugin__link__2ittM,
@@ -234,5 +234,16 @@
 	}
 	.draftJsToolbar__wrapper__9NZgg {
 		position: absolute;
+	}
+
+	// draft-js-hashtag-plugin
+	.draftJsHashtagPlugin__hashtag__1wMVC {
+    // color: #5e93c5;
+    color: $dark-color;
+    font-family: $secondary-font;
+    padding-right: .2rem;
+    padding-left: .2rem;
+    padding-top: .2rem;
+    // display: inline-block;
 	}
 }

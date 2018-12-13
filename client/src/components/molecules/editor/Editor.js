@@ -4,6 +4,7 @@ import { EditorState } from 'draft-js';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
 import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
+import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import {
   HeadlineOneButton,
   HeadlineTwoButton,
@@ -12,8 +13,9 @@ import {
 const linkifyPlugin = createLinkifyPlugin();
 const mentionPlugin = createMentionPlugin();
 const sideToolbarPlugin = createSideToolbarPlugin();
+const hashtagPlugin = createHashtagPlugin();
 
-const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin ];
+const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin, hashtagPlugin ];
 
 const { MentionSuggestions } = mentionPlugin;
 const { SideToolbar } = sideToolbarPlugin;
