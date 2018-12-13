@@ -1,9 +1,11 @@
 .editor {
-  @extend .form-input;
+	&__editable {
+		@extend .form-input;
+	}
 
-  &__active {
-    @extend .form-input:focus;
-  }
+	&__active {
+		@extend .form-input:focus;
+	}
 
 	// @extend .form-input:focus;
 	// font-family: system-ui;
@@ -239,7 +241,12 @@
 		margin: 0 0.5em;
 	}
 	.draftJsToolbar__wrapper__9NZgg {
-		position: absolute;
+    position: absolute;
+    left: .5rem !important;
+
+    @media (min-width: 992px) {
+      left: -4rem !important;
+    }
 	}
 
 	// draft-js-hashtag-plugin
@@ -255,7 +262,7 @@
 
 	// draft-js-inline-toolbar-plugin
 	.draftJsToolbar__buttonWrapper__1Dmqh {
-    display: inline-block;
+		display: inline-block;
 	}
 
 	.draftJsToolbar__button__qi1gf {
@@ -281,7 +288,7 @@
 
 	.draftJsToolbar__active__3qcpF {
 		background: #efefef;
-    color: #444;
+		color: #444;
 	}
 
 	.draftJsToolbar__active__3qcpF svg {
@@ -336,7 +343,8 @@
 .draftJsEmojiPlugin__emojiSelect__34S1B {
 	margin-top: .3rem;
 	margin-bottom: .5rem;
-	display: inline-block;
+  display: inline-block;
+  position: relative;
 }
 
 .draftJsEmojiPlugin__emojiSelectButton__3sPol,
@@ -383,7 +391,8 @@
 	box-sizing: content-box;
 	background: #fff;
 	border: 1px solid #e0e0e0;
-	box-shadow: 0 4px 30px 0 gainsboro;
+  box-shadow: 0 4px 30px 0 gainsboro;
+  bottom: 2.5rem;
 }
 
 .draftJsEmojiPlugin__emojiSelectPopoverClosed__3Kxxq {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
-import { Carousel } from '../../components/molecules';
+import { Carousel, Editor } from '../../components/molecules';
 import PlacesBallot from './PlacesBallot';
 
 @withRouter
@@ -23,6 +23,7 @@ class CultureDetailsPage extends React.Component {
 	render() {
 		const { PlaceStore } = this.props;
 		const place = PlaceStore.currentPlace;
+		console.log('place.description.en', place.description.ta);
 
 		return (
 			<div className="culture-details">
@@ -41,8 +42,12 @@ class CultureDetailsPage extends React.Component {
 					</div>
 				)}
 				<div className="culture-details__description">
-					<div className="culture-details__description--en">{place.description.en}</div>
-					<div className="culture-details__description--ta">{place.description.ta}</div>
+					<div className="culture-details__description--en">
+						
+					</div>
+					<div className="culture-details__description--ta">
+						<Editor readOnly value={place.description.ta} />
+					</div>
 				</div>
 			</div>
 		);

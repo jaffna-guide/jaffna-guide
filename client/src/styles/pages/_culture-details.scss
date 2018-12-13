@@ -1,5 +1,6 @@
 .culture-details {
 	display: grid;
+	
 
 	&__header {
 		display: grid;
@@ -78,21 +79,22 @@
 		margin-right: auto;
 		max-width: 768px;
 		font-size: 1.1rem;
-		padding: 2rem 1.5rem;
+		padding: .5rem 1rem 2rem 1rem;
+		width: 100%;
 
 		@media (min-width: 480px) {
-			padding-right: 2rem;
+			padding-left: 1.5rem;
+			padding-right: 1.5rem;
 		}
 
 		@media (min-width: 768px) {
-			padding-top: 3rem;
 			padding-bottom: 3rem;
 			padding-left: 2rem;
 			padding-right: 2.5rem;
 		}
 
 		&--en {
-			padding-bottom: 2rem;
+			// padding-bottom: 2rem;
 		}
 	}
 }

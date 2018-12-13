@@ -51,17 +51,19 @@ class Editor extends React.Component {
 			}
 		});
 	};
-  
-  focusEditor = () => {
-    this.setState({ editorFocussed: true });
-  }
 
-  removeFocusEditor = () => {
-    this.setState({ editorFocussed: false });
-  }
+	focusEditor = () => {
+		if (!this.props.readOnly) {
+			this.setState({ editorFocussed: true });
+		}
+	};
+
+	removeFocusEditor = () => {
+		this.setState({ editorFocussed: false });
+	};
 
 	handleClickOutside = (evt) => {
-    this.removeFocusEditor();
+		this.removeFocusEditor();
 	};
 
 	onSearchChange = ({ value }) => {
@@ -78,7 +80,9 @@ class Editor extends React.Component {
 		return (
 			<div>
 				<div
-					className={`editor ${this.state.editorFocussed ? 'editor__active' : ''}`}
+					className={`editor ${!this.props.readOnly ? 'editor__editable' : ''} ${this.state.editorFocussed
+						? 'editor__active'
+						: ''}`}
 					onClick={this.focusEditor}
 				>
 					<DraftEditor
@@ -87,8 +91,9 @@ class Editor extends React.Component {
 						}}
 						editorState={this.state.editorState}
 						onChange={this.onChange}
-            onBlur={this.removeFocusEditor}
-            onFocus={this.focusEditor}
+						onBlur={this.removeFocusEditor}
+						onFocus={this.focusEditor}
+						readOnly={this.props.readOnly}
 						plugins={plugins}
 					/>
 					<MentionSuggestions
@@ -114,8 +119,8 @@ class Editor extends React.Component {
 						)}
 					</InlineToolbar>
 				</div>
-				<EmojiSuggestions />
-				<EmojiSelect />
+				{!this.props.readOnly && <EmojiSuggestions />}
+				{!this.props.readOnly && <EmojiSelect />}
 			</div>
 		);
 	}
