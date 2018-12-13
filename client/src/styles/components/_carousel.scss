@@ -3,6 +3,7 @@
 	position: relative;
 	margin-left: auto;
 	margin-right: auto;
+	margin-bottom: 1rem;
 	max-width: 1024px;
 
 	grid-template-areas: "slide-track";
@@ -23,7 +24,7 @@
 		grid-area: slide-track;
 		position: relative;
 		overflow-x: hidden;
-		height: max-content;
+		height: max-content;		
 	}
 
 	&__inner {
@@ -34,12 +35,20 @@
 }
 
 .carousel-slide {
-	// min-width: fill-available;
-	width: 100%;
+	flex: 1;
+
+	@media (min-width: 768px) {
+		padding-right: 138px;
+	}
+
+	@media (min-width: 992px) {
+		padding-right: 158px;
+	}
 
 	&__image {
 		height: 300px;
-
+		width: 100%;
+		
 		@media (min-width: 480px) {
 			height: 400px;
 		}
@@ -51,7 +60,6 @@
 		@media (min-width: 992px) {
 			height: 600px;
 		}
-		// height: 500px;
 	}
 }
 

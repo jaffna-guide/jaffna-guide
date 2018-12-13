@@ -15,13 +15,18 @@
 	color: $dark-color;
 
 	h1 {
-		line-height: 2rem;
+		line-height: 1.6rem;
 		padding-top: .75rem;
 		padding-bottom: 1rem;
 		text-align: center;
 		font-family: $primary-font;
-		color: darken($primary-color, 5%);
-	}
+    color: darken($primary-color, 5%);
+    
+    @media (min-width: 768px) {
+      padding-bottom: 1rem;
+      line-height: 2rem;
+    } 
+  }
 
 	h2 {
 		text-align: center;
