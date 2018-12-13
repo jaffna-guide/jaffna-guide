@@ -6,19 +6,22 @@ import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-
 import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
 import createHashtagPlugin from 'draft-js-hashtag-plugin';
 import createEmojiPlugin from 'draft-js-emoji-plugin';
-import { HeadlineOneButton, HeadlineTwoButton } from 'draft-js-buttons';
+import createInlineToolbarPlugin from 'draft-js-inline-toolbar-plugin';
+import { HeadlineOneButton, HeadlineTwoButton, ItalicButton, BoldButton, UnderlineButton } from 'draft-js-buttons';
 
 const linkifyPlugin = createLinkifyPlugin();
 const mentionPlugin = createMentionPlugin();
 const sideToolbarPlugin = createSideToolbarPlugin();
 const hashtagPlugin = createHashtagPlugin();
 const emojiPlugin = createEmojiPlugin();
+const inlineToolbarPlugin = createInlineToolbarPlugin();
 
-const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin, hashtagPlugin, emojiPlugin ];
+const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin, hashtagPlugin, emojiPlugin, inlineToolbarPlugin ];
 
 const { MentionSuggestions } = mentionPlugin;
 const { SideToolbar } = sideToolbarPlugin;
 const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
+const { InlineToolbar } = inlineToolbarPlugin;
 
 class Editor extends React.Component {
 	state = { editorState: EditorState.createEmpty(), suggestions: this.props.mentionSuggestions };
@@ -70,6 +73,15 @@ class Editor extends React.Component {
 							</div>
 						)}
 					</SideToolbar>
+					<InlineToolbar>
+						{(props) => (
+							<div>
+								<BoldButton {...props} />
+								<ItalicButton {...props} />
+								<UnderlineButton {...props} />
+							</div>
+						)}
+					</InlineToolbar>
 				</div>
 				<EmojiSuggestions />
 				<EmojiSelect />
