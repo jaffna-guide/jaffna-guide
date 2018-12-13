@@ -43,8 +43,8 @@ class CreatePlaceForm extends React.Component {
 		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
 
-	renderEnglishPage = () => {
-		const { initialValues, CategoryStore } = this.props;
+	renderTamilPage = () => {
+		const { initialValues, CategoryStore, PlaceStore } = this.props;
 		return (
 			<WizardForm.Page
 				validate={(values) => {
@@ -83,16 +83,15 @@ class CreatePlaceForm extends React.Component {
 					)}
 				</Field>
 				<Field name="descriptionTa">
-					{({ input, meta }) => (
+					{({ meta, input }) => (
 						<div className="form-group">
 							<label htmlFor="descriptionTa" className="form-label">
 								Description
 							</label>
-							<Editor />
-							<textarea
-								{...input}
-								rows={5}
-								className="form-input"
+							<Editor
+								value={input.value}
+								onChange={input.onChange}
+								mentions={PlaceStore.mentions}
 								placeholder="i.e. நாகபூஷணி அம்மன் கோயில் நயினாதீவில் பாக்கு சலசந்தி நடுவில் அமைந்துள்ள ஒரு பழமையான மற்றும் வரலாற்று இந்து கோவில் ஆகும்."
 							/>
 							{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
@@ -136,6 +135,7 @@ class CreatePlaceForm extends React.Component {
 							</label>
 							<input {...input} className="form-input" placeholder="i.e. 80.025543" />
 							{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
+							<br />
 						</div>
 					)}
 				</Field>
@@ -143,7 +143,7 @@ class CreatePlaceForm extends React.Component {
 		);
 	};
 
-	renderTamilPage = () => {
+	renderEnglishPage = () => {
 		const { initialValues } = this.props;
 
 		return (
@@ -421,6 +421,8 @@ class CreatePlaceForm extends React.Component {
 
 	render() {
 		const { initialValues } = this.props;
+
+		console.log('this.props.values', this.props.values);
 
 		return initialValues ? (
 			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>

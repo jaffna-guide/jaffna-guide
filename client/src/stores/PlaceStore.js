@@ -275,8 +275,8 @@ class PlaceStore {
 	}
 
 	@computed
-	get mentionSuggestions() {
-		return this.places.map(p => ({ name: p.name.en, link: `/${p.body}`, avatar: p.cover }));
+	get mentions() {
+		return this.places.map((p) => ({ name: p.name.en, link: `/${p.body}`, avatar: p.cover }));
 	}
 
 	@computed
