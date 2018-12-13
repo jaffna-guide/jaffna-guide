@@ -11,6 +11,7 @@ import 'typeface-permanent-marker';
 
 import App from './App';
 import './styles/main.scss';
+
 import * as serviceWorker from './serviceWorker';
 import { PlaceStore, CategoryStore, AuthStore, LanguageStore, EventStore, VoteStore } from './stores';
 import queryString from 'query-string';

@@ -275,6 +275,11 @@ class PlaceStore {
 	}
 
 	@computed
+	get mentionSuggestions() {
+		return this.places.map(p => ({ name: p.name.en, link: `/${p.body}`, avatar: p.cover }));
+	}
+
+	@computed
 	get currentPlace() {
 		return this.places.find((place) => place.body === this.currentPlaceBody);
 	}

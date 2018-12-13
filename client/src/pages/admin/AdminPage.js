@@ -5,6 +5,7 @@ import { Icon, Title } from '../../components/atoms';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 import { ReactComponent as Delete } from '../../assets/delete.svg';
 import CreateEditPlaceForm from './CreateEditPlaceForm';
+import { Editor } from '../../components/molecules';
 
 @inject('PlaceStore')
 @observer
@@ -19,6 +20,7 @@ class AdminPanel extends React.Component {
 						<div className="admin-panel__title-wrapper">
 							<Title>Admin Panel</Title>
 						</div>
+						<Editor mentionSuggestions={PlaceStore.mentionSuggestions} />
 						<div className="admin-panel__places">
 							<table className="admin-panel__table table table-striped table-hover table-scroll">
 								<thead>

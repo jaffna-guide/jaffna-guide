@@ -5,6 +5,7 @@ import Dropzone from 'react-dropzone';
 
 import { WizardForm } from '../../components/forms';
 import { Icon, Spinner } from '../../components/atoms';
+import { Editor } from '../../components/molecules';
 import { ReactComponent as Close } from '../../assets/close.svg';
 
 @inject('PlaceStore')
@@ -87,6 +88,7 @@ class CreatePlaceForm extends React.Component {
 							<label htmlFor="descriptionTa" className="form-label">
 								Description
 							</label>
+							<Editor />
 							<textarea
 								{...input}
 								rows={5}
