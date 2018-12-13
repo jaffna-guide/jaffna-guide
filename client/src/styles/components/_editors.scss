@@ -1,8 +1,27 @@
 .editor {
 	// @extend .form-input:focus;
-	// font-family: system-ui;
-  min-height: 6rem;
+  // font-family: system-ui;
+  font-size: 1rem;
+	min-height: 6rem;
   height: unset;
+  color: $dark-color;
+  
+  h1 {
+    line-height: 2rem;
+    padding-top: .75rem;
+    padding-bottom: 1rem;
+    text-align: center;
+    font-family: $primary-font;
+    color: darken($primary-color, 5%);
+  }
+
+  h2 {
+    text-align: center;
+    line-height: 1.8rem;
+    padding-bottom: 1rem;
+    padding-top: .5rem;
+    color: $dark-color;
+  }
 
 	// draft-js-linkify-plugin
 	.draftJsLinkifyPlugin__link__2ittM,
@@ -29,8 +48,8 @@
 		color: #575f67;
 		cursor: pointer;
 		display: inline-block;
-    // background: #e6f3ff;
-    background: rgba($primary-color, 0.1);
+		// background: #e6f3ff;
+		background: rgba($primary-color, 0.1);
 		padding-left: 2px;
 		padding-right: 2px;
 		border-radius: 2px;
@@ -39,11 +58,11 @@
 
 	.draftJsMentionPlugin__mention__29BEd:hover,
 	.draftJsMentionPlugin__mention__29BEd:focus {
-    // color: #677584;
-    color: $dark-color;
-    // background: #edf5fd;
-    background: rgba($primary-color, 0.12);
-    outline: 0; /* reset for :focus */
+		// color: #677584;
+		// color: $dark-color;
+		// background: #edf5fd;
+		background: rgba($primary-color, 0.12);
+		outline: 0; /* reset for :focus */
 	}
 
 	.draftJsMentionPlugin__mention__29BEd:active {
@@ -56,13 +75,13 @@
 	}
 
 	.draftJsMentionPlugin__mentionSuggestionsEntry__3mSwm:active {
-    // background-color: #cce7ff;
-    background: rgba($primary-color, 0.1);
+		// background-color: #cce7ff;
+		background: rgba($primary-color, 0.1);
 	}
 
 	.draftJsMentionPlugin__mentionSuggestionsEntryFocused__3LcTd {
-    // background-color: #e6f3ff;
-    background-color: rgba($primary-color, 0.1);
+		// background-color: #e6f3ff;
+		background-color: rgba($primary-color, 0.1);
 	}
 
 	.draftJsMentionPlugin__mentionSuggestionsEntryText__3Jobq {
@@ -103,5 +122,117 @@
 		box-sizing: border-box;
 		-webkit-transform: scale(0);
 		transform: scale(0);
+	}
+
+	// draft-js-side-toolbar-plugin
+	.draftJsToolbar__blockType__27Jwn {
+		box-sizing: border-box;
+		border: 1px solid #ddd;
+		background: #fff;
+		padding: 5px;
+		margin: 0;
+		border-radius: 18px;
+		cursor: pointer;
+		height: 36px;
+		width: 36px;
+		line-height: 36px;
+		text-align: center;
+	}
+
+	.draftJsToolbar__blockType__27Jwn svg {
+		fill: #888;
+	}
+
+	.draftJsToolbar__spacer__2Os2z {
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translate(-50%);
+		transform: translate(-50%);
+		width: 74px;
+		height: 8px;
+	}
+
+	.draftJsToolbar__popup__GHzbY {
+		position: absolute;
+		left: 50%;
+		-webkit-transform: translate(-50%);
+		transform: translate(-50%);
+		background: #efefef;
+		border: 1px solid #ddd;
+		background: #fff;
+		border-radius: 2px;
+		box-shadow: 0px 1px 3px 0px rgba(220, 220, 220, 1);
+		z-index: 3;
+		box-sizing: border-box;
+		width: 74px;
+		margin-top: 8px;
+	}
+
+	.draftJsToolbar__popup__GHzbY:after,
+	.draftJsToolbar__popup__GHzbY:before {
+		bottom: 100%;
+		left: 50%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+	}
+
+	.draftJsToolbar__popup__GHzbY:after {
+		border-color: rgba(251, 251, 251, 0);
+		border-bottom-color: #fbfbfb;
+		border-width: 4px;
+		margin-left: -4px;
+	}
+	.draftJsToolbar__popup__GHzbY:before {
+		border-color: rgba(221, 221, 221, 0);
+		border-bottom-color: #ddd;
+		border-width: 6px;
+		margin-left: -6px;
+	}
+	.draftJsToolbar__buttonWrapper__1Dmqh {
+		display: inline-block;
+	}
+
+	.draftJsToolbar__button__qi1gf {
+		background: #fbfbfb;
+		color: #888;
+		font-size: 18px;
+		border: 0;
+		padding-top: 5px;
+		vertical-align: bottom;
+		height: 34px;
+		width: 36px;
+	}
+
+	.draftJsToolbar__button__qi1gf svg {
+		fill: #888;
+	}
+
+	.draftJsToolbar__button__qi1gf:hover,
+	.draftJsToolbar__button__qi1gf:focus {
+		background: #f3f3f3;
+		outline: 0; /* reset for :focus */
+	}
+
+	.draftJsToolbar__active__3qcpF {
+		background: #efefef;
+		color: #444;
+	}
+
+	.draftJsToolbar__active__3qcpF svg {
+		fill: #444;
+	}
+
+	.draftJsToolbar__separator__3M3L7 {
+		display: inline-block;
+		border-right: 1px solid #ddd;
+		height: 24px;
+		margin: 0 0.5em;
+	}
+	.draftJsToolbar__wrapper__9NZgg {
+		position: absolute;
 	}
 }

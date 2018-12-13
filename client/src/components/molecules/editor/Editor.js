@@ -3,11 +3,20 @@ import DraftEditor from 'draft-js-plugins-editor';
 import { EditorState } from 'draft-js';
 import createLinkifyPlugin from 'draft-js-linkify-plugin';
 import createMentionPlugin, { defaultSuggestionsFilter } from 'draft-js-mention-plugin';
+import createSideToolbarPlugin from 'draft-js-side-toolbar-plugin';
+import {
+  HeadlineOneButton,
+  HeadlineTwoButton,
+} from 'draft-js-buttons';
 
 const linkifyPlugin = createLinkifyPlugin();
 const mentionPlugin = createMentionPlugin();
+const sideToolbarPlugin = createSideToolbarPlugin();
 
-const plugins = [ linkifyPlugin, mentionPlugin ];
+const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin ];
+
+const { MentionSuggestions } = mentionPlugin;
+const { SideToolbar } = sideToolbarPlugin;
 
 class Editor extends React.Component {
 	state = { editorState: EditorState.createEmpty(), suggestions: this.props.mentionSuggestions };
@@ -19,10 +28,9 @@ class Editor extends React.Component {
 	// };
 
 	focusEditor = () => {
-		this.editor.focus();
-		// if (this.editor) {
-		// 	this.editor.focus();
-		// }
+		if (this.editor) {
+			this.editor.focus();
+		}
 	};
 
 	onSearchChange = ({ value }) => {
@@ -36,8 +44,6 @@ class Editor extends React.Component {
 	};
 
 	render() {
-		const { MentionSuggestions } = mentionPlugin;
-
 		return (
 			<div className="editor form-input" onClick={this.focusEditor}>
 				<DraftEditor
@@ -53,6 +59,14 @@ class Editor extends React.Component {
 					suggestions={this.state.suggestions}
 					onAddMention={this.onAddMention}
 				/>
+        <SideToolbar>
+          {(props) => (
+            <>
+              <HeadlineOneButton {...props} />
+              <HeadlineTwoButton {...props} />
+            </>
+          )}
+        </SideToolbar>
 			</div>
 		);
 	}
