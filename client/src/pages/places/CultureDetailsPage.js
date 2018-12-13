@@ -23,7 +23,6 @@ class CultureDetailsPage extends React.Component {
 	render() {
 		const { PlaceStore } = this.props;
 		const place = PlaceStore.currentPlace;
-		console.log('place.description.en', place.description.ta);
 
 		return (
 			<div className="culture-details">
