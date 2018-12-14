@@ -37,14 +37,14 @@ class Editor extends React.Component {
 		}
 
 		this.plugins = [
-      createMentionPlugin(),
+			createMentionPlugin(),
 			linkifyPlugin,
 			sideToolbarPlugin,
 			hashtagPlugin,
 			emojiPlugin,
 			inlineToolbarPlugin,
 		];
-  }
+	}
 
 	onChange = (editorState) => {
 		this.setState({ editorState }, () => {
@@ -116,11 +116,13 @@ class Editor extends React.Component {
 						readOnly={this.props.readOnly}
 						plugins={this.plugins}
 					/>
-					<MentionSuggestions
-						onSearchChange={this.onSearchChange}
-						suggestions={this.props.mentions}
-						// onAddMention={this.onAddMention}
-					/>
+					{this.props.mentions && (
+						<MentionSuggestions
+							onSearchChange={this.onSearchChange}
+							suggestions={this.props.mentions}
+							// onAddMention={this.onAddMention}
+						/>
+					)}
 					<SideToolbar>
 						{(props) => (
 							<div>
