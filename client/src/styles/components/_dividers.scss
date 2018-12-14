@@ -1,0 +1,27 @@
+.divider {
+	width: 100%;
+	text-align: center;
+	border-top: 0.15rem solid lighten($gray-color, 20%);
+	height: 0.05rem;
+  margin: 0.4rem 0;
+  margin-bottom: 3rem;
+  margin-top: .6rem;
+
+	@media (min-width: 768px) {
+    margin-bottom: 4rem;
+    margin-top: 0;
+	}
+
+	&__logo {
+    margin-top: -1rem;
+    background-color: white;
+    width: 66px;
+    padding-left: 18px;
+    padding-right: 18px;
+		filter: grayscale(90%);
+
+		@media (min-width: 768px) {
+			// width: 40px;
+		}
+	}
+}

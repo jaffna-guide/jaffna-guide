@@ -2,6 +2,7 @@ import * as React from 'react';
 import { inject, observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 
+import { Divider } from '../../components/atoms';
 import { Carousel, Editor } from '../../components/molecules';
 import PlacesBallot from './PlacesBallot';
 
@@ -44,25 +45,7 @@ class CultureDetailsPage extends React.Component {
 					<div className="culture-details__description--en">
 						<Editor readOnly value={place.description.en} />
 					</div>
-					{place.description.ta && (
-						<div className="culture-details__separator">
-							<img
-								className="culture-details__separator-logo"
-								alt="Description Separation By Language Divider Logo"
-								src="/logo.png"
-							/>
-							<img
-								className="culture-details__separator-logo"
-								alt="Description Separation By Language Divider Logo"
-								src="/logo.png"
-							/>
-							<img
-								className="culture-details__separator-logo"
-								alt="Description Separation By Language Divider Logo"
-								src="/logo.png"
-							/>
-						</div>
-					)}
+					{place.description.ta && <Divider />}
 					<div className="culture-details__description--ta">
 						<Editor readOnly value={place.description.ta} />
 					</div>
