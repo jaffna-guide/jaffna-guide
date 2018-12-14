@@ -260,8 +260,8 @@ class PlaceStore {
 				...rest,
 				nameTa: name.ta,
 				nameEn: name.en,
-				descriptionTa: description.ta,
-				descriptionEn: description.en,
+				descriptionTa: description && description.ta,
+				descriptionEn: description && description.en,
 				category: category.body,
 			};
 		}
