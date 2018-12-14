@@ -42,8 +42,27 @@ class CultureDetailsPage extends React.Component {
 				)}
 				<div className="culture-details__description">
 					<div className="culture-details__description--en">
-						
+						<Editor readOnly value={place.description.en} />
 					</div>
+					{place.description.ta && (
+						<div className="culture-details__separator">
+							<img
+								className="culture-details__separator-logo"
+								alt="Description Separation By Language Divider Logo"
+								src="/logo.png"
+							/>
+							<img
+								className="culture-details__separator-logo"
+								alt="Description Separation By Language Divider Logo"
+								src="/logo.png"
+							/>
+							<img
+								className="culture-details__separator-logo"
+								alt="Description Separation By Language Divider Logo"
+								src="/logo.png"
+							/>
+						</div>
+					)}
 					<div className="culture-details__description--ta">
 						<Editor readOnly value={place.description.ta} />
 					</div>

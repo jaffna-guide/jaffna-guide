@@ -97,4 +97,25 @@
 			// padding-bottom: 2rem;
 		}
 	}
+
+	&__separator {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 3rem;
+		margin-top: -1rem;
+	}
+
+	&__separator-logo {
+		width: 28px;
+		filter: grayscale(90%);
+
+		@media (min-width: 768px) {
+			width: 40px;
+		}
+		
+		&:not(:last-child) {
+
+			margin-right: 1.5rem;
+		}
+	}
 }

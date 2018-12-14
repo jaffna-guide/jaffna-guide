@@ -15,11 +15,7 @@ const sideToolbarPlugin = createSideToolbarPlugin();
 const hashtagPlugin = createHashtagPlugin();
 const emojiPlugin = createEmojiPlugin();
 const inlineToolbarPlugin = createInlineToolbarPlugin();
-const mentionPlugin = createMentionPlugin();
 
-const plugins = [ linkifyPlugin, mentionPlugin, sideToolbarPlugin, hashtagPlugin, emojiPlugin, inlineToolbarPlugin ];
-
-const { MentionSuggestions } = mentionPlugin;
 const { SideToolbar } = sideToolbarPlugin;
 const { EmojiSuggestions, EmojiSelect } = emojiPlugin;
 const { InlineToolbar } = inlineToolbarPlugin;
@@ -39,7 +35,16 @@ class Editor extends React.Component {
 		} else {
 			this.state.editorState = EditorState.createEmpty();
 		}
-	}
+
+		this.plugins = [
+      createMentionPlugin(),
+			linkifyPlugin,
+			sideToolbarPlugin,
+			hashtagPlugin,
+			emojiPlugin,
+			inlineToolbarPlugin,
+		];
+  }
 
 	onChange = (editorState) => {
 		this.setState({ editorState }, () => {
@@ -55,6 +60,12 @@ class Editor extends React.Component {
 	focusEditor = () => {
 		if (!this.props.readOnly) {
 			this.setState({ editorFocussed: true });
+
+			if (this.props.name) {
+				this[`editor${this.props.name.charAt(0).toUpperCase()}${this.props.name.substr(1)}`].focus();
+			} else {
+				this.editor.focus();
+			}
 		}
 	};
 
@@ -77,6 +88,9 @@ class Editor extends React.Component {
 	};
 
 	render() {
+		const [ mentionPlugin ] = this.plugins;
+		const { MentionSuggestions } = mentionPlugin;
+
 		return (
 			<div>
 				<div
@@ -87,18 +101,24 @@ class Editor extends React.Component {
 				>
 					<DraftEditor
 						ref={(element) => {
-							this.editor = element;
+							if (this.props.name) {
+								this[
+									`editor${this.props.name.charAt(0).toUpperCase()}${this.props.name.substr(1)}`
+								] = element;
+							} else {
+								this.editor = element;
+							}
 						}}
 						editorState={this.state.editorState}
 						onChange={this.onChange}
 						onBlur={this.removeFocusEditor}
 						onFocus={this.focusEditor}
 						readOnly={this.props.readOnly}
-						plugins={plugins}
+						plugins={this.plugins}
 					/>
 					<MentionSuggestions
 						onSearchChange={this.onSearchChange}
-						suggestions={this.state.mentions}
+						suggestions={this.props.mentions}
 						// onAddMention={this.onAddMention}
 					/>
 					<SideToolbar>

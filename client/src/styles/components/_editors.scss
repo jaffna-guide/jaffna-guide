@@ -247,7 +247,15 @@
 	}
 	.draftJsToolbar__wrapper__9NZgg {
     position: absolute;
-    left: .5rem !important;
+    left: 88% !important;
+
+    @media (min-width: 480px) {
+      left: 91% !important;
+    }
+
+    @media (min-width: 768px) {
+      left: 94% !important;
+    }
 
     @media (min-width: 992px) {
       left: -4rem !important;

@@ -275,8 +275,13 @@ class PlaceStore {
 	}
 
 	@computed
-	get mentions() {
+	get englishMentions() {
 		return this.places.map((p) => ({ name: p.name.en, link: `/${p.body}`, avatar: p.cover }));
+	}
+
+	@computed
+	get tamilMentions() {
+		return this.places.map((p) => ({ name: p.name.ta, link: `/${p.body}`, avatar: p.cover }));
 	}
 
 	@computed

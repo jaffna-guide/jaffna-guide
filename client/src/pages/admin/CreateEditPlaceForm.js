@@ -89,9 +89,8 @@ class CreatePlaceForm extends React.Component {
 								Description
 							</label>
 							<Editor
-								value={input.value}
-								onChange={input.onChange}
-								mentions={PlaceStore.mentions}
+								{...input}
+								mentions={PlaceStore.tamilMentions}
 								placeholder="i.e. நாகபூஷணி அம்மன் கோயில் நயினாதீவில் பாக்கு சலசந்தி நடுவில் அமைந்துள்ள ஒரு பழமையான மற்றும் வரலாற்று இந்து கோவில் ஆகும்."
 							/>
 							{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
@@ -144,7 +143,7 @@ class CreatePlaceForm extends React.Component {
 	};
 
 	renderEnglishPage = () => {
-		const { initialValues } = this.props;
+		const { initialValues, PlaceStore } = this.props;
 
 		return (
 			<WizardForm.Page
@@ -180,10 +179,9 @@ class CreatePlaceForm extends React.Component {
 							<label htmlFor="descriptionEn" className="form-label">
 								Description
 							</label>
-							<textarea
+							<Editor
 								{...input}
-								rows={5}
-								className="form-input"
+								mentions={PlaceStore.englishMentions}
 								placeholder="i.e. The Nallur Kandaswamy Kovil is an iconic landmark."
 							/>
 							{meta.error && meta.touched && <p className="form-input-hint">{meta.error}</p>}
@@ -421,8 +419,6 @@ class CreatePlaceForm extends React.Component {
 
 	render() {
 		const { initialValues } = this.props;
-
-		console.log('this.props.values', this.props.values);
 
 		return initialValues ? (
 			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
