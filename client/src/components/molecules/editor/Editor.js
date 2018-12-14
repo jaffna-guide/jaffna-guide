@@ -91,8 +91,6 @@ class Editor extends React.Component {
 		const [ mentionPlugin ] = this.plugins;
     const { MentionSuggestions } = mentionPlugin;
     
-    console.log('hi from render');
-
 		return (
 			<div>
 				<div
