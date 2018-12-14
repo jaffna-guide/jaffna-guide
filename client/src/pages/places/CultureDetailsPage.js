@@ -42,13 +42,19 @@ class CultureDetailsPage extends React.Component {
 					</div>
 				)}
 				<div className="culture-details__description">
-					<div className="culture-details__description--en">
-						<Editor readOnly value={place.description.en} />
-					</div>
-					{place.description.ta && <Divider />}
-					<div className="culture-details__description--ta">
-						<Editor readOnly value={place.description.ta} />
-					</div>
+					{place.description &&
+					place.description.en && (
+						<div className="culture-details__description--en">
+							<Editor readOnly value={place.description.en} />
+						</div>
+					)}
+					{place.description && place.description.ta && <Divider />}
+					{place.description &&
+					place.description.ta && (
+						<div className="culture-details__description--ta">
+							<Editor readOnly value={place.description.ta} />
+						</div>
+					)}
 				</div>
 			</div>
 		);
