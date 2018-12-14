@@ -30,9 +30,6 @@ class Editor extends React.Component {
 		};
 
     const contentStateString = this.props.value;
-    console.log('contentStateString', contentStateString);
-    console.log('convertFromRaw(JSON.parse(contentStateString))', convertFromRaw(JSON.parse(contentStateString)));
-
 		if (contentStateString) {
 			this.state.editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(contentStateString)));
 		} else {
@@ -92,7 +89,9 @@ class Editor extends React.Component {
 
 	render() {
 		const [ mentionPlugin ] = this.plugins;
-		const { MentionSuggestions } = mentionPlugin;
+    const { MentionSuggestions } = mentionPlugin;
+    
+    console.log('hi from render');
 
 		return (
 			<div>
