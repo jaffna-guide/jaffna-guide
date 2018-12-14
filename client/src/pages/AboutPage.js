@@ -5,6 +5,7 @@ import { ReactComponent as NodeJsLogo } from '../assets/nodejs.svg';
 import { ReactComponent as MobXLogo } from '../assets/mobx.svg';
 import { ReactComponent as ReactLogo } from '../assets/react.svg';
 import { ReactComponent as MongoDBLogo } from '../assets/mongodb.svg';
+import { ReactComponent as DraftJSLogo } from '../assets/draftjs.svg';
 
 const AboutPage = () => {
 	return (
@@ -72,18 +73,22 @@ const AboutPage = () => {
 					<i>The Jaffna Guide</i>.
 				</div>
 				<div className="about__tech-stack">
-					<div className="about__technology">
+					<a className="about__technology" href="https://reactjs.org/">
 						<Icon className="about__tech-icon about__tech-icon--react" icon={ReactLogo} />
-					</div>
-					<div className="about__technology">
+					</a>
+					<a className="about__technology" href="https://mobx.js.org/">
 						<Icon className="about__tech-icon about__tech-icon--mobx" icon={MobXLogo} />
-					</div>
-					<div className="about__technology">
+					</a>
+					<a className="about__technology" href="https://nodejs.org/">
 						<Icon className="about__tech-icon about__tech-icon--nodejs" icon={NodeJsLogo} />
-					</div>
-					<div className="about__technology">
+					</a>
+					<a className="about__technology" href="https://www.mongodb.com/">
 						<Icon className="about__tech-icon about__tech-icon--mongodb" icon={MongoDBLogo} />
-					</div>
+					</a>
+					<a className="about__technology about__technology--draftjs" href="https://draftjs.org/">
+						<Icon className="about__tech-icon about__tech-icon--draftjs" icon={DraftJSLogo} />
+						<span>Draft.js</span>
+					</a>
 				</div>
 			</div>
 		</div>

@@ -108,13 +108,23 @@
 
 	&__tech-stack {
 		display: grid;
-		grid-template-columns: 3rem 3rem 3rem 5rem;
+		grid-template-columns: 3rem 3rem 3rem 5rem 5.5rem;
 		padding-top: 1rem;
     padding-bottom: 2rem;
     
     @media (min-width: 768px) {
       padding-top: 1.5rem;
-    }
+		}
+	}
+
+	&__technology {
+		color: $dark-color;
+		text-decoration: none;
+
+		&--draftjs {
+			display: flex;
+			align-items: center;
+		}
 	}
 
 	&__tech-icon {
@@ -123,6 +133,14 @@
 
     &--mongodb {
       width: 5rem;
-    }
+		}
+		
+		&--draftjs {
+			fill: $dark-color;
+			width: 3rem;
+			margin-left: .7rem;
+			margin-right: .3rem;
+			margin-top: -.2rem;
+		}
 	}
 }
