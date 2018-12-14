@@ -29,7 +29,10 @@ class Editor extends React.Component {
 			editorFocussed: false,
 		};
 
-		const contentStateString = this.props.value;
+    const contentStateString = this.props.value;
+    console.log('contentStateString', contentStateString);
+    console.log('convertFromRaw(JSON.parse(contentStateString))', convertFromRaw(JSON.parse(contentStateString)));
+
 		if (contentStateString) {
 			this.state.editorState = EditorState.createWithContent(convertFromRaw(JSON.parse(contentStateString)));
 		} else {
