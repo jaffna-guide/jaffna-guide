@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react';
 import { Icon, Title } from '../../components/atoms';
 import { ReactComponent as Plus } from '../../assets/plus.svg';
 import { ReactComponent as Delete } from '../../assets/delete.svg';
-import CreateEditPlaceForm from './CreateEditPlaceForm';
+import CreateEditPlaceForm from './CreateEditPlaceForm/CreateEditPlaceForm';
 
 @inject('PlaceStore')
 @observer
