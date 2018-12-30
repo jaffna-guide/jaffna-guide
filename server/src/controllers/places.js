@@ -182,12 +182,6 @@ export const uploadPlacePhotos = async (req, res) => {
 
 							const photo = await Photo.create({ originalUrl, thumbnailUrl });
 
-							// Place.findByIdAndUpdate(
-							// 	req.params.placeId,
-							// 	{ $addToSet: { photos: [photo] } },
-							// 	{ new: true },
-							// )
-
 							resolve(placeToBeUpdated.update({ $addToSet: { photos: [ photo ] } }));
 						},
 					);
@@ -201,15 +195,15 @@ export const uploadPlacePhotos = async (req, res) => {
 };
 
 export const deletePlacePhoto = async (req, res) => {
-	const placeToUpdate = await Place.findById(req.params.placeId);
-	const photoToDelete = placeToUpdate.photos.id(req.params.photoId);
+	const placeToUpdate = await Place.findById(req.params.placeId).populate('photos');
+	const photoToDelete = placeToUpdate.photos.find(p => p._id = req.params.photoId);
 
-	const thumbnailPieces = photoToDelete.thumbnail.split('/');
-	const originalPieces = photoToDelete.original.split('/');
+	const thumbnailPieces = photoToDelete.thumbnailUrl.split('/');
+	const originalPieces = photoToDelete.originalUrl.split('/');
 
 	const keys = [
-		`${req.params.placeId}/${thumbnailPieces[thumbnailPieces.length - 1]}`,
-		`${req.params.placeId}/${originalPieces[originalPieces.length - 1]}`,
+		`${placeToUpdate.body}/${thumbnailPieces[thumbnailPieces.length - 1]}`,
+		`${placeToUpdate.body}/${originalPieces[originalPieces.length - 1]}`,
 	];
 
 	const objectsToDelete = keys.map((k) => ({ Key: k }));
@@ -221,8 +215,7 @@ export const deletePlacePhoto = async (req, res) => {
 
 			placeToUpdate.photos.pull(req.params.photoId);
 			await placeToUpdate.save();
-
-			Photo.findByIdAndDelete(req.params.photoId);
+			await Photo.findByIdAndDelete(photoToDelete._id);
 
 			res.status(200).send(placeToUpdate.photos);
 		},
