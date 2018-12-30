@@ -7,7 +7,7 @@ import PlacesDashboard from './PlacesDashboard';
 class VillagesPage extends React.Component {
 	componentDidMount() {
 		this.props.PlaceStore.fetchPlaces('villages');
-	}
+  }
 
 	render() {
 		return (

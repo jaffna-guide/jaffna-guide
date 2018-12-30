@@ -9,6 +9,10 @@ import { Place, Photo, Love, Category } from '../models';
 export const getPlaces = async (req, res) => {
 	let q = Place.find({});
 
+	if (req.query.body) {
+		q = q.findOne({ body: req.query.body });
+	}
+
 	if (req.query.category) {
 		const category = await Category.findOne({ body: req.query.category });
 		q = q.find({ category: category._id });

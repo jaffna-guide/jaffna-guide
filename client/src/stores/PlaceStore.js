@@ -22,7 +22,7 @@ class PlaceStore {
 		} else {
 			res = await axios.get('/api/places');
 		}
-		
+
 		const places = res.data;
 		runInAction(() => {
 			this.places = places;
@@ -41,6 +41,25 @@ class PlaceStore {
 			this.places = places;
 			this.state = 'done';
 		});
+	};
+
+	@action
+	fetchCurrentPlace = async (placeBody) => {
+		this.state = 'pendingFetchCurrentPlace';
+		const res = await axios.get(`/api/places?body=${placeBody}`);
+		const currentPlace = res.data;
+		const index = this.places.findIndex((p) => p._id === currentPlace._id);
+
+		runInAction(() => {
+			this.state = 'done';
+			this.places.splice(index, 1, currentPlace);
+			this.currentPlaceBody = currentPlace.body;
+		});
+	};
+
+	@action
+	unsetCurrentPlace = () => {
+		this.currentPlaceBody = null;
 	};
 
 	@action
@@ -96,6 +115,11 @@ class PlaceStore {
 	};
 
 	@action
+	unsetSelectedPlace = () => {
+		this.selectedPlaceId = null;
+	};
+
+	@action
 	hoverPlace = (placeId) => {
 		this.hoveredPlaceId = placeId;
 	};
@@ -124,11 +148,6 @@ class PlaceStore {
 	closeCreateEditPlaceModal = () => {
 		this.createEditPlaceModalVisible = false;
 		this.selectedPlaceId = null;
-	};
-
-	@action
-	setCurrentPlace = (placeBody) => {
-		this.currentPlaceBody = placeBody;
 	};
 
 	@action
@@ -285,6 +304,7 @@ class PlaceStore {
 	@computed
 	get selectedPlace() {
 		if (this.selectedPlaceId) {
+			console.log('this.selectedPlaceId', this.selectedPlaceId);
 			const { name, description, category, ...rest } = this.places.find(
 				(place) => place._id === this.selectedPlaceId,
 			);
@@ -318,7 +338,7 @@ class PlaceStore {
 
 	@computed
 	get currentPlace() {
-		return this.places.find((place) => place.body === this.currentPlaceBody);
+		return this.currentPlaceBody && this.places.find((p) => p.body === this.currentPlaceBody);
 	}
 
 	@computed
