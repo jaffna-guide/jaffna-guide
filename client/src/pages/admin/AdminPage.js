@@ -105,7 +105,7 @@ class AdminPanel extends React.Component {
 				)}
 
 				{PlaceStore.createEditPlaceModalVisible && (
-					<div className="modal modal-lg active" id="add-place">
+					<div className="modal active" id="add-place">
 						<div
 							className="modal-overlay"
 							aria-label="Close"
