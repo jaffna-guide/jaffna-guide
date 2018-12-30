@@ -12,11 +12,17 @@ class PlaceStore {
 	@observable tapedTwice = false;
 
 	@action
-	fetchPlaces = async () => {
+	fetchPlaces = async (category) => {
 		this.places = [];
 		this.state = 'pendingFetchPlaces';
+		let res;
 
-		const res = await axios.get('/api/places');
+		if (category) {
+			res = await axios.get(`/api/places?category=${category}`);
+		} else {
+			res = await axios.get('/api/places');
+		}
+		
 		const places = res.data;
 		runInAction(() => {
 			this.places = places;

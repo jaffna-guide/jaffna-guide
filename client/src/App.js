@@ -19,7 +19,7 @@ import {
 	AdminPage,
 } from './pages';
 
-@inject('PlaceStore')
+
 @inject('CategoryStore')
 @inject('LanguageStore')
 class App extends Component {

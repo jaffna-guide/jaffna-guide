@@ -4,15 +4,23 @@ import sharp from 'sharp';
 import { v4 as uuid } from 'uuid';
 
 import { s3 } from '../services';
-import { Place, Photo, Love } from '../models';
+import { Place, Photo, Love, Category } from '../models';
 
-export const getAllPlaces = (req, res) => {
-	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').exec((err, places) => {
+export const getPlaces = async (req, res) => {
+	let q = Place.find({});
+
+	if (req.query.category) {
+		const category = await Category.findOne({ body: req.query.category });
+		q = q.find({ category: category._id });
+	}
+
+	return q.sort([ [ 'votes', -1 ] ]).populate('category').exec((err, places) => {
 		res.send(places);
 	});
 };
 
-export const getAllPlacesWithPhotos = (req, res) => {
+export const getPlacesWithPhotos = (req, res) => {
+	// Used in admin panel
 	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').populate('photos').exec((err, places) => {
 		res.send(places);
 	});
@@ -193,9 +201,9 @@ export const uploadPlacePhotos = async (req, res) => {
 				});
 			}),
 	);
-	
+
 	await Promise.all(promises);
-	
+
 	const updatedPlace = await Place.findById(req.params.placeId).populate('photos');
 	res.status(200).send(updatedPlace.photos);
 };
