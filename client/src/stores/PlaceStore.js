@@ -25,6 +25,19 @@ class PlaceStore {
 	};
 
 	@action
+	fetchPlacesWithPhotos = async () => {
+		this.places = [];
+		this.state = 'pendingFetchPlaces';
+
+		const res = await axios.get('/api/places-with-photos');
+		const places = res.data;
+		runInAction(() => {
+			this.places = places;
+			this.state = 'done';
+		});
+	};
+
+	@action
 	createPlace = async (place) => {
 		this.state = 'pendingCreatePlace';
 		const res = await axios.post('/api/places', place);
@@ -217,12 +230,11 @@ class PlaceStore {
 					'Content-Type': 'multipart/form-data',
 				},
 			});
-
+			const updatedPhotos = res.data;
 			const placeToBeUpdated = this.places.find((p) => p._id === placeId);
-			const updatedImages = res.data;
 
 			runInAction(() => {
-				placeToBeUpdated.images = updatedImages;
+				placeToBeUpdated.photos = updatedPhotos;
 				this.state = 'done';
 			});
 		} catch (e) {
@@ -233,14 +245,14 @@ class PlaceStore {
 	};
 
 	@action
-	deleteImage = async (placeId, imageId) => {
-		this.state = 'pendingDeleteImage';
-		const res = await axios.delete(`/api/places/${placeId}/images/${imageId}`);
-		const updatedImages = res.data;
+	deletePlacePhoto = async (placeId, photoId) => {
+		this.state = 'pendingDeletePhoto';
+		const res = await axios.delete(`/api/places/${placeId}/photos/${photoId}`);
+		const updatedPhotos = res.data;
 		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
 
 		runInAction(() => {
-			placeToBeUpdated.images = updatedImages;
+			placeToBeUpdated.photos = updatedPhotos;
 			this.state = 'done';
 		});
 	};

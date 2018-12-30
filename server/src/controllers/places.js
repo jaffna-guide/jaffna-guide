@@ -12,6 +12,12 @@ export const getAllPlaces = (req, res) => {
 	});
 };
 
+export const getAllPlacesWithPhotos = (req, res) => {
+	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').populate('photos').exec((err, places) => {
+		res.send(places);
+	});
+};
+
 export const createPlace = async (req, res) => {
 	const { name, description, latitude, longitude, category } = req.body;
 
@@ -181,22 +187,22 @@ export const uploadPlacePhotos = async (req, res) => {
 								.STATIC_AWS_REGION}.amazonaws.com/${resizedKey}`;
 
 							const photo = await Photo.create({ originalUrl, thumbnailUrl });
-
 							resolve(placeToBeUpdated.update({ $addToSet: { photos: [ photo ] } }));
 						},
 					);
 				});
 			}),
 	);
-
+	
 	await Promise.all(promises);
-
-	res.status(200).send(placeToBeUpdated.photos);
+	
+	const updatedPlace = await Place.findById(req.params.placeId).populate('photos');
+	res.status(200).send(updatedPlace.photos);
 };
 
 export const deletePlacePhoto = async (req, res) => {
 	const placeToUpdate = await Place.findById(req.params.placeId).populate('photos');
-	const photoToDelete = placeToUpdate.photos.find(p => p._id = req.params.photoId);
+	const photoToDelete = placeToUpdate.photos.find((p) => (p._id = req.params.photoId));
 
 	const thumbnailPieces = photoToDelete.thumbnailUrl.split('/');
 	const originalPieces = photoToDelete.originalUrl.split('/');

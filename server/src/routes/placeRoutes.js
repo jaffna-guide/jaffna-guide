@@ -2,6 +2,7 @@ import { requireAdmin, requireAuth } from '../middlewares';
 import { upload } from '../services';
 import {
 	getAllPlaces,
+	getAllPlacesWithPhotos,
 	createPlace,
 	updatePlace,
 	deletePlace,
@@ -17,6 +18,7 @@ import {
 
 export default (app) => {
 	app.get('/api/places', getAllPlaces);
+	app.get('/api/places-with-photos', getAllPlacesWithPhotos);
 	app.post('/api/places', requireAdmin, createPlace);
 	app.patch('/api/places', requireAdmin, updatePlace);
 	app.delete('/api/places/:placeId', requireAdmin, deletePlace);

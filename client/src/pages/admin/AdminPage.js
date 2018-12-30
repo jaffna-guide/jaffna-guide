@@ -9,6 +9,10 @@ import CreateEditPlaceForm from './CreateEditPlaceForm';
 @inject('PlaceStore')
 @observer
 class AdminPanel extends React.Component {
+	componentDidMount() {
+		this.props.PlaceStore.fetchPlacesWithPhotos();
+	}
+
 	render() {
 		const { PlaceStore } = this.props;
 

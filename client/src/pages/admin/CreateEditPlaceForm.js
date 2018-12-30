@@ -192,7 +192,7 @@ class CreatePlaceForm extends React.Component {
 		);
 	};
 
-	renderImagePage = () => {
+	renderUploadPage = () => {
 		const { PlaceStore, initialValues } = this.props;
 		const hasError = PlaceStore.state.startsWith('error');
 
@@ -202,7 +202,7 @@ class CreatePlaceForm extends React.Component {
 					<div className="add-place-form__header">
 						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
 						<div className="add-place-form__arrow">{'//'}</div>
-						<h2 className="add-place-form__subtitle">Images</h2>
+						<h2 className="add-place-form__subtitle">Uploads</h2>
 					</div>
 
 					<div className="add-place-form__cover-logo-wrapper">
@@ -381,23 +381,29 @@ class CreatePlaceForm extends React.Component {
 						</Field>
 					</div>
 
-					<div className="add-place-form__images-wrapper">
+					<div className="add-place-form__photos-wrapper">
 						<div className={`form-group ${hasError ? 'has-error' : ''}`}>
 							<label htmlFor="photos" className="form-label">
 								Photos
 							</label>
 							<div className="add-place-form__photos">
-								{initialValues.photos.map((photo, index) => (
-									<div key={index} className="add-place-form__photo">
-										<img alt={`${initialValues.nameEn} ${index}`} src={photo.thumbnail} />
-										<Icon
-											className="add-place-form__delete-photo"
-											icon={Close}
-											onClick={() => PlaceStore.deletePhoto(initialValues._id, photo._id)}
-											width="1rem"
-										/>
-									</div>
-								))}
+								{initialValues.photos.map((photo, index) => {
+									return (
+										<div key={index} className="add-place-form__photo">
+											<img
+												alt={`${initialValues.nameEn} ${index + 1}`}
+												src={photo.thumbnailUrl}
+											/>
+											<Icon
+												className="add-place-form__delete-photo"
+												icon={Close}
+												onClick={() =>
+													PlaceStore.deletePlacePhoto(initialValues._id, photo._id)}
+												width="1rem"
+											/>
+										</div>
+									);
+								})}
 								{PlaceStore.state === 'pendingUploadPhotos' ? (
 									<div>
 										<Spinner className="add-place-form__dropzone-spinner" name="line-scale" />
@@ -424,7 +430,7 @@ class CreatePlaceForm extends React.Component {
 			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
 				{this.renderTamilPage()}
 				{this.renderEnglishPage()}
-				{this.renderImagePage()}
+				{this.renderUploadPage()}
 			</WizardForm>
 		) : (
 			<WizardForm name="add-place-form" onSubmit={this.handleSubmit}>

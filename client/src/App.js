@@ -25,7 +25,6 @@ import {
 class App extends Component {
 	componentDidMount() {
 		this.props.CategoryStore.fetchCategories();
-		this.props.PlaceStore.fetchPlaces();
 	}
 
 	render() {
