@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 const markerSchema = new Schema({ default: { type: String }, active: { type: String }, orientation: { type: String } });
-const imageSchema = new Schema({ thumbnail: { type: String }, original: { type: String }, credit: { type: String } });
 
 const placeSchema = new Schema({
 	body: String,
@@ -23,7 +22,7 @@ const placeSchema = new Schema({
 	cover: { type: String },
 	logo: { type: String },
 	marker: markerSchema,
-	images: [ imageSchema ],
+	photos: [ { type: Schema.Types.ObjectId, ref: 'Photo' } ],
 	createdBy: { type: Schema.Types.ObjectId, ref: 'User' },
 	updatedBy: { type: Schema.Types.ObjectId, ref: 'User' },
 	createdAt: { type: Date, default: Date.now },

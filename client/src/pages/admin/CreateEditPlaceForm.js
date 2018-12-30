@@ -38,9 +38,9 @@ class CreatePlaceForm extends React.Component {
 		}
 	};
 
-	handleImageDrop = (acceptedFiles, rejectedFiles) => {
+	handlePhotoDrop = (acceptedFiles, rejectedFiles) => {
 		const { PlaceStore } = this.props;
-		PlaceStore.uploadImages(PlaceStore.selectedPlaceId, acceptedFiles);
+		PlaceStore.uploadPlacePhotos(PlaceStore.selectedPlaceId, acceptedFiles);
 	};
 
 	renderTamilPage = () => {
@@ -198,7 +198,7 @@ class CreatePlaceForm extends React.Component {
 
 		return (
 			<WizardForm.Page>
-				<div className="add-place-form__image-page">
+				<div className="add-place-form__photos-page">
 					<div className="add-place-form__header">
 						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
 						<div className="add-place-form__arrow">{'//'}</div>
@@ -383,28 +383,28 @@ class CreatePlaceForm extends React.Component {
 
 					<div className="add-place-form__images-wrapper">
 						<div className={`form-group ${hasError ? 'has-error' : ''}`}>
-							<label htmlFor="images" className="form-label">
-								Images
+							<label htmlFor="photos" className="form-label">
+								Photos
 							</label>
-							<div className="add-place-form__images">
-								{initialValues.images.map((image, index) => (
-									<div key={index} className="add-place-form__image">
-										<img alt={`${initialValues.nameEn} ${index}`} src={image.thumbnail} />
+							<div className="add-place-form__photos">
+								{initialValues.photos.map((photo, index) => (
+									<div key={index} className="add-place-form__photo">
+										<img alt={`${initialValues.nameEn} ${index}`} src={photo.thumbnail} />
 										<Icon
-											className="add-place-form__delete-image"
+											className="add-place-form__delete-photo"
 											icon={Close}
-											onClick={() => PlaceStore.deleteImage(initialValues._id, image._id)}
+											onClick={() => PlaceStore.deletePhoto(initialValues._id, photo._id)}
 											width="1rem"
 										/>
 									</div>
 								))}
-								{PlaceStore.state === 'pendingUploadImages' ? (
+								{PlaceStore.state === 'pendingUploadPhotos' ? (
 									<div>
 										<Spinner className="add-place-form__dropzone-spinner" name="line-scale" />
 									</div>
 								) : (
 									<div className="add-place-form__dropzone-wrapper">
-										<Dropzone className="add-place-form__dropzone" onDrop={this.handleImageDrop} />
+										<Dropzone className="add-place-form__dropzone" onDrop={this.handlePhotoDrop} />
 										{hasError && <p className="form-input-hint">File too large.</p>}
 									</div>
 								)}

@@ -205,14 +205,14 @@ class PlaceStore {
 	};
 
 	@action
-	uploadImages = async (placeId, files) => {
-		this.state = 'pendingUploadImages';
+	uploadPlacePhotos = async (placeId, files) => {
+		this.state = 'pendingUploadPhotos';
 		const formData = new FormData();
-		files.forEach((image) => {
-			formData.append('images', image);
+		files.forEach((photo) => {
+			formData.append('photos', photo);
 		});
 		try {
-			const res = await axios.post(`/api/places/${placeId}/images`, formData, {
+			const res = await axios.post(`/api/places/${placeId}/photos`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
@@ -248,6 +248,20 @@ class PlaceStore {
 	@action
 	setTapedTwice = (tapValue) => {
 		this.tapedTwice = tapValue;
+	};
+
+	@action
+	lovePlaceImage = async (placeId, imageId) => {
+		this.state = 'pendingLoveImage';
+		const res = await axios.post(`/api/places/${placeId}/images/${imageId}/love`);
+		const lovedImage = res.data;
+		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+		const index = placeToBeUpdated.images.findIndex((i) => i._id === imageId);
+
+		runInAction(() => {
+			placeToBeUpdated.images.splice(index, 1, lovedImage);
+			this.state = 'done';
+		});
 	};
 
 	@computed

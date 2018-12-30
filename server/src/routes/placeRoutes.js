@@ -1,4 +1,4 @@
-import { requireAdmin } from '../middlewares';
+import { requireAdmin, requireAuth } from '../middlewares';
 import { upload } from '../services';
 import {
 	getAllPlaces,
@@ -11,8 +11,8 @@ import {
 	deleteCover,
 	uploadLogo,
 	deleteLogo,
-	uploadImages,
-	deleteImage,
+	uploadPlacePhotos,
+	deletePlacePhoto,
 } from '../controllers/places';
 
 export default (app) => {
@@ -26,6 +26,6 @@ export default (app) => {
 	app.delete('/api/places/:placeId/cover', requireAdmin, deleteCover);
 	app.post('/api/places/:placeId/logo', requireAdmin, upload.single('logo'), uploadLogo);
 	app.delete('/api/places/:placeId/logo', requireAdmin, deleteLogo);
-	app.post('/api/places/:placeId/images', requireAdmin, upload.array('images', 6), uploadImages);
-	app.delete('/api/places/:placeId/images/:imageId', requireAdmin, deleteImage);
+	app.post('/api/places/:placeId/photos', requireAuth, upload.array('photos', 6), uploadPlacePhotos);
+	app.delete('/api/places/:placeId/photos/:photoId', requireAdmin, deletePlacePhoto);
 };

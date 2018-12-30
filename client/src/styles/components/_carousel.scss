@@ -110,12 +110,14 @@
 
 	&--left {
 		left: 1%;
-		bottom: 1%;
+		bottom: 50%;
+		transform: translateY(50%);
 	}
 
 	&--right {
 		right: 1%;
-		bottom: 1%;
+		bottom: 50%;
+		transform: translateY(50%);
 	}
 
 	&__icon {

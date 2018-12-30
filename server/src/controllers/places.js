@@ -4,7 +4,7 @@ import sharp from 'sharp';
 import { v4 as uuid } from 'uuid';
 
 import { s3 } from '../services';
-import { Place } from '../models';
+import { Place, Photo, Love } from '../models';
 
 export const getAllPlaces = (req, res) => {
 	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').exec((err, places) => {
@@ -115,7 +115,6 @@ export const uploadCover = async (req, res) => {
 
 export const deleteCover = async (req, res) => {
 	const placeToUpdate = await Place.findById(req.params.placeId);
-	console.log('placeToUpdate', placeToUpdate);
 	const key = url.parse(placeToUpdate.cover).pathname;
 	s3.deleteObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: key }, async (err, data) => {
 		if (err) res.sendStatus(500);
@@ -154,7 +153,9 @@ export const deleteLogo = async (req, res) => {
 	});
 };
 
-export const uploadImages = async (req, res) => {
+export const uploadPlacePhotos = async (req, res) => {
+	const placeToBeUpdated = await Place.findById(req.params.placeId);
+
 	const promises = req.files.map(
 		(file) =>
 			new Promise((resolve, reject) => {
@@ -163,7 +164,7 @@ export const uploadImages = async (req, res) => {
 
 					const uploadedFile = data.Body;
 					const resizedFile = await sharp(uploadedFile).resize(240, 160).toBuffer();
-					const resizedKey = `${req.params.placeId}/${uuid()}.png`;
+					const resizedKey = `${placeToBeUpdated.body}/${uuid()}.png`;
 
 					s3.putObject(
 						{
@@ -172,21 +173,22 @@ export const uploadImages = async (req, res) => {
 							Key: resizedKey,
 							Body: resizedFile,
 						},
-						(err, data) => {
+						async (err, data) => {
 							if (err) res.status(500).send(err);
 
-							const original = file.location;
-							const thumbnail = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
+							const originalUrl = file.location;
+							const thumbnailUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
 								.STATIC_AWS_REGION}.amazonaws.com/${resizedKey}`;
-							const image = { original, thumbnail };
 
-							resolve(
-								Place.findByIdAndUpdate(
-									req.params.placeId,
-									{ $addToSet: { images: [ image ] } },
-									{ new: true },
-								),
-							);
+							const photo = await Photo.create({ originalUrl, thumbnailUrl });
+
+							// Place.findByIdAndUpdate(
+							// 	req.params.placeId,
+							// 	{ $addToSet: { photos: [photo] } },
+							// 	{ new: true },
+							// )
+
+							resolve(placeToBeUpdated.update({ $addToSet: { photos: [ photo ] } }));
 						},
 					);
 				});
@@ -194,18 +196,16 @@ export const uploadImages = async (req, res) => {
 	);
 
 	await Promise.all(promises);
-	const updatedPlace = await Place.findById(req.params.placeId);
-	res.status(200).send(updatedPlace.images);
+
+	res.status(200).send(placeToBeUpdated.photos);
 };
 
-export const deleteImage = async (req, res) => {
+export const deletePlacePhoto = async (req, res) => {
 	const placeToUpdate = await Place.findById(req.params.placeId);
-	// const imageToDelete = placeToUpdate.images.find((i) => i._id == req.params.imageId);
-	const imageToDelete = placeToUpdate.images.id(req.params.imageId);
-	const imagesToKeep = placeToUpdate.images.filter((i) => i._id != req.params.imageId);
+	const photoToDelete = placeToUpdate.photos.id(req.params.photoId);
 
-	const thumbnailPieces = imageToDelete.thumbnail.split('/');
-	const originalPieces = imageToDelete.original.split('/');
+	const thumbnailPieces = photoToDelete.thumbnail.split('/');
+	const originalPieces = photoToDelete.original.split('/');
 
 	const keys = [
 		`${req.params.placeId}/${thumbnailPieces[thumbnailPieces.length - 1]}`,
@@ -219,10 +219,12 @@ export const deleteImage = async (req, res) => {
 		async (err, data) => {
 			if (err) res.sendStatus(500);
 
-			placeToUpdate.images.pull(req.params.imageId);
+			placeToUpdate.photos.pull(req.params.photoId);
 			await placeToUpdate.save();
 
-			res.status(200).send(placeToUpdate.images);
+			Photo.findByIdAndDelete(req.params.photoId);
+
+			res.status(200).send(placeToUpdate.photos);
 		},
 	);
 };

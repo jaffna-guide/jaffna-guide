@@ -38,7 +38,7 @@ class CultureDetailsPage extends React.Component {
 				</div>
 				{place.images.length > 0 && (
 					<div className="culture-details__carousel">
-						<Carousel name={place.name.en} images={place.images} />
+						<Carousel name={place.name.en} images={place.images} onLove={PlaceStore.lovePlaceImage} />
 					</div>
 				)}
 				<div className="culture-details__description">
