@@ -5,6 +5,7 @@ import CultureDetailsPage from './CultureDetailsPage';
 import RestaurantsDetailsPage from './RestaurantsDetailsPage';
 import HotelsDetailsPage from './HotelsDetailsPage';
 import EducationDetailsPage from './EducationDetailsPage';
+import VillagesDetailsPage from './VillagesDetailsPage';
 
 @inject('PlaceStore')
 @observer
@@ -23,6 +24,8 @@ class PlaceDetails extends React.Component {
 					return <HotelsDetailsPage place={PlaceStore.currentPlace} />;
 				case 'restaurants':
 					return <RestaurantsDetailsPage place={PlaceStore.currentPlace} />;
+				case 'villages':
+					return <VillagesDetailsPage place={PlaceStore.currentPlace} />;
 				case 'education':
 					return <EducationDetailsPage place={PlaceStore.currentPlace} />;
 				default:
