@@ -206,8 +206,8 @@ export const uploadPlacePhotos = async (req, res) => {
 	);
 
 	const createdPhotos = await Promise.all(promises);
-	await placeToBeUpdated.update({ $addToSet: { photos: createdPhotos } })
-	
+	await placeToBeUpdated.update({ $addToSet: { photos: createdPhotos } });
+
 	const updatedPlace = await Place.findById(req.params.placeId).populate('photos');
 
 	res.status(200).send(updatedPlace.photos);
@@ -232,16 +232,12 @@ export const deletePlacePhoto = async (req, res) => {
 		async (err, data) => {
 			if (err) res.sendStatus(500);
 
-			const index = placeToUpdate.photos.findIndex((p) => p._id === req.params.photoId);
-
-			console.log('placeToUpdate.photos: before', placeToUpdate.photos.length);
-			placeToUpdate.photos.splice(index, 1);
-			console.log('placeToUpdate.photos: after', placeToUpdate.photos.length);
-
-			await placeToUpdate.save();
+			await placeToUpdate.update({ $pull: { photos: [ photoToDelete._id ] } });
 			await Photo.findByIdAndDelete(photoToDelete._id);
 
-			res.status(200).send(placeToUpdate.photos);
+			const updatedPlace = await Place.findById(placeToUpdate._id).populate('photos');
+
+			res.status(200).send(updatedPlace.photos);
 		},
 	);
 };
