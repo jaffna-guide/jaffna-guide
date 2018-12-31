@@ -10,7 +10,7 @@ class MarkerActiveField extends React.Component {
 	render() {
 		const { PlaceStore, initialValues } = this.props;
 		return (
-			<Field name="marker-active">
+			<Field name="markerActive">
 				{({ input, meta }) => (
 					<div className="form-group">
 						<label htmlFor="marker-active" className="form-label">

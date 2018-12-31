@@ -166,4 +166,24 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+	&__credit-position {
+		border-width: 2px;
+		border-color: rgb(102, 102, 102);
+		border-style: dashed;
+		border-radius: $border-radius;
+		border-bottom: none;
+
+		> .form-group {
+			display: flex;
+			justify-content: space-around;
+			margin-bottom: -.2rem;
+			margin-top: .1rem;
+		}
+	}
+
+	&__lower-left-icon {
+		width: 1rem;
+		height: 1rem;
+	}
 }

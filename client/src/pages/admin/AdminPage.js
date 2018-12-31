@@ -113,7 +113,9 @@ class AdminPanel extends React.Component {
 						/>
 						<div className="modal-container">
 							{PlaceStore.selectedPlace ? (
-								<CreateEditPlaceForm initialValues={PlaceStore.selectedPlace} />
+								<CreateEditPlaceForm
+									initialValues={{ ...PlaceStore.selectedPlace, creditPosition: 'lower-left' }}
+								/>
 							) : (
 								<CreateEditPlaceForm />
 							)}

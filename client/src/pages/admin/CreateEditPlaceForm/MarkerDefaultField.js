@@ -10,7 +10,7 @@ class MarkerDefaultField extends React.Component {
 	render() {
 		const { PlaceStore, initialValues } = this.props;
 		return (
-			<Field name="marker-default">
+			<Field name="markerDefault">
 				{({ input, meta }) => (
 					<div className="form-group">
 						<label htmlFor="marker-default" className="form-label">
