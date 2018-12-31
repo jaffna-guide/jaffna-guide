@@ -18,17 +18,17 @@ class MarkerActiveField extends React.Component {
 						</label>
 						{PlaceStore.state === 'pendingUploadMarkerActive' ? (
 							<div>
-								<Spinner className="add-place-form__spinner" name="line-scale" />
+								<Spinner className="create-edit-place-form__spinner" name="line-scale" />
 							</div>
 						) : initialValues && initialValues.marker && initialValues.marker.active ? (
-							<div className="add-place-form__marker-active-wrapper">
+							<div className="create-edit-place-form__marker-active-wrapper">
 								<img
-									className="add-place-form__marker-active-image"
+									className="create-edit-place-form__marker-active-image"
 									alt={`${initialValues.nameEn} Marker Active`}
 									src={initialValues.marker.active}
 								/>
 								<Icon
-									className="add-place-form__delete-icon"
+									className="create-edit-place-form__delete-icon"
 									icon={Close}
 									onClick={() => PlaceStore.deleteMarker(initialValues._id, 'active')}
 									width="1rem"

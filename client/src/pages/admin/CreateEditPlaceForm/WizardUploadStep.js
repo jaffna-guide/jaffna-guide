@@ -7,7 +7,7 @@ import CoverField from './CoverField';
 import LogoField from './LogoField';
 import MarkerDefaultField from './MarkerDefaultField';
 import MarkerActiveField from './MarkerActiveField';
-import PhotosField from './PhotosField';
+import Photos from './Photos';
 
 @inject('PlaceStore')
 class WizardUploadStep extends React.Component {
@@ -16,22 +16,22 @@ class WizardUploadStep extends React.Component {
 
 		return (
 			<WizardForm.Page>
-				<div className="add-place-form__photos-page">
-					<div className="add-place-form__header">
-						<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
-						<div className="add-place-form__arrow">{'//'}</div>
-						<h2 className="add-place-form__subtitle">Uploads</h2>
+				<div className="create-edit-place-form__photos-page">
+					<div className="create-edit-place-form__header">
+						<h1 className="create-edit-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
+						<div className="create-edit-place-form__arrow">{'//'}</div>
+						<h2 className="create-edit-place-form__subtitle">Uploads</h2>
 					</div>
-					<div className="add-place-form__cover-logo-wrapper">
+					<div className="create-edit-place-form__cover-logo-wrapper">
 						<CoverField initialValues={initialValues} />
 						<LogoField initialValues={initialValues} />
 					</div>
-					<div className="add-place-form__marker-default-active-wrapper">
+					<div className="create-edit-place-form__marker-default-active-wrapper">
 						<MarkerDefaultField initialValues={initialValues} />
 						<MarkerActiveField initialValues={initialValues} />
 					</div>
-					<div className="add-place-form__photos-wrapper">
-						<PhotosField initialValues={initialValues} />
+					<div className="create-edit-place-form__photos-wrapper">
+						<Photos initialValues={initialValues} />
 					</div>
 				</div>
 			</WizardForm.Page>

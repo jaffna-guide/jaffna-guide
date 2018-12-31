@@ -18,17 +18,17 @@ class MarkerDefaultField extends React.Component {
 						</label>
 						{PlaceStore.state === 'pendingUploadMarkerDefault' ? (
 							<div>
-								<Spinner className="add-place-form__spinner" name="line-scale" />
+								<Spinner className="create-edit-place-form__spinner" name="line-scale" />
 							</div>
 						) : initialValues && initialValues.marker && initialValues.marker.default ? (
-							<div className="add-place-form__marker-default-wrapper">
+							<div className="create-edit-place-form__marker-default-wrapper">
 								<img
-									className="add-place-form__marker-default-image"
+									className="create-edit-place-form__marker-default-image"
 									alt={`${initialValues.nameEn} Marker Default`}
 									src={initialValues.marker.default}
 								/>
 								<Icon
-									className="add-place-form__delete-icon"
+									className="create-edit-place-form__delete-icon"
 									icon={Close}
 									onClick={() => PlaceStore.deleteMarker(initialValues._id, 'default')}
 									width="1rem"

@@ -18,17 +18,17 @@ class LogoField extends React.Component {
 						</label>
 						{PlaceStore.state === 'pendingUploadLogo' ? (
 							<div>
-								<Spinner className="add-place-form__spinner" name="line-scale" />
+								<Spinner className="create-edit-place-form__spinner" name="line-scale" />
 							</div>
 						) : initialValues && initialValues.logo ? (
-							<div className="add-place-form__logo-wrapper">
+							<div className="create-edit-place-form__logo-wrapper">
 								<img
-									className="add-place-form__logo-image"
+									className="create-edit-place-form__logo-image"
 									alt={`${initialValues.nameEn} Logo`}
 									src={initialValues.logo}
 								/>
 								<Icon
-									className="add-place-form__delete-icon"
+									className="create-edit-place-form__delete-icon"
 									icon={Close}
 									onClick={() => PlaceStore.deleteLogo(initialValues._id)}
 									width="1rem"

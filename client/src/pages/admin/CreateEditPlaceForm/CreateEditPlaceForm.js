@@ -46,13 +46,13 @@ class CreatePlaceForm extends React.Component {
 		const { initialValues } = this.props;
 
 		return initialValues ? (
-			<WizardForm name="add-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
+			<WizardForm name="create-edit-place-form" onSubmit={this.handleSubmit} initialValues={initialValues}>
 				<WizardMainStep initialValues={initialValues} />
 				<WizardTamilStep initialValues={initialValues} />
 				<WizardUploadStep initialValues={initialValues} />
 			</WizardForm>
 		) : (
-			<WizardForm name="add-place-form" onSubmit={this.handleSubmit}>
+			<WizardForm name="create-edit-place-form" onSubmit={this.handleSubmit}>
 				<WizardMainStep initialValues={initialValues} />
 				<WizardTamilStep initialValues={initialValues} />
 			</WizardForm>

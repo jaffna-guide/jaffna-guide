@@ -32,10 +32,10 @@ class WizardMainStep extends React.Component {
 					return errors;
 				}}
 			>
-				<div className="add-place-form__header">
-					<h1 className="add-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
-					<div className="add-place-form__arrow">{'//'}</div>
-					<h2 className="add-place-form__subtitle">Main</h2>
+				<div className="create-edit-place-form__header">
+					<h1 className="create-edit-place-form__title">{initialValues ? 'Edit place' : 'Add place'}</h1>
+					<div className="create-edit-place-form__arrow">{'//'}</div>
+					<h2 className="create-edit-place-form__subtitle">Main</h2>
 				</div>
 				<Field name="nameEn">
 					{({ input, meta }) => (

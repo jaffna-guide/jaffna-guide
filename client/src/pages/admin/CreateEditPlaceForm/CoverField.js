@@ -18,17 +18,17 @@ class CoverField extends React.Component {
 						</label>
 						{PlaceStore.state === 'pendingUploadCover' ? (
 							<div>
-								<Spinner className="add-place-form__spinner" name="line-scale" />
+								<Spinner className="create-edit-place-form__spinner" name="line-scale" />
 							</div>
 						) : initialValues && initialValues.cover ? (
-							<div className="add-place-form__cover-wrapper">
+							<div className="create-edit-place-form__cover-wrapper">
 								<img
-									className="add-place-form__cover-image"
+									className="create-edit-place-form__cover-image"
 									alt={`${initialValues.nameEn} Cover`}
 									src={initialValues.cover}
 								/>
 								<Icon
-									className="add-place-form__delete-icon"
+									className="create-edit-place-form__delete-icon"
 									icon={Close}
 									onClick={() => PlaceStore.deleteCover(initialValues._id)}
 									width="1rem"
