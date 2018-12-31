@@ -37,10 +37,10 @@ class CreatePlaceForm extends React.Component {
 		}
 	};
 
-	handlePhotoDrop = (acceptedFiles, rejectedFiles) => {
-		const { PlaceStore } = this.props;
-		PlaceStore.uploadPlacePhotos(PlaceStore.selectedPlaceId, acceptedFiles);
-	};
+	// handlePhotoDrop = (acceptedFiles, rejectedFiles) => {
+	// 	const { PlaceStore } = this.props;
+	// 	PlaceStore.uploadPlacePhotos(PlaceStore.selectedPlaceId, acceptedFiles);
+	// };
 
 	render() {
 		const { initialValues } = this.props;

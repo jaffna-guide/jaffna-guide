@@ -243,12 +243,15 @@ class PlaceStore {
 	};
 
 	@action
-	uploadPlacePhotos = async (placeId, files) => {
+	uploadPlacePhotos = async (placeId, files, creditPosition) => {
 		this.state = 'pendingUploadPhotos';
 		const formData = new FormData();
+
+		formData.append('creditPosition', creditPosition);
 		files.forEach((photo) => {
 			formData.append('photos', photo);
 		});
+
 		try {
 			const res = await axios.post(`/api/places/${placeId}/photos`, formData, {
 				headers: {
@@ -304,7 +307,6 @@ class PlaceStore {
 	@computed
 	get selectedPlace() {
 		if (this.selectedPlaceId) {
-			console.log('this.selectedPlaceId', this.selectedPlaceId);
 			const { name, description, category, ...rest } = this.places.find(
 				(place) => place._id === this.selectedPlaceId,
 			);

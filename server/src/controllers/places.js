@@ -198,17 +198,18 @@ export const uploadPlacePhotos = async (req, res) => {
 							const thumbnailUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
 								.STATIC_AWS_REGION}.amazonaws.com/${resizedKey}`;
 
-							const photo = await Photo.create({ originalUrl, thumbnailUrl });
-							resolve(placeToBeUpdated.update({ $addToSet: { photos: [ photo ] } }));
+							resolve(Photo.create({ originalUrl, thumbnailUrl }));
 						},
 					);
 				});
 			}),
 	);
 
-	await Promise.all(promises);
-
+	const createdPhotos = await Promise.all(promises);
+	await placeToBeUpdated.update({ $addToSet: { photos: createdPhotos } })
+	
 	const updatedPlace = await Place.findById(req.params.placeId).populate('photos');
+
 	res.status(200).send(updatedPlace.photos);
 };
 
@@ -231,7 +232,12 @@ export const deletePlacePhoto = async (req, res) => {
 		async (err, data) => {
 			if (err) res.sendStatus(500);
 
-			placeToUpdate.photos.pull(req.params.photoId);
+			const index = placeToUpdate.photos.findIndex((p) => p._id === req.params.photoId);
+
+			console.log('placeToUpdate.photos: before', placeToUpdate.photos.length);
+			placeToUpdate.photos.splice(index, 1);
+			console.log('placeToUpdate.photos: after', placeToUpdate.photos.length);
+
 			await placeToUpdate.save();
 			await Photo.findByIdAndDelete(photoToDelete._id);
 
