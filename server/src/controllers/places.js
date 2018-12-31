@@ -10,7 +10,7 @@ export const getPlaces = async (req, res) => {
 	let q = Place.find({});
 
 	if (req.query.body) {
-		q = q.findOne({ body: req.query.body });
+		q = q.findOne({ body: req.query.body }).populate('photos');
 	}
 
 	if (req.query.category) {
