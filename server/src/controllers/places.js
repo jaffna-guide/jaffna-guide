@@ -253,10 +253,12 @@ export const deletePlacePhoto = async (req, res) => {
 	const photoToDelete = placeToUpdate.photos.find((p) => (p._id = req.params.photoId));
 
 	const thumbnailPieces = photoToDelete.thumbnailUrl.split('/');
+	const watermarkedPieces = photoToDelete.watermarkedUrl.split('/');
 	const originalPieces = photoToDelete.originalUrl.split('/');
 
 	const keys = [
 		`${placeToUpdate.body}/${thumbnailPieces[thumbnailPieces.length - 1]}`,
+		`${placeToUpdate.body}/${watermarkedPieces[watermarkedPieces.length - 1]}`,
 		`${placeToUpdate.body}/${originalPieces[originalPieces.length - 1]}`,
 	];
 
