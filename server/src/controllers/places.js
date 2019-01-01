@@ -1,3 +1,5 @@
+import fs from 'fs';
+import path from 'path';
 import multer from 'multer';
 import url from 'url';
 import sharp from 'sharp';
@@ -173,6 +175,8 @@ export const deleteLogo = async (req, res) => {
 
 export const uploadPlacePhotos = async (req, res) => {
 	const placeToBeUpdated = await Place.findById(req.params.placeId);
+	const jaffnaGuideLogo = fs.readFileSync(path.join(__dirname, '../assets/jaffna-guide-logo-combination.png'));
+	console.log('jaffnaGuideLogo', jaffnaGuideLogo);
 
 	const promises = req.files.map(
 		(file) =>
@@ -180,27 +184,65 @@ export const uploadPlacePhotos = async (req, res) => {
 				s3.getObject({ Bucket: process.env.STATIC_AWS_BUCKET, Key: file.key }, async (err, data) => {
 					if (err) res.status(500).send(err);
 
+					// originalFile
 					const uploadedFile = data.Body;
-					const resizedFile = await sharp(uploadedFile).resize(240, 160).toBuffer();
-					const resizedKey = `${placeToBeUpdated.body}/${uuid()}.png`;
 
-					s3.putObject(
-						{
-							Bucket: process.env.STATIC_AWS_BUCKET,
-							StorageClass: 'REDUCED_REDUNDANCY',
-							Key: resizedKey,
-							Body: resizedFile,
-						},
-						async (err, data) => {
-							if (err) res.status(500).send(err);
+					let watermarkedFile;
+					// watermarkedFile
+					try {
+						watermarkedFile = await sharp(uploadedFile)
+							.resize({ width: 1440 })
+							.overlayWith(jaffnaGuideLogo, { gravity: sharp.gravity.southwest })
+							.toBuffer();
 
-							const originalUrl = file.location;
-							const thumbnailUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
-								.STATIC_AWS_REGION}.amazonaws.com/${resizedKey}`;
+						// .overlayWith('jaffna-guide-logo.png', { gravity: sharp.gravity.southwest })
+					} catch (e) {
+						console.log('e', e);
+					}
 
-							resolve(Photo.create({ originalUrl, thumbnailUrl }));
-						},
-					);
+					const watermarkedKey = `${placeToBeUpdated.body}/${uuid()}.png`;
+					const watermarkedPromise = new Promise((resolveInner) => {
+						s3.putObject(
+							{
+								Bucket: process.env.STATIC_AWS_BUCKET,
+								StorageClass: 'REDUCED_REDUNDANCY',
+								Key: watermarkedKey,
+								Body: watermarkedFile,
+							},
+							(err, data) => {
+								if (err) res.status(500).send(err);
+								resolveInner();
+							},
+						);
+					});
+
+					// thumbnailFile
+					const thumbnailFile = await sharp(uploadedFile).resize(240, 160).toBuffer();
+					const thumbnailKey = `${placeToBeUpdated.body}/${uuid()}.png`;
+					const thumbnailPromise = new Promise((resolveInner) => {
+						s3.putObject(
+							{
+								Bucket: process.env.STATIC_AWS_BUCKET,
+								StorageClass: 'REDUCED_REDUNDANCY',
+								Key: thumbnailKey,
+								Body: thumbnailFile,
+							},
+							(err, data) => {
+								if (err) res.status(500).send(err);
+								resolveInner();
+							},
+						);
+					});
+
+					await Promise.all([ thumbnailPromise, watermarkedPromise ]);
+
+					const originalUrl = file.location;
+					const thumbnailUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
+						.STATIC_AWS_REGION}.amazonaws.com/${thumbnailKey}`;
+					const watermarkedUrl = `https://${process.env.STATIC_AWS_BUCKET}.s3.${process.env
+						.STATIC_AWS_REGION}.amazonaws.com/${watermarkedKey}`;
+
+					resolve(Photo.create({ originalUrl, thumbnailUrl, watermarkedUrl }));
 				});
 			}),
 	);

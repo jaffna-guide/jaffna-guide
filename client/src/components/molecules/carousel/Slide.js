@@ -9,7 +9,7 @@ const Slide = ({ src }) => {
 
 	return (
 		<div className="carousel-slide">
-			<div className="carousel-slide__image" style={style} />
+			<img alt="Slide" src={src} className="carousel-slide__image" />
 		</div>
 	);
 };

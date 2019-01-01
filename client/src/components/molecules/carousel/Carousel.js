@@ -43,7 +43,7 @@ class Carousel extends React.Component {
 					currentImageIndex={this.state.currentImageIndex}
 				>
 					{photos.map((photo, index) => {
-						return <Slide key={photo._id} alt={`${name} ${index + 1}`} src={photo.originalUrl} />;
+						return <Slide key={photo._id} alt={`${name} ${index + 1}`} src={photo.watermarkedUrl} />;
 					})}
 				</SlideTrack>
 				<ThumbnailTrack>
