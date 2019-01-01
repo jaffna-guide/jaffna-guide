@@ -8,8 +8,8 @@ const Slide = ({ src }) => {
 	};
 
 	return (
-		<div className="carousel-slide">
-			<img alt="Slide" src={src} className="carousel-slide__image" />
+		<div className="carousel__slide">
+			<img alt="Slide" src={src} className="carousel__slide-image" />
 		</div>
 	);
 };

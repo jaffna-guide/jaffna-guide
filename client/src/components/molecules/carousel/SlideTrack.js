@@ -38,9 +38,9 @@ class SlideTrack extends React.Component {
 		}
 
 		return (
-			<div className="carousel-slide-track">
+			<div className="carousel__slide-track">
 				<Arrow onClick={prevSlide} direction="left" />
-				<div className="carousel-slide-track__inner" style={innerStyle}>
+				<div className="carousel__slide-track-inner" style={innerStyle}>
 					{children}
 				</div>
 				<Arrow onClick={nextSlide} direction="right" />

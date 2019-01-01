@@ -4,7 +4,6 @@ import Slide from './Slide';
 import SlideTrack from './SlideTrack';
 import ThumbnailTrack from './ThumbnailTrack';
 import Thumbnail from './Thumbnail';
-import Wrapper from './Wrapper';
 
 class Carousel extends React.Component {
 	state = {
@@ -36,7 +35,7 @@ class Carousel extends React.Component {
 	render() {
 		const { name, photos } = this.props;
 		return (
-			<Wrapper>
+			<div className="carousel">
 				<SlideTrack
 					prevSlide={this.prevSlide}
 					nextSlide={this.nextSlide}
@@ -57,7 +56,7 @@ class Carousel extends React.Component {
 						/>
 					))}
 				</ThumbnailTrack>
-			</Wrapper>
+			</div>
 		);
 	}
 }
