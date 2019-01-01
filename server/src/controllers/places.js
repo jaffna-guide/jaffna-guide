@@ -176,7 +176,7 @@ export const deleteLogo = async (req, res) => {
 export const uploadPlacePhotos = async (req, res) => {
 	const placeToBeUpdated = await Place.findById(req.params.placeId);
 	const jaffnaGuideLogo = fs.readFileSync(path.join(__dirname, '../assets/jaffna-guide-logo-combination.png'));
-	console.log('jaffnaGuideLogo', jaffnaGuideLogo);
+	const { creditPosition } = req.body;
 
 	const promises = req.files.map(
 		(file) =>
@@ -187,18 +187,11 @@ export const uploadPlacePhotos = async (req, res) => {
 					// originalFile
 					const uploadedFile = data.Body;
 
-					let watermarkedFile;
 					// watermarkedFile
-					try {
-						watermarkedFile = await sharp(uploadedFile)
-							.resize({ width: 1440 })
-							.overlayWith(jaffnaGuideLogo, { gravity: sharp.gravity.southwest })
-							.toBuffer();
-
-						// .overlayWith('jaffna-guide-logo.png', { gravity: sharp.gravity.southwest })
-					} catch (e) {
-						console.log('e', e);
-					}
+					const watermarkedFile = await sharp(uploadedFile)
+						.resize({ width: 1440 })
+						.overlayWith(jaffnaGuideLogo, { gravity: sharp.gravity[creditPosition] })
+						.toBuffer();
 
 					const watermarkedKey = `${placeToBeUpdated.body}/${uuid()}.png`;
 					const watermarkedPromise = new Promise((resolveInner) => {

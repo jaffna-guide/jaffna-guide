@@ -12,18 +12,18 @@ class CreditPositionField extends React.Component {
 			<div className="create-edit-place-form__credit-position">
 				<div className="form-group">
 					<label className="form-radio form-inline">
-						<Field name="creditPosition" component="input" type="radio" value="lower-left" />
+						<Field name="creditPosition" component="input" type="radio" value="southwest" />
 						<i className="form-icon" />
 						<Icon className="create-edit-place-form__lower-left-icon" icon={LowerLeft} />
 					</label>
 
 					<label className="form-radio form-inline">
-						<Field name="creditPosition" component="input" type="radio" value="upper-left" />
+						<Field name="creditPosition" component="input" type="radio" value="northwest" />
 						<i className="form-icon" />
 						<Icon className="create-edit-place-form__lower-left-icon" icon={UpperLeft} />
 					</label>
 					<label className="form-radio form-inline">
-						<Field name="creditPosition" component="input" type="radio" value="upper-right" />
+						<Field name="creditPosition" component="input" type="radio" value="northeast" />
 						<i className="form-icon" />
 						<Icon className="create-edit-place-form__lower-left-icon" icon={UpperRight} />
 					</label>
