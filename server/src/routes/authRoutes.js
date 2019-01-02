@@ -22,6 +22,7 @@ export default (app) => {
 		(req, res) => {
 			const token = req.user.jwt;
 			if (req.session.redirectTo) {
+				console.log('req.session.redirectTo', req.session.redirectTo);
 				res.redirect(`${decodeURIComponent(req.session.redirectTo)}?token=${token}`);
 			} else {
 				res.send({ token });

@@ -16,7 +16,7 @@ const Slide = ({ index, name, photo, onLike, authUser, authState }) => {
 				>
 					{() =>
 						!authUser && !authState.startsWith('pending') ? (
-							<a href={`/auth/facebook?redirect=/${name}?n=${index + 1}`}>
+							<a href={`/auth/facebook?redirect=/${name}?photoId=${photo._id}`}>
 								<Icon className="carousel__love-icon" icon={Heart} />
 							</a>
 						) : (
