@@ -5,6 +5,7 @@ import { requireAuth } from '../middlewares';
 export default (app) => {
 	app.get('/auth/facebook', (req, res, next) => {
 		if (req.query.redirect) {
+			console.log('req.query.redirect', req.query.redirect);
 			req.session.redirectTo = encodeURIComponent(req.query.redirect);
 		} else {
 			delete req.session.redirectTo;
