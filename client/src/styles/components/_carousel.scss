@@ -37,9 +37,40 @@ $thumbnail-width-md: 130px;
 
 	&__slide {
 		flex: 1;
+		position: relative;
 
 		@media (min-width: 768px) {
 			margin-right: $thumbnail-width-md;
+		}
+	}
+
+	&__love {
+		position: absolute;
+		bottom: .25rem;
+		right: 1rem;
+
+		@media (min-width: 768px) {
+			bottom: .25rem;
+			right: 1.25rem;
+		}
+	}
+
+	&__love-icon {
+		width: 1.5rem;
+		height: 1.5rem;
+		cursor: pointer;
+		stroke: $dark-color;
+		stroke-width: 10px;
+		fill: none;
+		fill: rgba($light-color, 0.3);
+
+		@media (min-width: 768px) {
+			width: 2rem;
+			height: 2rem;
+		}
+
+		&--active {
+			fill: $red-color;
 		}
 	}
 

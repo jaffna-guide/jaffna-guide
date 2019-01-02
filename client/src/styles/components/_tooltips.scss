@@ -1,0 +1,27 @@
+.tooltip {
+	position: relative;
+
+	&__content {
+		position: absolute;
+		right: 0;
+		top: 0;
+		background: rgba($dark-color, .9);
+		color: $light-color;
+		white-space: pre;
+    padding: 0 $unit-2 $unit-1 $unit-2;
+    border-radius: $border-radius;
+		opacity: 0;
+    transition: all .2s ease;
+    transform: translate(-15%, $unit-3);
+    text-overflow: ellipsis;
+    max-width: $control-width-sm;
+  }
+  
+  &__children:hover + &__content,
+  &__children:focus + &__content {
+		opacity: 1;
+    transform: translate(-15%, 1px);
+    z-index: 0;
+
+	}
+}

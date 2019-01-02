@@ -22,13 +22,13 @@ class SlideTrack extends React.Component {
 	}
 
 	render() {
-		const { children, prevSlide, nextSlide, currentImageIndex } = this.props;
+		const { children, prevSlide, nextSlide, currentPhotoIndex } = this.props;
 		let innerStyle = {};
 
 		const slideWidth = Math.min(1024, this.state.windowWidth);
 
 		if (slideWidth) {
-			const innerLeft = -1 * currentImageIndex * slideWidth;
+			const innerLeft = -1 * currentPhotoIndex * slideWidth;
 			const innerWidth = React.Children.count(children) * slideWidth;
 
 			innerStyle = {

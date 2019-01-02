@@ -5,11 +5,12 @@ import { Divider } from '../../components/atoms';
 import { Carousel, Editor } from '../../components/molecules';
 import PlacesBallot from './PlacesBallot';
 
+@inject('AuthStore')
 @inject('PlaceStore')
 @observer
 class CultureDetailsPage extends React.Component {
 	render() {
-		const { PlaceStore } = this.props;
+		const { PlaceStore, AuthStore } = this.props;
 		const place = PlaceStore.currentPlace;
 
 		return (
@@ -25,7 +26,13 @@ class CultureDetailsPage extends React.Component {
 				</div>
 				{place.photos.length > 0 && (
 					<div className="culture-details__carousel">
-						<Carousel name={place.name.en} photos={place.photos} onLove={PlaceStore.lovePlaceImage} />
+						<Carousel
+							name={place.body}
+							photos={place.photos}
+							onLike={PlaceStore.likePlacePhoto}
+							authUser={AuthStore.authUser}
+							authState={AuthStore.state}
+						/>
 					</div>
 				)}
 				<div className="culture-details__description">

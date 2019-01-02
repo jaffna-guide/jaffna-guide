@@ -291,12 +291,12 @@ class PlaceStore {
 	};
 
 	@action
-	lovePlaceImage = async (placeId, imageId) => {
+	likePlacePhoto = async (placeId, photoId) => {
 		this.state = 'pendingLoveImage';
-		const res = await axios.post(`/api/places/${placeId}/images/${imageId}/love`);
+		const res = await axios.post(`/api/places/${placeId}/images/${photoId}/love`);
 		const lovedImage = res.data;
 		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
-		const index = placeToBeUpdated.images.findIndex((i) => i._id === imageId);
+		const index = placeToBeUpdated.images.findIndex((i) => i._id === photoId);
 
 		runInAction(() => {
 			placeToBeUpdated.images.splice(index, 1, lovedImage);
