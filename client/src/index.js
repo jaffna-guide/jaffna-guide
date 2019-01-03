@@ -20,6 +20,11 @@ const qs = queryString.parse(window.location.search);
 if (qs.token) {
 	localStorage.setItem('token', qs.token);
 
+	if (qs.photoId) {
+		console.log('we should execute PlaceStore likePhoto');
+		PlaceStore.likePlacePhoto(PlaceStore.currentPlace._id, qs.photoId);
+	}
+
 	// remove the query string
 	const uri = window.location.toString();
 	if (uri.indexOf('?') > 0) {

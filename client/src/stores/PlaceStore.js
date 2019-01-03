@@ -292,16 +292,17 @@ class PlaceStore {
 
 	@action
 	likePlacePhoto = async (placeId, photoId) => {
-		this.state = 'pendingLoveImage';
-		const res = await axios.post(`/api/places/${placeId}/images/${photoId}/love`);
-		const lovedImage = res.data;
-		const placeToBeUpdated = this.places.find((p) => p._id === placeId);
-		const index = placeToBeUpdated.images.findIndex((i) => i._id === photoId);
+		console.log('hi from PlaceStore.likePlacePhoto', placeId, photoId);
+		// this.state = 'pendingLoveImage';
+		// const res = await axios.post(`/api/places/${placeId}/images/${photoId}/love`);
+		// const lovedImage = res.data;
+		// const placeToBeUpdated = this.places.find((p) => p._id === placeId);
+		// const index = placeToBeUpdated.images.findIndex((i) => i._id === photoId);
 
-		runInAction(() => {
-			placeToBeUpdated.images.splice(index, 1, lovedImage);
-			this.state = 'done';
-		});
+		// runInAction(() => {
+		// 	placeToBeUpdated.images.splice(index, 1, lovedImage);
+		// 	this.state = 'done';
+		// });
 	};
 
 	@computed
