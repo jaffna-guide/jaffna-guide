@@ -21,8 +21,7 @@ if (qs.token) {
 	localStorage.setItem('token', qs.token);
 
 	if (qs.photoId) {
-		console.log('we should execute PlaceStore likePhoto');
-		PlaceStore.likePlacePhoto(PlaceStore.currentPlace._id, qs.photoId);
+		PlaceStore.likePlacePhoto(window.location, qs.photoId);
 	}
 
 	// remove the query string

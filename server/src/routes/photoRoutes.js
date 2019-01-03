@@ -1,6 +1,6 @@
 import { requireAuth } from '../middlewares';
-import { togglePhotoLove } from '../controllers/photos';
+import { likePlacePhoto } from '../controllers/photos';
 
 export default (app) => {
-  app.post('/api/photos/:photoId/love', requireAuth, togglePhotoLove);
+  app.post('/api/places/:placeBody/photos/:photoId/like', requireAuth, likePlacePhoto);
 };

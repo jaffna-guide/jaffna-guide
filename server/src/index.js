@@ -11,6 +11,7 @@ import authRoutes from './routes/authRoutes';
 import placeRoutes from './routes/placeRoutes';
 import categoryRoutes from './routes/categoryRoutes';
 import voteRoutes from './routes/voteRoutes';
+import photoRoutes from './routes/photoRoutes';
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -77,6 +78,7 @@ authRoutes(app);
 placeRoutes(app);
 categoryRoutes(app);
 voteRoutes(app);
+photoRoutes(app);
 
 /*
 |-----------------------------------------------------------

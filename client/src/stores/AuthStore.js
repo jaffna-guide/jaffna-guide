@@ -10,7 +10,6 @@ class AuthStore {
 
 	@action
 	authenticate = async (currentPlaceBody) => {
-		console.log('hi from authenticate...');
 		this.authUser = null;
 		this.state = 'pending';
 

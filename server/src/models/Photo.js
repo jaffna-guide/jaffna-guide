@@ -7,7 +7,7 @@ const photoSchema = new Schema({
   originalUrl: { type: String },
   watermarkedUrl: { type: String },
   approvedBy: { type: Schema.Types.ObjectId, ref: 'User' },
-  loves: [ { type: Schema.Types.ObjectId, ref: 'Love' } ],
+  likes: [ { type: Schema.Types.ObjectId, ref: 'Like' } ],
 });
 
 export default mongoose.model('Photo', photoSchema);
