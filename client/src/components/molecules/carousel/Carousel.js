@@ -37,7 +37,11 @@ class Carousel extends React.Component {
 	};
 
 	goToSlide = (index) => {
-		this.setState({ currentPhotoIndex: index });
+		const { photos, history, location } = this.props;
+		this.setState({ currentPhotoIndex: index }, () => {
+			const photoId = photos[this.state.currentPhotoIndex]._id;
+			history.push({ pathname: location.pathname, search: `?photoId=${photoId}` });
+		});
 	};
 
 	render() {

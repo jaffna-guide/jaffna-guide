@@ -4,7 +4,6 @@ import { Icon, Tooltip } from '../../atoms';
 import { ReactComponent as Heart } from '../../../assets/heart.svg';
 
 const Slide = ({ index, name, photo, onLike, authUser, authState }) => {
-	console.log('authState', authState);
 	return (
 		<div className="carousel__slide">
 			<img alt="Slide" src={photo.watermarkedUrl} className="carousel__slide-image" />
