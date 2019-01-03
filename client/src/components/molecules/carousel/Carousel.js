@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import Slide from './Slide';
 import SlideTrack from './SlideTrack';
@@ -8,9 +9,19 @@ import Thumbnail from './Thumbnail';
 
 @withRouter
 class Carousel extends React.Component {
-	state = {
-		currentPhotoIndex: 0,
-	};
+	constructor(props) {
+		super(props);
+
+		const { photos, location } = this.props;
+		const query = queryString.parse(location.search);
+		let currentPhotoIndex = 0;
+
+		if (query.photoId) {
+			currentPhotoIndex = photos.findIndex((p) => p._id === query.photoId);
+		}
+
+		this.state = { currentPhotoIndex };
+	}
 
 	prevSlide = () => {
 		const { photos, history, location } = this.props;
