@@ -20,6 +20,7 @@ const qs = queryString.parse(window.location.search);
 if (qs.token) {
 	localStorage.setItem('token', qs.token);
 
+	// remove the query string
 	const uri = window.location.toString();
 	if (uri.indexOf('?') > 0) {
 		var clean_uri = uri.substring(0, uri.indexOf('?'));

@@ -15,7 +15,6 @@ class AuthStore {
 		this.state = 'pending';
 
 		const token = localStorage.getItem('token');
-		console.log('token', token);
 
 		const headers = {};
 		if (token) {
@@ -24,12 +23,8 @@ class AuthStore {
 			return (this.state = 'done');
 		}
 
-		console.log('headers', headers);
-
 		const res = await axios.get('/api/auth_user', { headers });
 		const authUser = res.data;
-
-		console.log('authUser', authUser);
 
 		localStorage.setItem('token', authUser.jwt);
 		localStorage.setItem('username', authUser.displayName);

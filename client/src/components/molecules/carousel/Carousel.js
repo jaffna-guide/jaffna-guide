@@ -1,31 +1,39 @@
 import * as React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import Slide from './Slide';
 import SlideTrack from './SlideTrack';
 import ThumbnailTrack from './ThumbnailTrack';
 import Thumbnail from './Thumbnail';
 
+@withRouter
 class Carousel extends React.Component {
 	state = {
 		currentPhotoIndex: 0,
 	};
 
 	prevSlide = () => {
-		const { photos } = this.props;
+		const { photos, history, location } = this.props;
 		const { currentPhotoIndex } = this.state;
 		const lastIndex = photos.length - 1;
 		const shouldResetIndex = currentPhotoIndex === 0;
 		const index = shouldResetIndex ? lastIndex : currentPhotoIndex - 1;
-		this.setState({ currentPhotoIndex: index });
+		this.setState({ currentPhotoIndex: index }, () => {
+			const photoId = photos[this.state.currentPhotoIndex]._id;
+			history.push({ pathname: location.pathname, search: `?photoId=${photoId}` });
+		});
 	};
 
 	nextSlide = () => {
-		const { photos } = this.props;
+		const { photos, history, location } = this.props;
 		const { currentPhotoIndex } = this.state;
 		const lastIndex = photos.length - 1;
 		const shouldResetIndex = currentPhotoIndex === lastIndex;
 		const index = shouldResetIndex ? 0 : currentPhotoIndex + 1;
-		this.setState({ currentPhotoIndex: index });
+		this.setState({ currentPhotoIndex: index }, () => {
+			const photoId = photos[this.state.currentPhotoIndex]._id;
+			history.push({ pathname: location.pathname, search: `?photoId=${photoId}` });
+		});
 	};
 
 	goToSlide = (index) => {
