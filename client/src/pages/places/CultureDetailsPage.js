@@ -27,7 +27,7 @@ class CultureDetailsPage extends React.Component {
 				{place.photos.length > 0 && (
 					<div className="culture-details__carousel">
 						<Carousel
-							name={place.body}
+							place={place}
 							photos={place.photos}
 							onLike={PlaceStore.likePlacePhoto}
 							authUser={AuthStore.authUser}

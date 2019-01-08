@@ -292,9 +292,6 @@ class PlaceStore {
 
 	@action
 	likePlacePhoto = async (placeBody, photoId) => {
-		console.log('hi from PlaceStore.likePlacePhoto');
-		console.log('placeBody', placeBody);
-		console.log('photoId', photoId);
 		this.state = 'pendingLikePhoto';
 		const res = await axios.post(`/api/places/${placeBody}/photos/${photoId}/like`);
 		const likedPhoto = res.data;

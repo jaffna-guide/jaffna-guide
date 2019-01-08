@@ -3,7 +3,16 @@ import * as React from 'react';
 import { Icon, Tooltip } from '../../atoms';
 import { ReactComponent as Heart } from '../../../assets/heart.svg';
 
-const Slide = ({ index, name, photo, onLike, authUser, authState }) => {
+const Slide = ({ index, place, photo, onLike, authUser, authState }) => {
+	let userLike;
+
+	if (authUser) {
+		userLike = photo.likes.find((like) => {
+			const equality = like.user.displayName === authUser.displayName;
+			return equality;
+		});
+	}
+
 	return (
 		<div className="carousel__slide">
 			<img alt="Slide" src={photo.watermarkedUrl} className="carousel__slide-image" />
@@ -15,11 +24,15 @@ const Slide = ({ index, name, photo, onLike, authUser, authState }) => {
 				>
 					{() =>
 						!authUser && !authState.startsWith('pending') ? (
-							<a href={`/auth/facebook?redirect=/${name}?photoId=${photo._id}`}>
+							<a href={`/auth/facebook?redirect=/${place.body}?photoId=${photo._id}`}>
 								<Icon className="carousel__love-icon" icon={Heart} />
 							</a>
 						) : (
-							<Icon className="carousel__love-icon" icon={Heart} onClick={onLike} />
+							<Icon
+								className={`carousel__love-icon ${userLike ? 'carousel__love-icon--active' : ''}`}
+								icon={Heart}
+								onClick={() => onLike(place.body, photo._id)}
+							/>
 						)}
 				</Tooltip>
 			</div>

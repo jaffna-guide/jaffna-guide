@@ -12,10 +12,15 @@ export const getPlaces = async (req, res) => {
 	let q = Place.find({});
 
 	if (req.query.body) {
-		q = q.findOne({ body: req.query.body }).populate('photos');
+		// detail view
+		q = q.findOne({ body: req.query.body }).populate({
+			path: 'photos',
+			populate: { path: 'likes', select: 'user', populate: { path: 'user', select: 'displayName' } },
+		});
 	}
 
 	if (req.query.category) {
+		// category map view
 		const category = await Category.findOne({ body: req.query.category });
 		q = q.find({ category: category._id });
 	}
@@ -26,7 +31,7 @@ export const getPlaces = async (req, res) => {
 };
 
 export const getPlacesWithPhotos = (req, res) => {
-	// Used in admin panel
+	// Used in admin panel only
 	return Place.find({}).sort([ [ 'votes', -1 ] ]).populate('category').populate('photos').exec((err, places) => {
 		res.send(places);
 	});

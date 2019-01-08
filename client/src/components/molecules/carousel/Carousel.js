@@ -56,7 +56,7 @@ class Carousel extends React.Component {
 	};
 
 	render() {
-		const { name, photos, onLike, authUser, authState } = this.props;
+		const { place, photos, onLike, authUser, authState } = this.props;
 		return (
 			<div className="carousel">
 				<SlideTrack
@@ -69,8 +69,8 @@ class Carousel extends React.Component {
 							<Slide
 								key={photo._id}
 								index={index}
-								name={name}
-								alt={`${name} ${index + 1}`}
+								place={place}
+								alt={`${place.name.en} ${index + 1}`}
 								photo={photo}
 								onLike={onLike}
 								authUser={authUser}
@@ -83,7 +83,7 @@ class Carousel extends React.Component {
 					{photos.map((photo, index) => (
 						<Thumbnail
 							key={photo._id}
-							alt={`${name} thumbnail ${index + 1}`}
+							alt={`${place.name.en} thumbnail ${index + 1}`}
 							src={photo.thumbnailUrl}
 							index={index}
 							goToSlide={this.goToSlide}
