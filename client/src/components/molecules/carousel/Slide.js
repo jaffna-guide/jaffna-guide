@@ -28,11 +28,14 @@ const Slide = ({ index, place, photo, onLike, authUser, authState }) => {
 								<Icon className="carousel__love-icon" icon={Heart} />
 							</a>
 						) : (
-							<Icon
-								className={`carousel__love-icon ${userLike ? 'carousel__love-icon--active' : ''}`}
-								icon={Heart}
-								onClick={() => onLike(place.body, photo._id)}
-							/>
+							<>
+								{photo.likes.length > 0 && <div className="carousel__love-count">{photo.likes.length}</div>}
+								<Icon
+									className={`carousel__love-icon ${userLike ? 'carousel__love-icon--active' : ''}`}
+									icon={Heart}
+									onClick={() => onLike(place.body, photo._id)}
+								/>
+							</>
 						)}
 				</Tooltip>
 			</div>
