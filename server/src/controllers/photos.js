@@ -11,7 +11,7 @@ export const likePlacePhoto = async (req, res) => {
 		},
 	};
 	const photoToBeUpdated = await Photo.findById(req.params.photoId).populate(likePopulation);
-	const photoLike = photoToBeUpdated.likes.find((like) => like.user.displayName);
+	const photoLike = photoToBeUpdated.likes.find(like => like.user.displayName === req.user.displayName);
 
 	if (photoLike) {
 		await photoToBeUpdated.update({ $pull: { likes: [ photoLike._id ] } });

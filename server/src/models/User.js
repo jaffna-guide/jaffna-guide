@@ -7,6 +7,7 @@ const userSchema = new Schema({
 	facebookId: String,
 	displayName: String,
 	roles: [ String ], // "traveller", "admin", "superadmin"
+	credit: String,
 	votes: {
 		culture: { type: Number, default: 10 },
 		restaurants: { type: Number, default: 10 },
