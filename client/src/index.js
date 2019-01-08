@@ -23,7 +23,8 @@ if (qs.token) {
 	if (qs.photoId) {
 		console.log('qs.photoId', qs.photoId);
 		console.log('window.location', window.location);
-		PlaceStore.likePlacePhoto(window.location.pathname, qs.photoId);
+		const placeBody = window.location.pathname.substr(1);
+		PlaceStore.likePlacePhoto(placeBody, qs.photoId);
 	}
 
 	// remove the query string
