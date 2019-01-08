@@ -19,10 +19,9 @@ import queryString from 'query-string';
 const qs = queryString.parse(window.location.search);
 if (qs.token) {
 	localStorage.setItem('token', qs.token);
+	axios.defaults.headers.common['Authorization'] = `Bearer ${qs.token.replace(/"/g, '')}`;
 
 	if (qs.photoId) {
-		console.log('qs.photoId', qs.photoId);
-		console.log('window.location', window.location);
 		const placeBody = window.location.pathname.substr(1);
 		PlaceStore.likePlacePhoto(placeBody, qs.photoId);
 	}
