@@ -26,13 +26,11 @@ if (qs.token) {
 		PlaceStore.likePlacePhoto(placeBody, qs.photoId);
 	}
 
-	// remove the query string
+	// removal of token from query string
 	const uri = window.location.toString();
-	console.log('uri', uri);
 	if (uri.indexOf('token=') > 0) {
 		var clean_uri = uri.substring(0, uri.indexOf('token='));
-		console.log('clean_uri', clean_uri);
-		// window.history.replaceState({}, document.title, clean_uri);
+		window.history.replaceState({}, document.title, clean_uri);
 	}
 }
 
