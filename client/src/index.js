@@ -29,10 +29,10 @@ if (qs.token) {
 	// remove the query string
 	const uri = window.location.toString();
 	console.log('uri', uri);
-	if (uri.indexOf('?') > 0) {
-		var clean_uri = uri.substring(0, uri.indexOf('?'));
+	if (uri.indexOf('token=') > 0) {
+		var clean_uri = uri.substring(0, uri.indexOf('token='));
 		console.log('clean_uri', clean_uri);
-		window.history.replaceState({}, document.title, clean_uri);
+		// window.history.replaceState({}, document.title, clean_uri);
 	}
 }
 
