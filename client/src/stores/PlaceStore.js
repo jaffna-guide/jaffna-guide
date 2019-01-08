@@ -292,11 +292,16 @@ class PlaceStore {
 
 	@action
 	likePlacePhoto = async (placeBody, photoId) => {
+		console.log('liking photo');
 		this.state = 'pendingLikePhoto';
 		const res = await axios.post(`/api/places/${placeBody}/photos/${photoId}/like`);
+		console.log('res', res);
 		const likedPhoto = res.data;
+		console.log('likedPhoto', likedPhoto);
 		const placeToBeUpdated = this.places.find((p) => p.body === placeBody);
+		console.log('placeToBeUpdated', placeToBeUpdated);
 		const index = placeToBeUpdated.photos.findIndex((p) => p._id === likedPhoto._id);
+		console.log('index', index);
 
 		runInAction(() => {
 			placeToBeUpdated.photos.splice(index, 1, likedPhoto);
