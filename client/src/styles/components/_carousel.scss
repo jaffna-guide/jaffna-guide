@@ -95,15 +95,25 @@ $thumbnail-width-md: 130px;
 		right: 0;
 		bottom: 67px;
 		width: min-content;
-		max-width: 160px;
+		max-width: 170px;
 		white-space: nowrap;
 		list-style-type: none;
 		color: $light-color;
 		background-color: rgba($dark-color, 0.9);
-		padding: .2rem .3rem;
+		padding: .2rem .6rem 0.2rem 0.4rem;
 		border-radius: $border-radius;
 		font-size: .9rem;
 		z-index: 4;
+		overflow-y: scroll;
+		max-height: 152px; // 7
+		// 92 // 4
+		// 112 // 5
+		// 132 // 6
+
+		@media (min-width: 768px) {
+			bottom: 72px;
+			max-height: 252px; // 12
+		}
 	}
 
 	&__lover-list-header {
