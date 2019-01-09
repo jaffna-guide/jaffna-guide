@@ -9,7 +9,7 @@ const LoverList = ({ photo, hideLikes }) => {
 			<div className="carousel__lover-list-header">
 				<Icon className="carousel__close-icon" icon={Close} onClick={hideLikes} />
 			</div>
-			{photo.likes.map((like) => (
+			{photo.likes.slice().reverse().map((like) => (
 				<li key={like.user.displayName} className="carousel__lover-list-item">
 					{like.user.displayName}
 				</li>
