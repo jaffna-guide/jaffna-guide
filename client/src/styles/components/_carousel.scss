@@ -51,7 +51,6 @@ $thumbnail-width-md: 130px;
 
 		@media (min-width: 768px) {
 			bottom: 1rem;
-			// right: 3.2rem;
 		}
 	}
 
@@ -82,13 +81,46 @@ $thumbnail-width-md: 130px;
 		position: absolute;
 		width: 50px;
 		text-align: center;
-		// background-color: purple;
 		top: -40px;
 		left: 50%;
 		color: $light-color;
 		font-family: $secondary-font;
 		font-size: 1.4rem;
 		transform: rotate(-10deg) translateX(-50%);
+		cursor: pointer;
+	}
+
+	&__lover-list {
+		position: absolute;
+		right: 0;
+		bottom: 67px;
+		width: min-content;
+		max-width: 160px;
+		white-space: nowrap;
+		list-style-type: none;
+		color: $light-color;
+		background-color: rgba($dark-color, 0.9);
+		padding: .2rem .3rem;
+		border-radius: $border-radius;
+		font-size: .9rem;
+		z-index: 4;
+	}
+
+	&__lover-list-header {
+		text-align: right;
+		height: 18px;
+	}
+
+	&__close-icon {
+		width: 1rem;
+		height: 1rem;
+		cursor: pointer;
+		fill: $gray-color;
+	}
+
+	&__lover-list-item {
+		overflow-x: hidden;
+		text-overflow: ellipsis;
 	}
 
 	&__slide-image {

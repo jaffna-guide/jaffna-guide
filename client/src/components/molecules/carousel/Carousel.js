@@ -20,7 +20,7 @@ class Carousel extends React.Component {
 			currentPhotoIndex = photos.findIndex((p) => p._id === query.photoId);
 		}
 
-		this.state = { currentPhotoIndex };
+		this.state = { currentPhotoIndex, likesVisible: false };
 	}
 
 	prevSlide = () => {
@@ -55,8 +55,18 @@ class Carousel extends React.Component {
 		});
 	};
 
+	showLikes = () => {
+		this.setState({ likesVisible: true });
+	}
+
+	hideLikes = () => {
+		this.setState({ likesVisible: false });
+	}
+
 	render() {
 		const { place, photos, onLike, authUser, authState } = this.props;
+		const { likesVisible } = this.state;
+
 		return (
 			<div className="carousel">
 				<SlideTrack
@@ -75,6 +85,9 @@ class Carousel extends React.Component {
 								onLike={onLike}
 								authUser={authUser}
 								authState={authState}
+								showLikes={this.showLikes}
+								hideLikes={this.hideLikes}
+								likesVisible={likesVisible}
 							/>
 						);
 					})}
