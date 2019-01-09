@@ -48,6 +48,7 @@ class PlaceStore {
 		this.state = 'pendingFetchCurrentPlace';
 		const res = await axios.get(`/api/places?body=${placeBody}`);
 		const currentPlace = res.data;
+		currentPlace.photos = currentPlace.photos.sort((a, b) => b.likes.length - a.likes.length);
 		const index = this.places.findIndex((p) => p._id === currentPlace._id);
 
 		runInAction(() => {
