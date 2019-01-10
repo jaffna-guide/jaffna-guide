@@ -8,7 +8,7 @@
 		background: rgba($dark-color, .9);
 		color: $light-color;
 		white-space: pre;
-    padding: 0 $unit-2 $unit-1 $unit-2;
+    padding: $unit-1 $unit-2 $unit-1 $unit-2;
     border-radius: $border-radius;
 		opacity: 0;
     transition: all .2s ease;
