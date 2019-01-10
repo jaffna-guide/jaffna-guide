@@ -143,6 +143,7 @@ $thumbnail-width-md: 130px;
 		width: 100%;
 		grid-area: thumbnail-track;
 		overflow-x: scroll;
+		overflow-y: hidden;
 		padding-top: 2px;
 
 		@media (min-width: 768px) {
@@ -152,6 +153,7 @@ $thumbnail-width-md: 130px;
 			position: absolute;
 			top: 0;
 			right: 0;
+			overflow-x: hidden;
 			overflow-y: scroll;
 			padding-top: 0;
 		}
