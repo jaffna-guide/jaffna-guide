@@ -6,7 +6,9 @@ const Header = () => {
 		<header className="header">
 			<Link to="/" className="header__combination">
 				<span className="header__text">Jaffna</span>
-				<img className="header__logo" src="/logo-border.png" alt="Logo" />
+				<figure className="header__logo">
+					<img src="/logo-border.png" alt="Jaffna Guide Logo" />
+				</figure>
 				<span className="header__text">Guide</span>
 			</Link>
 		</header>
