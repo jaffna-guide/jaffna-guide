@@ -29,7 +29,7 @@ const Slide = ({ index, place, photo, onLike, authUser, authState, showLikes, hi
 						{likesVisible && <LoverList photo={photo} hideLikes={hideLikes} />}
 						<Tooltip
 							visible={authUser ? false : true}
-							render={() => (authUser ? null : 'Login w/ Facebook to ❤️this photo.')}
+							render={() => (authUser ? null : 'Login w/ Facebook to  ❤  this photo.')}
 						>
 							{() => (
 								<a href={`/auth/facebook?redirect=/${place.body}?photoId=${photo._id}`}>
