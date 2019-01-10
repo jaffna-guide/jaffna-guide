@@ -2,6 +2,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: 4rem 1fr 10rem;
+  overflow-x: hidden;
 
   @media (min-width: 580px) {
     grid-template-rows: 5rem 1fr 5rem;
