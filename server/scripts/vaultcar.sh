@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-# Version 2.0 (08-09-2018)
+# Version 3.1 (15-12-2018)
+# =============================================================================================
+
 if [[ -n ${NODE_ENV} ]]; then
   ENV=${NODE_ENV}
 elif [[ -n ${DJANGO_ENV} ]]; then
@@ -10,6 +12,19 @@ elif [[ -n ${FLASK_ENV} ]]; then
   ENV=${FLASK_ENV}
 else
   ENV="development"
+fi
+
+if [[ $ENV != "development" ]]; then
+  if [ -z "${POD_SERVICE_ACCOUNT}" ]; then
+    echo "'POD_SERVICE_ACCOUNT' environment variable is a required property and must be set."
+    exit 1
+  fi
+
+  VAULT_ADDR=${VAULT_ADDR:=https://vault.saronia.io:8200}
+  SERVICE_ACCOUNT_TOKEN=`cat /var/run/secrets/kubernetes.io/serviceaccount/token`
+  NAMESPACE=`cat /var/run/secrets/kubernetes.io/serviceaccount/namespace`
+  KUBERNETES_ROLE="${NAMESPACE}-${POD_SERVICE_ACCOUNT}"
+  VAULT_TOKEN=$(curl --request POST --data '{"role":"'"${KUBERNETES_ROLE}"'", "jwt":"'"${SERVICE_ACCOUNT_TOKEN}"'"}' ${VAULT_ADDR}/v1/auth/kubernetes/login | jq -r '.auth.client_token')
 fi
 
 for i in $(env)
@@ -47,4 +62,5 @@ do
   fi
 done
 
+# =============================================================================================
 exec $@
