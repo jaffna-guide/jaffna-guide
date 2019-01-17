@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const markerSchema = new Schema({ default: { type: String }, active: { type: String }, orientation: { type: String } });
 
 const placeSchema = new Schema({
-	body: String,
+	body: { type: String, unique: true },
 	name: {
 		en: String,
 		ta: String,

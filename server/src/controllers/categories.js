@@ -1,4 +1,4 @@
-// PlacesController
+// CategoriesController
 import { Category } from '../models';
 
 export const getAllCategories = (req, res) => {
