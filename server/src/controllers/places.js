@@ -42,6 +42,11 @@ export const createPlace = async (req, res) => {
 
 	const body = name.en.toLowerCase().replace(/\s/g, '-').replace(/_/g, '-').replace(/[^a-zA-Z-]/g, '');
 
+	const existingPlace = await Place.findOne({ body });
+	if (existingPlace) {
+		return res.status(400).send(`${existingPlace.body} already exists!`);
+	}
+
 	const place = new Place({
 		body,
 		name,
@@ -70,27 +75,42 @@ export const updatePlace = async (req, res) => {
 
 export const deletePlace = async (req, res) => {
 	const placeToDelete = await Place.findById(req.params.placeId);
-	const originalImagesToDelete = placeToDelete.images.map((i) => ({ Key: url.parse(i.original).pathname }));
-	const thumbnailImagesToDelete = placeToDelete.images.map((i) => ({ Key: url.parse(i.thumbnail).pathname }));
-	const coverToDelete = url.parse(placeToDelete.cover).pathname;
-	const defaultMarkerToDelete = url.parse(placeToDelete.marker.default).pathname;
-	const activeMarkerToDelete = url.parse(placeToDelete.marker.active).pathname;
-	const objectsToDelete = [
-		...originalImagesToDelete,
-		...thumbnailImagesToDelete,
-		coverToDelete,
-		defaultMarkerToDelete,
-		activeMarkerToDelete,
-	];
-	s3.deleteObjects(
-		{ Bucket: process.env.STATIC_AWS_BUCKET, Delete: { Objects: objectsToDelete } },
-		async (err, data) => {
-			if (err) res.sendStatus(500);
 
-			await Place.deleteOne({ _id: placeToDelete._id });
-			res.sendStatus(200);
-		},
-	);
+	const originalPhotosToDelete = placeToDelete.photos.map((p) => ({ Key: url.parse(p.originalUrl).pathname }));
+	const watermarkedPhotosToDelete = placeToDelete.photos.map((p) => ({ Key: url.parse(p.watermarkedUrl).pathname }));
+	const thumbnailPhotosToDelete = placeToDelete.photos.map((p) => ({ Key: url.parse(p.thumbnailUrl).pathname }));
+
+	const objectsToDelete = [ ...originalPhotosToDelete, ...watermarkedPhotosToDelete, ...thumbnailPhotosToDelete ];
+
+	if (placeToDelete.cover) {
+		const coverToDelete = url.parse(placeToDelete.cover).pathname;
+		objectsToDelete.push(coverToDelete);
+	}
+
+	if (placeToDelete.marker && placeToDelete.marker.default) {
+		const defaultMarkerToDelete = url.parse(placeToDelete.marker.default).pathname;
+		objectsToDelete.push(defaultMarkerToDelete);
+	}
+
+	if (placeToDelete.marker && placeToDelete.marker.active) {
+		const activeMarkerToDelete = url.parse(placeToDelete.marker.active).pathname;
+		objectsToDelete.push(activeMarkerToDelete);
+	}
+
+	if (objectsToDelete.length > 0) {
+		s3.deleteObjects(
+			{ Bucket: process.env.STATIC_AWS_BUCKET, Delete: { Objects: objectsToDelete } },
+			async (err, data) => {
+				if (err) res.sendStatus(500);
+
+				await Place.deleteOne({ _id: placeToDelete._id });
+				res.sendStatus(200);
+			},
+		);
+	} else {
+		await Place.deleteOne({ _id: placeToDelete._id });
+		res.sendStatus(200);
+	}
 };
 
 export const uploadMarker = async (req, res) => {
