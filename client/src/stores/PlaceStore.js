@@ -66,13 +66,19 @@ class PlaceStore {
 	@action
 	createPlace = async (place) => {
 		this.state = 'pendingCreatePlace';
-		const res = await axios.post('/api/places', place);
-		const createdPlace = res.data;
-		runInAction(() => {
-			this.createEditPlaceModalVisible = false;
-			this.places.push(createdPlace);
-			this.state = 'done';
-		});
+		try {
+			const res = await axios.post('/api/places', place);
+			const createdPlace = res.data;
+			runInAction(() => {
+				this.createEditPlaceModalVisible = false;
+				this.places.push(createdPlace);
+				this.state = 'done';
+			});
+		} catch (err) {
+			runInAction(() => {
+				this.state = 'done';
+			});
+		}
 	};
 
 	@action
